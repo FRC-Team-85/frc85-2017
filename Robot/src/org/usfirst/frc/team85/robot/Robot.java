@@ -1,9 +1,6 @@
 package org.usfirst.frc.team85.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-
-import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -74,15 +71,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
 		_outputs.setLeftSpeed(_inputs.getLeftSpeed());
-		_outputs.setRightSpeed(_inputs.getRightSpeed());
-		
-	}
-
-	private void getRawAxis(int i) {
-		// TODO Auto-generated method stub
-		
+		_outputs.setRightSpeed(_inputs.getRightSpeed());	
 	}
 
 	/**
