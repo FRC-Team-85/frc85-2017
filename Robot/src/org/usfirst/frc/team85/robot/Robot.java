@@ -75,9 +75,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		
-		_outputs.setLeftSpeed(_inputs.getLeftSpeed());
-		_outputs.setRightSpeed(_inputs.getRightSpeed());
-		
+		if (_inputs.getLeftBumper() || _inputs.getRightBumper()) {
+			_outputs.setLeftSpeed(.5 * _inputs.getLeftSpeed());
+			_outputs.setRightSpeed(.5 * _inputs.getRightSpeed());
+		} else {
+			_outputs.setLeftSpeed(_inputs.getLeftSpeed());
+			_outputs.setRightSpeed(_inputs.getRightSpeed());
+		}
 	}
 
 	private void getRawAxis(int i) {
@@ -90,6 +94,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		
 	}
 }
 
