@@ -12,7 +12,7 @@ public class Inputs {
 	}
 	
 	public double getRightSpeed() {
-		return driveStick.getRawAxis(3);
+		return driveStick.getRawAxis(5);
 	}
 	
 	public boolean getLeftBumper() {
