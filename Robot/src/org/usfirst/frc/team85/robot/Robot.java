@@ -82,7 +82,7 @@ public class Robot extends IterativeRobot {
 		else {
 			_outputs.setLeftSpeed(_inputs.getLeftSpeed());
 			_outputs.setRightSpeed(_inputs.getRightSpeed());
-		}
+		} 
 	}
 
 	private void getRawAxis(int i) {
