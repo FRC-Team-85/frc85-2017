@@ -13,6 +13,15 @@ public class Inputs {
 	}
 	
 	public double getRightSpeed() {
-		return driveStick.getRawAxis(3); //right thumbstick vertical, un-inverting not necessary for some reason
+
+		return driveStick.getRawAxis(5); //right thumbstick vertical, un-inverting not necessary for some reason
+	}
+	
+	public boolean getLeftBumper() {
+		return driveStick.getRawButton(5);
+	}
+	
+	public boolean getRightBumper() {
+		return driveStick.getRawButton(6);
 	}
 }
