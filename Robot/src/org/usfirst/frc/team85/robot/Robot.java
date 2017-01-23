@@ -1,8 +1,11 @@
 package org.usfirst.frc.team85.robot;
 
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -12,13 +15,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	final String defaultAuto = "Default";
-	final String customAuto = "My Auto";
-	String autoSelected;
-	SendableChooser<String> chooser = new SendableChooser<>();
-    
+	
     private Inputs _inputs = new Inputs();
     private Outputs _outputs = new Outputs();
+    
+    NetworkTable table;
+    
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -26,9 +28,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		chooser.addDefault("Default Auto", defaultAuto);
-		chooser.addObject("My Auto", customAuto);
-		SmartDashboard.putData("Auto choices", chooser);
+		//NetworkTable.setClientMode();
+		//NetworkTable.setIPAddress("roborio-85-frc.local");
+		//table = NetworkTable.getTable("SmartDashboard");
+		SmartDashboard.putNumber("speedOne", 0);
+		SmartDashboard.putNumber("speedTwo", 0);
+		
 	}
 
 	/**
@@ -44,10 +49,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autoSelected = chooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
-		System.out.println("Auto selected: " + autoSelected);
+
 	}
 
 	/**
@@ -55,15 +57,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		switch (autoSelected) {
-		case customAuto:
-			// Put custom auto code here
-			break;
-		case defaultAuto:
-		default:
-			// Put default auto code here
-			break;
-		}
+
 	}
 
 	/**
@@ -71,7 +65,13 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-
+		
+		double speedOne = SmartDashboard.getNumber("speedOne", 0);
+		double speedTwo = SmartDashboard.getNumber("speedTwo", 0);
+		
+		_outputs.setMotorOne(speedOne);
+		_outputs.setMotorTwo(speedTwo);
+		
 		if (_inputs.getLeftBumper() || _inputs.getRightBumper()) {
 			_outputs.setLeftSpeed(.5 * _inputs.getLeftSpeed());
 			_outputs.setRightSpeed(.5 * _inputs.getRightSpeed());
