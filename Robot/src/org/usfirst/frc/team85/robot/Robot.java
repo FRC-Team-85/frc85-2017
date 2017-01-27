@@ -77,6 +77,7 @@ public class Robot extends IterativeRobot {
 			_outputs.setRightSpeed(.5 * _inputs.getRightSpeed());
 		}
 		else if(_inputs.getAButton()) {
+			//_outputs.visionTrack();
 		}
 		else {
 			_outputs.setLeftSpeed(_inputs.getLeftSpeed());
