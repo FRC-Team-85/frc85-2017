@@ -4,6 +4,8 @@ import com.ctre.CANTalon;
 
 public class Outputs {
 	
+	private Vision _vision = new Vision();
+	
     private CANTalon _frontLeftMotor = new CANTalon(Addresses.LEFT_FRONT_MOTOR);
     private CANTalon _backLeftMotor = new CANTalon(Addresses.LEFT_BACK_MOTOR);
     
@@ -29,6 +31,10 @@ public class Outputs {
     
     public void setMotorTwo(double speed) {
     	_motorTwo.set(speed);
+    }
+    
+    public void visionTrack() {
+    	_motorTwo.set(_vision.center());
     }
 
 }

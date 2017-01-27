@@ -75,11 +75,14 @@ public class Robot extends IterativeRobot {
 		if (_inputs.getLeftBumper() || _inputs.getRightBumper()) {
 			_outputs.setLeftSpeed(.5 * _inputs.getLeftSpeed());
 			_outputs.setRightSpeed(.5 * _inputs.getRightSpeed());
-		} 
+		}
+		else if(_inputs.getAButton()) {
+		}
 		else {
 			_outputs.setLeftSpeed(_inputs.getLeftSpeed());
 			_outputs.setRightSpeed(_inputs.getRightSpeed());
 		} 
+		
 	}
 
 	/**
