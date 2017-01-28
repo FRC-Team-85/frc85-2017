@@ -84,7 +84,10 @@ public class Robot extends IterativeRobot {
 		} 
 		
 		if(_inputsDrive.getAButton()) {
-			//_outputs.visionTrack();
+			_outputs.visionTrack();
+		}
+		else {
+			
 		}
 		
 	}

@@ -1,49 +1,53 @@
 package org.usfirst.frc.team85.robot;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public class Vision {
 	
+	public static double power = 0;
 	public static double previousError = 0;
 	public static double centerOfTarget = 0;
 	
-	public static void main(String[] args) {
+	public static double center() {
 		
 		double[] centerXArray = null;
 		
 		NetworkTable _table;
-		_table = NetworkTable.getTable("GRIP/myCountoursReport");
+		_table = NetworkTable.getTable("GRIP/myContoursReport");
 		centerXArray = _table.getNumberArray("centerX", centerXArray);
 		
 		double one = centerXArray[0];
 		double two = centerXArray[1];
 		
-		centerOfTarget = Math.abs((two + one) / 2); //finds the center of the two targets; where the hook would be
-	}
-	
-	public static double center() {
+		centerOfTarget = (one + two) / 2; //finds the center of the two targets; where the hook would be
 
-		double Kp = 0.0005;
-		double Kd = 0.02;
+		//probably make two classes
+
+		double Kp = 0.5;
+		double Kd = 0.2;
 		double Ki = 0.0; //not being used
 		
 		double maxPower = 0.95;
 		double minPower = 0.48;
 		
-		double error = 160 - centerOfTarget; //distance from target, assumes image is 320p
+		double error = centerOfTarget - 160; //distance from target, assumes image is 320p
 		double changeInError = error - previousError;
 		
-		double power = Kp * error * Kd * changeInError;
+		power = Kp * error + Kd * changeInError;
 		
 		if (Math.abs(power) > maxPower) {
-			if (power > 0) power = maxPower;
-			else power = -maxPower;
+			power = maxPower;
 		}
 		
 		if (Math.abs(power) < minPower) {
-			if (power > 0) power = minPower;
-			else power = -minPower;
+			power = minPower;
 		}
+		
+		SmartDashboard.putNumber("power", power);
+		SmartDashboard.putNumber("centerOfTarget", centerOfTarget);
+		SmartDashboard.putNumber("error", error);
 		
 		previousError = error;
 		
