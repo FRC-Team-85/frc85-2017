@@ -1,11 +1,10 @@
 package org.usfirst.frc.team85.robot;
 
-import com.ctre.CANTalon;
-
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -16,7 +15,9 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  */
 public class Robot extends IterativeRobot {
 	
-    private Inputs _inputs = new Inputs();
+	private CameraServer _server;
+    private InputsDrive _inputsDrive = new InputsDrive();
+    private InputsOp _inputsOp = new InputsOp();
     private Outputs _outputs = new Outputs();
     
     NetworkTable table;
@@ -33,6 +34,10 @@ public class Robot extends IterativeRobot {
 		//table = NetworkTable.getTable("SmartDashboard");
 		SmartDashboard.putNumber("speedOne", 0);
 		SmartDashboard.putNumber("speedTwo", 0);
+		
+    	_server = CameraServer.getInstance();
+    	_server.startAutomaticCapture();
+
 		
 	}
 
@@ -66,23 +71,21 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		
-		double speedOne = SmartDashboard.getNumber("speedOne", 0);
-		double speedTwo = SmartDashboard.getNumber("speedTwo", 0);
+		//double speedOne = SmartDashboard.getNumber("speedOne", 0);
+		//double speedTwo = SmartDashboard.getNumber("speedTwo", 0);
 		
-		_outputs.setMotorOne(speedOne);
-		_outputs.setMotorTwo(speedTwo);
-		
-		if (_inputs.getLeftBumper() || _inputs.getRightBumper()) {
-			_outputs.setLeftSpeed(.5 * _inputs.getLeftSpeed());
-			_outputs.setRightSpeed(.5 * _inputs.getRightSpeed());
-		}
-		else if(_inputs.getAButton()) {
-			//_outputs.visionTrack();
+		if (_inputsDrive.getLeftBumper() || _inputsDrive.getRightBumper()) {
+			_outputs.setLeftSpeed(.5 * _inputsDrive.getLeftSpeed());
+			_outputs.setRightSpeed(.5 * _inputsDrive.getRightSpeed());
 		}
 		else {
-			_outputs.setLeftSpeed(_inputs.getLeftSpeed());
-			_outputs.setRightSpeed(_inputs.getRightSpeed());
+			_outputs.setLeftSpeed(_inputsDrive.getLeftSpeed());
+			_outputs.setRightSpeed(_inputsDrive.getRightSpeed());
 		} 
+		
+		if(_inputsDrive.getAButton()) {
+			//_outputs.visionTrack();
+		}
 		
 	}
 
