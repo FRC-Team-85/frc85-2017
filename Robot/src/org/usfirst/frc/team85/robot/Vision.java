@@ -21,7 +21,7 @@ public class Vision {
 		centerOfTarget = Math.abs((two + one) / 2); //finds the center of the two targets; where the hook would be
 	}
 	
-	public double center() {
+	public static double center() {
 
 		double Kp = 0.0005;
 		double Kd = 0.02;
@@ -31,8 +31,9 @@ public class Vision {
 		double minPower = 0.48;
 		
 		double error = 160 - centerOfTarget; //distance from target, assumes image is 320p
+		double changeInError = error - previousError;
 		
-		double power = Kp * error * Kd * previousError;
+		double power = Kp * error * Kd * changeInError;
 		
 		if (Math.abs(power) > maxPower) {
 			if (power > 0) power = maxPower;

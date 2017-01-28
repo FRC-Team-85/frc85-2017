@@ -34,7 +34,8 @@ public class Outputs {
     }
     
     public void visionTrack() {
-    	_motorTwo.set(_vision.center());
+    	setLeftSpeed(_vision.center());
+    	setRightSpeed(-_vision.center());
     }
 
 }
