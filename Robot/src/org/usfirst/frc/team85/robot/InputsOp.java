@@ -7,12 +7,20 @@ public class InputsOp {
 	public Joystick opStick = new Joystick(0); //operator
 	
 		//Thumbsticks
-			public double getLeftSpeed() {
+			public double getLeftVert() {
 				return -1 * opStick.getRawAxis(1); //left thumbstick vertical, multiplied by -1 to un-invert
 			}
-			
-			public double getRightSpeed() {
+	
+			public double getLeftHorz() {
+				return -1 * opStick.getRawAxis(0); //left thumbstick vertical, multiplied by -1 to un-invert
+			}
+	
+			public double getRightVert() {
 				return opStick.getRawAxis(3); //right thumbstick vertical, un-inverting not necessary for some reason
+			}
+	
+			public double getRightHorz() {
+				return -1 * opStick.getRawAxis(2); //left thumbstick vertical, multiplied by -1 to un-invert
 			}
 		
 		//Bumpers
