@@ -18,6 +18,7 @@ public class Robot extends IterativeRobot {
 	private CameraServer _server;
     private InputsDrive _inputsDrive = new InputsDrive();
     private InputsOp _inputsOp = new InputsOp();
+    private Inputs _inputs = new Inputs();
     private Outputs _outputs = new Outputs();
     
     NetworkTable table;
@@ -83,8 +84,12 @@ public class Robot extends IterativeRobot {
 			_outputs.setRightSpeed(_inputsDrive.getRightSpeed());
 		} 
 		
-		if(_inputsDrive.getAButton()) {
+		if (_inputsDrive.getAButton()) {
 			//_outputs.visionTrack();
+		}
+		
+		if (_inputsDrive.getBButton()) {
+			
 		}
 		
 	}
