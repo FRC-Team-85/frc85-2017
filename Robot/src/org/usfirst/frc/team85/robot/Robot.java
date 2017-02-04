@@ -16,6 +16,7 @@ public class Robot extends IterativeRobot {
 	
     private InputsDrive _inputsDrive = new InputsDrive();
     private InputsOp _inputsOp = new InputsOp();
+    private Inputs _inputs = new Inputs();
     private Outputs _outputs = new Outputs();
     private DriverAssistCameras _driverAssistCameras;
     
@@ -80,6 +81,7 @@ public class Robot extends IterativeRobot {
 			_outputs.setRightSpeed(_inputsDrive.getLeftVert());
 		}
 		else {
+
 			_outputs.setLeftSpeed(0);
 			_outputs.setRightSpeed(0);
 		}
