@@ -17,7 +17,6 @@ public class Inputs {
 	
 	public int getLeftFrontDriveEncoder() {
 		return _leftFrontDriveEncoder.get();
-		
 	}
 	
 	public int getLeftBackDriveEncoder() {
@@ -33,4 +32,10 @@ public class Inputs {
 		return _rightBackDriveEncoder.get();
 	}
 	
+	public void driveEncodersReset() {
+		_leftFrontDriveEncoder.reset();
+		_leftBackDriveEncoder.reset();
+		_rightFrontDriveEncoder.reset();
+		_rightBackDriveEncoder.reset();
+	}
 }
