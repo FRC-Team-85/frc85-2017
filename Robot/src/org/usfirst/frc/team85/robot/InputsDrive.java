@@ -7,12 +7,20 @@ public class InputsDrive {
 	public Joystick driveStick = new Joystick(0); //driver
 	
 		//Thumbsticks
-			public double getLeftSpeed() {
+			public double getLeftVert() {
 				return -1 * driveStick.getRawAxis(1); //left thumbstick vertical, multiplied by -1 to un-invert
 			}
 			
-			public double getRightSpeed() {
+			public double getLeftHorz() {
+				return -1 * driveStick.getRawAxis(0); //left thumbstick vertical, multiplied by -1 to un-invert
+			}
+			
+			public double getRightVert() {
 				return driveStick.getRawAxis(3); //right thumbstick vertical, un-inverting not necessary for some reason
+			}
+			
+			public double getRightHorz() {
+				return -1 * driveStick.getRawAxis(2); //left thumbstick vertical, multiplied by -1 to un-invert
 			}
 		
 		//Bumpers

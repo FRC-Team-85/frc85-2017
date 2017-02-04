@@ -1,6 +1,5 @@
 package org.usfirst.frc.team85.robot;
 
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -15,11 +14,11 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  */
 public class Robot extends IterativeRobot {
 	
-	private CameraServer _server;
     private InputsDrive _inputsDrive = new InputsDrive();
     private InputsOp _inputsOp = new InputsOp();
     private Inputs _inputs = new Inputs();
     private Outputs _outputs = new Outputs();
+    private DriverAssistCameras _driverAssistCameras;
     
     NetworkTable table;
     
@@ -33,13 +32,6 @@ public class Robot extends IterativeRobot {
 		//NetworkTable.setClientMode();
 		//NetworkTable.setIPAddress("roborio-85-frc.local");
 		//table = NetworkTable.getTable("SmartDashboard");
-		SmartDashboard.putNumber("speedOne", 0);
-		SmartDashboard.putNumber("speedTwo", 0);
-		
-    	_server = CameraServer.getInstance();
-    	_server.startAutomaticCapture();
-
-		
 	}
 
 	/**
@@ -74,24 +66,42 @@ public class Robot extends IterativeRobot {
 		
 		//double speedOne = SmartDashboard.getNumber("speedOne", 0);
 		//double speedTwo = SmartDashboard.getNumber("speedTwo", 0);
+
+		if (_inputsDrive.getAButton())
+		{
+			_driverAssistCameras.setForward();
+		}
+		else if (_inputsDrive.getBButton())
+		{
+			_driverAssistCameras.setReverse();
+		}
 		
-		if (_inputsDrive.getLeftBumper() || _inputsDrive.getRightBumper()) {
-			_outputs.setLeftSpeed(.5 * _inputsDrive.getLeftSpeed());
-			_outputs.setRightSpeed(.5 * _inputsDrive.getRightSpeed());
+		if(Math.abs(_inputsDrive.getLeftVert()) >= 0.15 ) {
+			_outputs.setLeftSpeed(-1 * _inputsDrive.getLeftVert());
+			_outputs.setRightSpeed(_inputsDrive.getLeftVert());
 		}
 		else {
-			_outputs.setLeftSpeed(_inputsDrive.getLeftSpeed());
-			_outputs.setRightSpeed(_inputsDrive.getRightSpeed());
-		} 
-		
-		if (_inputsDrive.getAButton()) {
-			//_outputs.visionTrack();
+
+			_outputs.setLeftSpeed(0);
+			_outputs.setRightSpeed(0);
 		}
-		
-		if (_inputsDrive.getBButton()) {
-			
+
+		if(Math.abs(_inputsDrive.getLeftVert()) >= 0.05 ) {
+			_outputs.setLeftSpeed(_inputsDrive.getLeftVert());
+			_outputs.setRightSpeed(-1 * _inputsDrive.getLeftVert());
 		}
-		
+		else if (_inputsDrive.getRightHorz() <= -0.05) {
+			_outputs.setLeftSpeed(-1 * _inputsDrive.getRightHorz());
+			_outputs.setRightSpeed(-1 * _inputsDrive.getRightHorz());
+		}
+		else if (_inputsDrive.getRightHorz() >= 0.05) {
+			_outputs.setLeftSpeed(-1 *_inputsDrive.getRightHorz());
+			_outputs.setRightSpeed(-1 * _inputsDrive.getRightHorz());
+		}
+		else {
+			_outputs.setLeftSpeed(0);
+			_outputs.setRightSpeed(0);
+		}
 	}
 
 	/**

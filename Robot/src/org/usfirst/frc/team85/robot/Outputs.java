@@ -25,6 +25,11 @@ public class Outputs {
 		_backRightMotor.set(speed);
     }
     
+    public void drive(double left, double right) {
+    	setLeftSpeed(left);
+    	setRightSpeed(right);
+    }
+    
     public void setMotorOne(double speed) {
     	_motorOne.set(speed);
     }
@@ -34,8 +39,11 @@ public class Outputs {
     }
     
     public void visionTrack() {
-    	setLeftSpeed(_vision.center());
-    	setRightSpeed(-_vision.center());
+    	
+    	double power = _vision.center();
+    	
+    	setLeftSpeed(-power);
+    	setRightSpeed(power);
     }
 
 }
