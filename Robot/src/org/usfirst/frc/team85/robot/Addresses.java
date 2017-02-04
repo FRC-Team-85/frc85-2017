@@ -10,4 +10,7 @@ public class Addresses {
 	
 	public static final int MOTOR_ONE = 4;
 	public static final int MOTOR_TWO = 6;
+	
+	public static final int FORWARD_CAMERA = 0;
+	public static final int REVERSE_CAMERA = 1;
 }

@@ -15,10 +15,10 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
  */
 public class Robot extends IterativeRobot {
 	
-	private CameraServer _server;
     private InputsDrive _inputsDrive = new InputsDrive();
     private InputsOp _inputsOp = new InputsOp();
     private Outputs _outputs = new Outputs();
+    private DriverAssistCameras _driverAssistCameras;
     
     NetworkTable table;
     
@@ -34,11 +34,7 @@ public class Robot extends IterativeRobot {
 		//table = NetworkTable.getTable("SmartDashboard");
 		SmartDashboard.putNumber("speedOne", 0);
 		SmartDashboard.putNumber("speedTwo", 0);
-		
-    	_server = CameraServer.getInstance();
-    	_server.startAutomaticCapture();
-
-		
+		_driverAssistCameras = new DriverAssistCameras();
 	}
 
 	/**
@@ -73,6 +69,15 @@ public class Robot extends IterativeRobot {
 		
 		//double speedOne = SmartDashboard.getNumber("speedOne", 0);
 		//double speedTwo = SmartDashboard.getNumber("speedTwo", 0);
+		
+		if (_inputsDrive.getAButton())
+		{
+			_driverAssistCameras.setForward();
+		}
+		else if (_inputsDrive.getBButton())
+		{
+			_driverAssistCameras.setReverse();
+		}
 		
 		if(Math.abs(_inputsDrive.getLeftVert()) >= 0.15 ) {
 			_outputs.setLeftSpeed(-1 * _inputsDrive.getLeftVert());
