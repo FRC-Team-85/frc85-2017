@@ -1,7 +1,10 @@
 package org.usfirst.frc.team85.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
+
 public class Inputs {
 
+	Encoder _leftFrontDriveEncoder = new Encoder(0, 1, false, Addresses.LEFT_FRONT_ENCODER);
 	/* Define encoders from addresses
 	 * Ex : _dartEncoder = new Encoder(Addresses.CANNON.DART_ENCODER_CH_A, Addresses.CANNON.DART_ENCODER_CH_B);
 	 *

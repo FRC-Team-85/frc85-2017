@@ -77,8 +77,8 @@ public class Robot extends IterativeRobot {
 		}
 		
 		if(Math.abs(_inputsDrive.getLeftVert()) >= 0.15 ) {
-			_outputs.setLeftSpeed(-1 * _inputsDrive.getLeftVert());
-			_outputs.setRightSpeed(_inputsDrive.getLeftVert());
+			_outputs.setLeftSpeed(-1 * Math.pow(_inputsDrive.getLeftVert(), 3));
+			_outputs.setRightSpeed(Math.pow(_inputsDrive.getLeftVert(), 3));
 		}
 		else {
 
