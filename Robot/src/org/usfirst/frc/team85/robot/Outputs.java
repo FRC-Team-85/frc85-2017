@@ -11,9 +11,6 @@ public class Outputs {
     
     private CANTalon _frontRightMotor = new CANTalon(Addresses.RIGHT_FRONT_MOTOR);
     private CANTalon _backRightMotor = new CANTalon(Addresses.RIGHT_BACK_MOTOR);
-    
-	private CANTalon _motorOne = new CANTalon(Addresses.MOTOR_ONE);
-	private CANTalon _motorTwo = new CANTalon(Addresses.MOTOR_TWO);
 	 
     public void setLeftSpeed(double speed) {
 		_frontLeftMotor.set(speed);
@@ -28,14 +25,6 @@ public class Outputs {
     public void drive(double left, double right) {
     	setLeftSpeed(left);
     	setRightSpeed(right);
-    }
-    
-    public void setMotorOne(double speed) {
-    	_motorOne.set(speed);
-    }
-    
-    public void setMotorTwo(double speed) {
-    	_motorTwo.set(speed);
     }
     
     public void visionTrack() {

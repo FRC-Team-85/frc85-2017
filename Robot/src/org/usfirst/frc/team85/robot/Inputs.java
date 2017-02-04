@@ -14,7 +14,7 @@ public class Inputs {
 	 *
 	 *
 	 */
-	
+	/*
 	public int getLeftFrontDriveEncoder() {
 		return _leftFrontDriveEncoder.get();
 		
@@ -32,5 +32,5 @@ public class Inputs {
 	public int getRightBackDriveEncoder() {
 		return _rightBackDriveEncoder.get();
 	}
-	
+	*/
 }
