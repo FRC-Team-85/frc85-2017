@@ -18,7 +18,7 @@ public class Addresses {
 	//public static final EncodingType LEFT_BACK_ENCODER = 13;
 	//public static final EncodingType RIGHT_FRONT_ENCODER = 69;
 	//public static final EncodingType RIGHT_BACK_ENCODER = 420;
-	
+
 	public static final int FORWARD_CAMERA = 0;
 	public static final int REVERSE_CAMERA = 1;
 
