@@ -18,6 +18,7 @@ public class Robot extends IterativeRobot {
     private InputsOp _inputsOp = new InputsOp();
     private Inputs _inputs = new Inputs();
     private Outputs _outputs = new Outputs();
+    private FPSDrive _fpsDrive;
     private DriverAssistCameras _driverAssistCameras;
     
     NetworkTable table;
@@ -67,41 +68,14 @@ public class Robot extends IterativeRobot {
 		//double speedOne = SmartDashboard.getNumber("speedOne", 0);
 		//double speedTwo = SmartDashboard.getNumber("speedTwo", 0);
 
-		if (_inputsDrive.getAButton())
-		{
+		if (_inputsDrive.getAButton()) {
 			_driverAssistCameras.setForward();
 		}
-		else if (_inputsDrive.getBButton())
-		{
+		else if (_inputsDrive.getBButton()) {
 			_driverAssistCameras.setReverse();
 		}
 		
-		if(Math.abs(_inputsDrive.getLeftVert()) >= 0.15 ) {
-			_outputs.setLeftSpeed(-1 * Math.pow(_inputsDrive.getLeftVert(), 3));
-			_outputs.setRightSpeed(Math.pow(_inputsDrive.getLeftVert(), 3));
-		}
-		else {
-
-			_outputs.setLeftSpeed(0);
-			_outputs.setRightSpeed(0);
-		}
-
-		if(Math.abs(_inputsDrive.getLeftVert()) >= 0.05 ) {
-			_outputs.setLeftSpeed(_inputsDrive.getLeftVert());
-			_outputs.setRightSpeed(-1 * _inputsDrive.getLeftVert());
-		}
-		else if (_inputsDrive.getRightHorz() <= -0.05) {
-			_outputs.setLeftSpeed(-1 * _inputsDrive.getRightHorz());
-			_outputs.setRightSpeed(-1 * _inputsDrive.getRightHorz());
-		}
-		else if (_inputsDrive.getRightHorz() >= 0.05) {
-			_outputs.setLeftSpeed(-1 *_inputsDrive.getRightHorz());
-			_outputs.setRightSpeed(-1 * _inputsDrive.getRightHorz());
-		}
-		else {
-			_outputs.setLeftSpeed(0);
-			_outputs.setRightSpeed(0);
-		}
+		_fpsDrive.drive();
 	}
 
 	/**
