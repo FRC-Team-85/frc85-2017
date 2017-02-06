@@ -5,16 +5,10 @@ import edu.wpi.first.wpilibj.Encoder;
 public class Inputs {
 
 	Encoder _leftFrontDriveEncoder = new Encoder(0, 1, false, Addresses.LEFT_FRONT_ENCODER);
-	/* Define encoders from addresses
-	 * Ex : _dartEncoder = new Encoder(Addresses.CANNON.DART_ENCODER_CH_A, Addresses.CANNON.DART_ENCODER_CH_B);
-	 *
-	 * Configure encoders
-	 * _leftFrontDriveEncoder.
-	 *
-	 *
-	 *
-	 */
-	
+	Encoder _leftBackDriveEncoder = new Encoder(0, 1, false, Addresses.LEFT_BACK_ENCODER);
+	Encoder _rightFrontDriveEncoder = new Encoder(0, 1, false, Addresses.RIGHT_FRONT_ENCODER);
+	Encoder _rightBackDriveEncoder = new Encoder(0, 1, false, Addresses.RIGHT_BACK_ENCODER);
+
 	public int getLeftFrontDriveEncoder() {
 		return _leftFrontDriveEncoder.get();
 	}
@@ -38,4 +32,5 @@ public class Inputs {
 		_rightFrontDriveEncoder.reset();
 		_rightBackDriveEncoder.reset();
 	}
+
 }
