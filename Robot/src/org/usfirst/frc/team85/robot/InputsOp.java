@@ -41,7 +41,6 @@ public class InputsOp {
 				return opStick.getRawButton(8);
 			}
 		
-		
 		//Buttons
 			public boolean getAButton() {
 				return opStick.getRawButton(2);
@@ -58,4 +57,5 @@ public class InputsOp {
 			public boolean getYButton() {
 				return opStick.getRawButton(4);
 			}
+			
 }

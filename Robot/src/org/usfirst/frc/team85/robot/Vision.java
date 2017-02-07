@@ -50,8 +50,7 @@ public class Vision {
 		
 		previousError = error;
 		
-		return power;
-		
+		return power;		
 	}
 
 }
