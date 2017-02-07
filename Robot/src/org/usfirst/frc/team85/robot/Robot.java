@@ -21,6 +21,8 @@ public class Robot extends IterativeRobot {
     private FPSDrive _fpsDrive;
     private DriverAssistCameras _driverAssistCameras;
     
+    private boolean encoderReset = false;
+    
     NetworkTable table;
     
 	
@@ -33,7 +35,9 @@ public class Robot extends IterativeRobot {
 /*
 		NetworkTable.setClientMode();
 		NetworkTable.setIPAddress("roborio-85-frc.local");
-		table = NetworkTable.getTable("SmartDashboard"); */
+		table = NetworkTable.getTable("SmartDashboard"); 
+		
+		_inputs.driveEncodersReset(); */
 	}
 
 	/**
@@ -66,6 +70,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 /*
+		if (!encoderReset) {
+			_inputs.driveEncodersReset();
+			return true;
+		}
+
 		double speedOne = SmartDashboard.getNumber("speedOne", 0);
 		double speedTwo = SmartDashboard.getNumber("speedTwo", 0);
 */
