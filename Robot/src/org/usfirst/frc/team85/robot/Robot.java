@@ -20,6 +20,7 @@ public class Robot extends IterativeRobot {
     private Outputs _outputs = new Outputs();
     private FPSDrive _fpsDrive;
     private DriverAssistCameras _driverAssistCameras;
+    private Auto _auto = new Auto();
     
     private boolean encoderReset = false;
     
@@ -38,6 +39,8 @@ public class Robot extends IterativeRobot {
 		table = NetworkTable.getTable("SmartDashboard"); 
 		
 		_inputs.driveEncodersReset(); */
+		
+		SmartDashboard.putString("autoFileString", "");
 	}
 
 	/**
@@ -53,7 +56,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-
+		_auto.initAuto(SmartDashboard.getString("autoFileString", ""));
+		_auto.doAuto();
 	}
 
 	/**
