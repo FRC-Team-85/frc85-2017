@@ -35,8 +35,8 @@ public class Outputs {
     	setLeftSpeed(-power);
     	setRightSpeed(power);
     }
-    
-    /*public void encoderStraightDrive() {
+/*
+    public void encoderStraightDrive() {
     	
     	int currentDifference = 0;
 	
@@ -59,6 +59,6 @@ public class Outputs {
 			speedL = 0.8;
 			speedR = 0.8;
 		}
-    }*/
-
+    }
+*/
 }

@@ -30,9 +30,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		//NetworkTable.setClientMode();
-		//NetworkTable.setIPAddress("roborio-85-frc.local");
-		//table = NetworkTable.getTable("SmartDashboard");
+/*
+		NetworkTable.setClientMode();
+		NetworkTable.setIPAddress("roborio-85-frc.local");
+		table = NetworkTable.getTable("SmartDashboard"); */
 	}
 
 	/**
@@ -64,10 +65,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
-		//double speedOne = SmartDashboard.getNumber("speedOne", 0);
-		//double speedTwo = SmartDashboard.getNumber("speedTwo", 0);
-
+/*
+		double speedOne = SmartDashboard.getNumber("speedOne", 0);
+		double speedTwo = SmartDashboard.getNumber("speedTwo", 0);
+*/
 		if (_inputsDrive.getAButton()) {
 			_driverAssistCameras.setForward();
 		}
