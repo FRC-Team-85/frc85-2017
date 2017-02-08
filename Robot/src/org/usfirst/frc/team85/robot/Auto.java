@@ -66,11 +66,13 @@ public class Auto {
 				case "move":
 					//System.out.println("move robot");
 					/*
-					while (_inputs.getLeftFrontEncoder < autoSequence.get(i)[4] 
-					and _inputs.getRightFrontEncoder < autoSequence.get(i)[5]) {
+					_inputs.driveEncodersReset();
+					while (_inputs.getLeftFrontEncoder < autoSequence.get(i)[4]
+						&& _inputs.getRightFrontEncoder < autoSequence.get(i)[5]) {
 					
-					setLeftSpeed(Integer.parseInt(autoSequence.get(i)[2]));
-					setRightSpeed(Integer.parseInt(autoSequence.get(i)[3]));
+					_outputs.setLeftSpeed(Integer.parseInt(autoSequence.get(i)[2]));
+					_outputs.setRightSpeed(Integer.parseInt(autoSequence.get(i)[3]));
+					}
 					*/
 					break;
 				
