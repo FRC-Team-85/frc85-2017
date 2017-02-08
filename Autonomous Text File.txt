@@ -1,0 +1,65 @@
+###
+Autonomous Sequence Encoding Interface //need better name?
+documentation:
+	hashtag toggles comment
+	";" signals end of sequence
+	":" separates individual commands
+	"," separates values
+	whitespace don't matter (spaces, tabs and enter)
+	in the first command, "use" signifies which sequence to run
+	in the other commands, the first value signifies command type
+	enclose name in <>
+
+	"move" parameters:
+		1. left speed
+		2. right speed
+		3. left encoder values
+		4. right encoder values
+		
+	"findBoiler" parameters:
+		
+	"findGear" parameters:
+		
+	"shoot" parameters:
+		
+	"gear" parameters:
+	
+example (replace $ with hashtag):
+$move and place gear 2$
+	:<movegear2>
+	: move, 1, 1, 20000, 20000
+	: move, 0.5, 1, 20000, 20000
+	: findGear, 3
+	: gear;
+
+values are just random right now
+###
+
+
+#do nothing#
+	:<nothing>;
+	
+#just move#
+	:<move>
+	: move, 0.75, 0.75, 20000, 20000;
+	
+#move and shoot#
+	:<moveshoot>
+	: move, 0.5, 1, 20000, 20000 
+	: move, 1, 1, 20000, 20000
+	: findBoiler, 4
+	: shoot;
+
+#move and place gear#
+	:<movegear>
+	: move, 1, 1, 20000, 20000
+	: move, 1, 0.5, 20000, 20000
+	: findGear, 3
+	: gear;
+
+#move and place gear 2#
+	:<movegear2>
+	: move, 1, 1, 20000, 20000
+	: move, 0.5, 1, 20000, 20000
+	: findGear, 3
+	: gear;
