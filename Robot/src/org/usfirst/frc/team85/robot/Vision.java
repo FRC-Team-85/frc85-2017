@@ -3,7 +3,6 @@ package org.usfirst.frc.team85.robot;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 public class Vision {
 	
 	public static double power = 0;
@@ -51,8 +50,7 @@ public class Vision {
 		
 		previousError = error;
 		
-		return power;
-		
+		return power;		
 	}
 
 }

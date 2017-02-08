@@ -21,6 +21,9 @@ public class Outputs {
     	//_backRightMotor.setVoltageRampRate(7);
     }
 
+    private double leftSpeed = .8;
+    private double rightSpeed = .8;
+    
     public void setLeftSpeed(double speed) {
 		_frontLeftMotor.set(speed);
 		_backLeftMotor.set(speed);
@@ -43,14 +46,12 @@ public class Outputs {
     	setLeftSpeed(-power);
     	setRightSpeed(power);
     }
-    
-    /*public void encoderStraightDrive() {
+/*
+    public void encoderStraightDrive() {
     	
     	int currentDifference = 0;
 	
-    	_inputs.driveEncodersReset();
-	
-		drive(speedL,speedR);
+		drive(leftSpeed,rightSpeed);
 	
 		int leftEncoder = _inputs.getLeftFrontDriveEncoder();
 		int rightEncoder = _inputs.getRightFrontDriveEncoder();
@@ -58,15 +59,15 @@ public class Outputs {
 		currentDifference = leftEncoder - rightEncoder;
 	
 		if (currentDifference > 0) { //positive = left is ahead by 1
-			speedL = speedL - .05;
+			leftSpeed = leftSpeed - .05;
 		}
 		else if (currentDifference < 0) { //negative = right is ahead by 1
-			speedR = speedR - .05;
+			rightSpeed = rightSpeed - .05;
 		}
 		else { //auto friendly values, set these to left joystick for teleop
-			speedL = 0.8;
-			speedR = 0.8;
+			leftSpeed = 0.8;
+			rightSpeed = 0.8;
 		}
-    }*/
-
+    }
+*/
 }

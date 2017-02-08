@@ -41,7 +41,6 @@ public class InputsDrive {
 				return driveStick.getRawButton(8);
 			}
 		
-		
 		//Buttons
 			public boolean getAButton() {
 				return driveStick.getRawButton(2);
@@ -58,4 +57,5 @@ public class InputsDrive {
 			public boolean getYButton() {
 				return driveStick.getRawButton(4);
 			}
+			
 }

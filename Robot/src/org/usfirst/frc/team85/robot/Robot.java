@@ -20,6 +20,9 @@ public class Robot extends IterativeRobot {
     private Outputs _outputs = new Outputs();
     private FPSDrive _fpsDrive = new FPSDrive();
     private DriverAssistCameras _driverAssistCameras;
+    private Auto _auto = new Auto();
+    
+    private boolean encoderReset = false;
     
     NetworkTable table;
     
@@ -34,6 +37,14 @@ public class Robot extends IterativeRobot {
 		//NetworkTable.setIPAddress("roborio-85-frc.local");
 		//table = NetworkTable.getTable("SmartDashboard");
 		SmartDashboard.putNumber("turnScale", .5);
+/*
+		NetworkTable.setClientMode();
+		NetworkTable.setIPAddress("roborio-85-frc.local");
+		table = NetworkTable.getTable("SmartDashboard"); 
+		
+		_inputs.driveEncodersReset(); */
+		
+		SmartDashboard.putString("autoFileString", "");
 	}
 
 	/**
@@ -49,7 +60,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-
+		_auto.initAuto(SmartDashboard.getString("autoFileString", ""));
+		_auto.doAuto();
 	}
 
 	/**
@@ -65,10 +77,15 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
-		//double speedOne = SmartDashboard.getNumber("speedOne", 0);
-		//double speedTwo = SmartDashboard.getNumber("speedTwo", 0);
+/*
+		if (!encoderReset) {
+			_inputs.driveEncodersReset();
+			return true;
+		}
 
+		double speedOne = SmartDashboard.getNumber("speedOne", 0);
+		double speedTwo = SmartDashboard.getNumber("speedTwo", 0);
+*/
 		if (_inputsDrive.getAButton()) {
 			_driverAssistCameras.setForward();
 		}
