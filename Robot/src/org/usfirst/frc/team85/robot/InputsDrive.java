@@ -8,11 +8,11 @@ public class InputsDrive {
 	
 		//Thumbsticks
 			public double getLeftVert() {
-				return -1 * driveStick.getRawAxis(1); //left thumbstick vertical, multiplied by -1 to un-invert
+				return driveStick.getRawAxis(1); //left thumbstick vertical, multiplied by -1 to un-invert
 			}
 			
 			public double getLeftHorz() {
-				return -1 * driveStick.getRawAxis(0); //left thumbstick vertical, multiplied by -1 to un-invert
+				return driveStick.getRawAxis(0); //left thumbstick vertical, multiplied by -1 to un-invert
 			}
 			
 			public double getRightVert() {
@@ -20,7 +20,7 @@ public class InputsDrive {
 			}
 			
 			public double getRightHorz() {
-				return -1 * driveStick.getRawAxis(2); //left thumbstick vertical, multiplied by -1 to un-invert
+				return driveStick.getRawAxis(2); //left thumbstick vertical, multiplied by -1 to un-invert
 			}
 		
 		//Bumpers

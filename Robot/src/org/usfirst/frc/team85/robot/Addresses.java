@@ -1,7 +1,5 @@
 package org.usfirst.frc.team85.robot;
 
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-
 public class Addresses {
 		//Drive-train
 	public static final int LEFT_FRONT_MOTOR = 1;

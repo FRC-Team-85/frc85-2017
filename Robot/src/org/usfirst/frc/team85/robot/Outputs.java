@@ -12,6 +12,14 @@ public class Outputs {
     
     private CANTalon _frontRightMotor = new CANTalon(Addresses.RIGHT_FRONT_MOTOR);
     private CANTalon _backRightMotor = new CANTalon(Addresses.RIGHT_BACK_MOTOR);
+    
+    public Outputs()
+    {
+    	//_frontLeftMotor.setVoltageRampRate(7);
+    	//_backLeftMotor.setVoltageRampRate(7);
+    	//_frontRightMotor.setVoltageRampRate(7);
+    	//_backRightMotor.setVoltageRampRate(7);
+    }
 
     public void setLeftSpeed(double speed) {
 		_frontLeftMotor.set(speed);

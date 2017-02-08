@@ -1,7 +1,6 @@
 package org.usfirst.frc.team85.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import org.opencv.core.Mat;

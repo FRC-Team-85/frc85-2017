@@ -1,8 +1,8 @@
 package org.usfirst.frc.team85.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -18,7 +18,7 @@ public class Robot extends IterativeRobot {
     private InputsOp _inputsOp = new InputsOp();
     private Inputs _inputs = new Inputs();
     private Outputs _outputs = new Outputs();
-    private FPSDrive _fpsDrive;
+    private FPSDrive _fpsDrive = new FPSDrive();
     private DriverAssistCameras _driverAssistCameras;
     
     NetworkTable table;
@@ -33,6 +33,7 @@ public class Robot extends IterativeRobot {
 		//NetworkTable.setClientMode();
 		//NetworkTable.setIPAddress("roborio-85-frc.local");
 		//table = NetworkTable.getTable("SmartDashboard");
+		SmartDashboard.putNumber("turnScale", .5);
 	}
 
 	/**
@@ -56,7 +57,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-
+		
 	}
 
 	/**
