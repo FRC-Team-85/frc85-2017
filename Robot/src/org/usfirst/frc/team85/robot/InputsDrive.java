@@ -58,4 +58,19 @@ public class InputsDrive {
 				return driveStick.getRawButton(4);
 			}
 			
+		//Dpad
+			public double getVertDpad() {
+				int pov = driveStick.getPOV(); // not pressed is -1, forward is 0, backward is 180
+				if (pov == 0)
+				{
+					return -1;
+				}
+				else if (pov == 180)
+				{
+					return 1;
+				}
+				
+				return 0;  
+			}
+			
 }

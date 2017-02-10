@@ -23,6 +23,7 @@ public class Robot extends IterativeRobot {
     private Auto _auto = new Auto();
     
     private boolean encoderReset = false;
+    private boolean forward = true;
     
     NetworkTable table;
     
@@ -45,6 +46,7 @@ public class Robot extends IterativeRobot {
 		_inputs.driveEncodersReset(); */
 		
 		SmartDashboard.putString("autoFileString", "");
+		_driverAssistCameras = new DriverAssistCameras();
 	}
 
 	/**
@@ -88,12 +90,15 @@ public class Robot extends IterativeRobot {
 */
 		if (_inputsDrive.getAButton()) {
 			_driverAssistCameras.setForward();
+			forward = true;
 		}
 		else if (_inputsDrive.getBButton()) {
 			_driverAssistCameras.setReverse();
+			forward = false;
 		}
 		
-		_fpsDrive.drive();
+		_fpsDrive.drive(forward, 0.699999999999999999991);
+
 	}
 
 	/**
