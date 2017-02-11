@@ -4,7 +4,24 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class InputsDrive {
 	
-	public Joystick driveStick = new Joystick(0); //driver
+	private static InputsDrive instance = null;
+	
+	public static InputsDrive getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new InputsDrive();
+		}
+		
+		return instance;
+	}
+	
+	private InputsDrive()
+	{
+		driveStick = new Joystick(0);
+	}
+	
+	private Joystick driveStick; //driver
 	
 		//Thumbsticks
 			public double getLeftVert() {

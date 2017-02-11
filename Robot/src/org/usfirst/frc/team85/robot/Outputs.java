@@ -1,13 +1,27 @@
 package org.usfirst.frc.team85.robot;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon.TalonControlMode;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 
 
 public class Outputs {
 	
+	private static Outputs instance = null;
+	
+	public static Outputs getInstance()
+	{
+		if (instance == null)
+		{
+			instance = new Outputs();
+		}
+		
+		return instance;
+	}
+	
 	private Vision _vision = new Vision();
-	private Inputs _inputs = new Inputs();
 	
     private CANTalon _frontLeftMotor = new CANTalon(Addresses.LEFT_FRONT_MOTOR);
     private CANTalon _backLeftMotor = new CANTalon(Addresses.LEFT_BACK_MOTOR);
@@ -19,27 +33,57 @@ public class Outputs {
     
     DigitalInput leftGearLimit;
     DigitalInput rightGearLimit;
+    
+    private double _speedScale = 1; //900.0 for speed mode
   
     
-    public Outputs()
+    private Outputs()
     {
     	//_frontLeftMotor.setVoltageRampRate(7);
     	//_backLeftMotor.setVoltageRampRate(7);
     	//_frontRightMotor.setVoltageRampRate(7);
     	//_backRightMotor.setVoltageRampRate(7);
+    	
+    	_backLeftMotor.changeControlMode(TalonControlMode.Follower);
+    	_backLeftMotor.set(_frontLeftMotor.getDeviceID());
+    	
+    	_backRightMotor.changeControlMode(TalonControlMode.Follower);
+    	_backRightMotor.set(_frontRightMotor.getDeviceID());
+    	/*
+    	_frontLeftMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+    	_frontRightMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+    	
+    	_frontLeftMotor.changeControlMode(TalonControlMode.Speed);
+    	_frontRightMotor.changeControlMode(TalonControlMode.Speed);
+    	
+    	_frontLeftMotor.configNominalOutputVoltage(+0.0f, -0.0f);
+    	_frontLeftMotor.configPeakOutputVoltage(+12.0f, -12.0f);
+        
+    	_frontLeftMotor.setProfile(0);
+    	_frontLeftMotor.setF(0.1097);
+    	_frontLeftMotor.setP(0.22);
+    	_frontLeftMotor.setI(0); 
+    	_frontLeftMotor.setD(0);
+        
+    	_frontRightMotor.configNominalOutputVoltage(+0.0f, -0.0f);
+    	_frontRightMotor.configPeakOutputVoltage(+12.0f, -12.0f);
+        
+    	_frontRightMotor.setProfile(0);
+    	_frontRightMotor.setF(0.1097);
+    	_frontRightMotor.setP(0.22);
+    	_frontRightMotor.setI(0); 
+    	_frontRightMotor.setD(0);
+    	*/
     }
-
-    private double leftSpeed = .8;
-    private double rightSpeed = .8;
-    
-    public void setLeftSpeed(double speed) {
-		_frontLeftMotor.set(speed);
-		_backLeftMotor.set(speed);
+        
+    public double setLeftSpeed(double targetSpeed) {
+		_frontLeftMotor.set(targetSpeed * _speedScale);
+		return _frontLeftMotor.getSpeed();
     }
     
-    public void setRightSpeed(double speed) {
-		_frontRightMotor.set(speed);
-		_backRightMotor.set(speed);
+    public double setRightSpeed(double targetSpeed) {
+		_frontRightMotor.set(targetSpeed * _speedScale);
+		return _frontRightMotor.getSpeed();
     }
     
     public void setGearMotorSpeed(double speed) {

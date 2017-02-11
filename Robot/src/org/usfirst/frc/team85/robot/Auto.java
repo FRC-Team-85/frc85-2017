@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Auto {
 	
-	private Outputs _outputs = new Outputs();
+	private Outputs _outputs = Outputs.getInstance();
 	private Inputs _inputs = new Inputs();
 	//selected autonomous sequence as 2d array, entries are commands, array entries are command pieces separated by ","
 	private ArrayList<String[]> autoSequence = new ArrayList<String[]>();

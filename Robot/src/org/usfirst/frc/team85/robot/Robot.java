@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-    private InputsDrive _inputsDrive = new InputsDrive();
+    private InputsDrive _inputsDrive = InputsDrive.getInstance();
     private InputsOp _inputsOp = new InputsOp();
     private Inputs _inputs = new Inputs();
-    private Outputs _outputs = new Outputs();
+    private Outputs _outputs = Outputs.getInstance();
     private FPSDrive _fpsDrive = new FPSDrive();
     private DriverAssistCameras _driverAssistCameras;
     private Auto _auto = new Auto();
