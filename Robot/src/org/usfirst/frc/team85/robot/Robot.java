@@ -97,7 +97,17 @@ public class Robot extends IterativeRobot {
 			forward = false;
 		}
 		
+		if (_inputsDrive.getLeftBumper()) {
+			
+			_outputs.setGearMotorSpeed(-.25); //random placeholder
+		}
+		
+		if (_inputsDrive.getRightBumper()) {
+			_outputs.setGearMotorSpeed(.25); //random placeholder
+		}
+		
 		_fpsDrive.drive(forward, 0.699999999999999999991);
+		
 
 	}
 

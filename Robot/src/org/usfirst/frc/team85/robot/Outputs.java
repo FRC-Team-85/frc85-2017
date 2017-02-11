@@ -1,6 +1,8 @@
 package org.usfirst.frc.team85.robot;
 
 import com.ctre.CANTalon;
+import edu.wpi.first.wpilibj.DigitalInput;
+
 
 public class Outputs {
 	
@@ -12,6 +14,12 @@ public class Outputs {
     
     private CANTalon _frontRightMotor = new CANTalon(Addresses.RIGHT_FRONT_MOTOR);
     private CANTalon _backRightMotor = new CANTalon(Addresses.RIGHT_BACK_MOTOR);
+    
+    private CANTalon _gearMotor = new CANTalon(Addresses.GEAR_MOTOR);
+    
+    DigitalInput leftGearLimit;
+    DigitalInput rightGearLimit;
+  
     
     public Outputs()
     {
@@ -33,6 +41,27 @@ public class Outputs {
 		_frontRightMotor.set(speed);
 		_backRightMotor.set(speed);
     }
+    
+    public void setGearMotorSpeed(double speed) {
+   
+    	if (leftGearLimit.get() && speed < 0) {
+    		speed = 0;
+    		setGearEncoder(0);
+    	}
+    	else if (rightGearLimit.get() && speed > 0) {
+    		speed = 0;
+    	}
+    	
+    	_gearMotor.set(speed);
+    }
+    
+	public void setGearEncoder(double value) {
+		_gearMotor.setPosition(value);
+	}
+    
+	public double getGearEncoder() {
+		return _gearMotor.getPosition();
+	}
     
     public void drive(double left, double right) {
     	setLeftSpeed(left);
