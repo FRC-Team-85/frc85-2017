@@ -26,7 +26,7 @@ documentation:
 	
 example (replace $ with hashtag):
 $move and place gear 2$
-	:<movegear2>
+use	:<movegear2>
 	: move, 1, 1, 20000, 20000
 	: move, 0.5, 1, 20000, 20000
 	: findGear, 3
@@ -58,7 +58,7 @@ values are just random right now
 	: gear;
 
 #move and place gear 2#
-	:<movegear2>
+use	:<movegear2>
 	: move, 1, 1, 20000, 20000
 	: move, 0.5, 1, 20000, 20000
 	: findGear, 3

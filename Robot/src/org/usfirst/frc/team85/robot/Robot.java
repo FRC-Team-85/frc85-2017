@@ -63,7 +63,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		_auto.initAuto(SmartDashboard.getString("autoFileString", ""));
-		_auto.doAuto();
 	}
 
 	/**
