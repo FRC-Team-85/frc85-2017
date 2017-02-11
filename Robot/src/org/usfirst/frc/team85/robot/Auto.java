@@ -16,7 +16,6 @@ public class Auto {
 		String string = "";
 		//is toggled for comments
 		boolean comment = false;
-		String name = "moveshoot";
 		
 		//remove comments
 		for (int i = 0; i < fileString.length(); i++) {
@@ -31,6 +30,7 @@ public class Auto {
 		}
 		
 		//remove enter character, space character, tabs and <>
+		//runs faster doing all at once?
 		string = string.replaceAll(System.getProperty("line.separator"), "").replaceAll(" ", "").replaceAll("\t", "").replaceAll("<", "").replaceAll(">", "");
 		
 		System.out.println(string);
@@ -48,7 +48,7 @@ public class Auto {
 		
 		for (int i = 0; i < commands.size(); i++) {
 			//detects which sequence says "use"
-			if (commands.get(i)[1].equals(name)) {
+			if (commands.get(i)[1].equals("use")) {
 				//split by "," and put in autonSequence
 				for (int j = 0; j < commands.get(i).length; j++) {
 					autoSequence.add(commands.get(i)[j].split(","));
@@ -57,12 +57,12 @@ public class Auto {
 				break;
 			}
 		}
-	}
 		
-	public void doAuto() {
 		//loops over commands in the sequence and executes them
-		for (int i = 1; i < autoSequence.size(); i++) { //count starts at 1 because 1st command indicates sequence to use
-			switch (autoSequence.get(i)[0]) { //switch is the first parameter of the command
+		//count starts at 1 because 1st command indicates sequence to use
+		for (int i = 1; i < autoSequence.size(); i++) {
+			//switch is the first parameter of the command
+			switch (autoSequence.get(i)[0]) {
 				case "move":
 					//System.out.println("move robot");
 					/*
