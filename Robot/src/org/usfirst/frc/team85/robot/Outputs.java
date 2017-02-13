@@ -11,10 +11,8 @@ public class Outputs {
 	
 	private static Outputs instance = null;
 	
-	public static Outputs getInstance()
-	{
-		if (instance == null)
-		{
+	public static Outputs getInstance() {
+		if (instance == null) {
 			instance = new Outputs();
 		}
 		
@@ -31,25 +29,26 @@ public class Outputs {
     
     private CANTalon _gearMotor = new CANTalon(Addresses.GEAR_MOTOR);
     
+    private CANTalon _climbMotor = new CANTalon(Addresses.CLIMB_MOTOR);
+    
     DigitalInput leftGearLimit;
     DigitalInput rightGearLimit;
     
     private double _speedScale = 1; //900.0 for speed mode
   
-    
-    private Outputs()
-    {
-    	//_frontLeftMotor.setVoltageRampRate(7);
-    	//_backLeftMotor.setVoltageRampRate(7);
-    	//_frontRightMotor.setVoltageRampRate(7);
-    	//_backRightMotor.setVoltageRampRate(7);
-    	
+    private Outputs() {
+/*
+    	_frontLeftMotor.setVoltageRampRate(7);
+    	_backLeftMotor.setVoltageRampRate(7);
+    	_frontRightMotor.setVoltageRampRate(7);
+    	_backRightMotor.setVoltageRampRate(7);
+*/
     	_backLeftMotor.changeControlMode(TalonControlMode.Follower);
     	_backLeftMotor.set(_frontLeftMotor.getDeviceID());
     	
     	_backRightMotor.changeControlMode(TalonControlMode.Follower);
     	_backRightMotor.set(_frontRightMotor.getDeviceID());
-    	/*
+/*
     	_frontLeftMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
     	_frontRightMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
     	
@@ -73,7 +72,7 @@ public class Outputs {
     	_frontRightMotor.setP(0.22);
     	_frontRightMotor.setI(0); 
     	_frontRightMotor.setD(0);
-    	*/
+*/
     }
         
     public double setLeftSpeed(double targetSpeed) {
@@ -143,4 +142,8 @@ public class Outputs {
 		}
     }
 */
+    public void climb(double speed) {
+    	_climbMotor.set(speed); 
+    }
+    
 }
