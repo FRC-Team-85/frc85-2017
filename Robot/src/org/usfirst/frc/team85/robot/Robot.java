@@ -105,8 +105,10 @@ public class Robot extends IterativeRobot {
 			_outputs.setGearMotorSpeed(.25); //random placeholder
 		}
 		
-		if(_inputsOp.getYButton()) {
+		if (_inputsOp.getYButton()) {
 			_outputs.climb(0.8); //"random" value
+		} else {
+			_outputs.climb(0);
 		}
 		
 		_fpsDrive.drive(forward, 0.699999999999999999991);

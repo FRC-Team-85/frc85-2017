@@ -142,8 +142,8 @@ public class Outputs {
 		}
     }
 */
-    public void climb(double speed) {
-    	_climbMotor.set(speed); 
+    public void climb(double climbtrue) {
+    	_climbMotor.set(climbtrue); 
     }
     
 }
