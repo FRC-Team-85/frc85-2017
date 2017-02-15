@@ -6,38 +6,34 @@ public class InputsDrive {
 	
 	private static InputsDrive instance = null;
 	
-	public static InputsDrive getInstance()
-	{
-		if (instance == null)
-		{
+	public static InputsDrive getInstance() {
+		if (instance == null) {
 			instance = new InputsDrive();
 		}
-		
 		return instance;
 	}
 	
-	private InputsDrive()
-	{
+	private InputsDrive() {
 		driveStick = new Joystick(0);
 	}
 	
-	private Joystick driveStick; //driver
+	private Joystick driveStick;
 	
 		//Thumbsticks
 			public double getLeftVert() {
-				return driveStick.getRawAxis(1); //left thumbstick vertical, multiplied by -1 to un-invert
+				return driveStick.getRawAxis(1);
 			}
 			
 			public double getLeftHorz() {
-				return driveStick.getRawAxis(0); //left thumbstick vertical, multiplied by -1 to un-invert
+				return driveStick.getRawAxis(0);
 			}
 			
 			public double getRightVert() {
-				return driveStick.getRawAxis(3); //right thumbstick vertical, un-inverting not necessary for some reason
+				return driveStick.getRawAxis(3);
 			}
 			
 			public double getRightHorz() {
-				return driveStick.getRawAxis(2); //left thumbstick vertical, multiplied by -1 to un-invert
+				return driveStick.getRawAxis(2);
 			}
 		
 		//Bumpers
@@ -78,12 +74,10 @@ public class InputsDrive {
 		//Dpad
 			public double getVertDpad() {
 				int pov = driveStick.getPOV(); // not pressed is -1, forward is 0, backward is 180
-				if (pov == 0)
-				{
+				if (pov == 0) {
 					return -1;
 				}
-				else if (pov == 180)
-				{
+				else if (pov == 180) {
 					return 1;
 				}
 				

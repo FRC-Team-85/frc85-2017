@@ -10,8 +10,7 @@ public class DriverAssistCameras {
 	private UsbCamera _reverseCamera;
 	private UsbCamera _currentCamera;
 	
-	public DriverAssistCameras()
-	{   
+	public DriverAssistCameras() {   
         new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -39,13 +38,11 @@ public class DriverAssistCameras {
 		}).start();
 	}
 	
-	public void setForward()
-	{
+	public void setForward() {
 		_currentCamera = _forwardCamera;
 	}
 	
-	public void setReverse()
-	{
+	public void setReverse() {
 		_currentCamera = _reverseCamera;
 	}
 }

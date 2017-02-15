@@ -4,26 +4,39 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class InputsOp {
 	
-	public Joystick opStick = new Joystick(1); //operator
+	private static InputsOp instance = null;
 	
-		//Thumbtwigs 
+	public static InputsOp getInstance() {
+		if (instance == null) {
+			instance = new InputsOp();
+		}
+		return instance;
+	}
+	
+	private InputsOp() {
+		opStick = new Joystick(0);
+	}
+	
+	public Joystick opStick = new Joystick(1);
+	
+		//Thumbsticks
 			public double getLeftVert() {
-				return -1 * opStick.getRawAxis(1); //left thumbstick vertical, multiplied by -1 to un-invert
+				return -1 * opStick.getRawAxis(1);
 			}
 	
 			public double getLeftHorz() {
-				return -1 * opStick.getRawAxis(0); //left thumbstick vertical, multiplied by -1 to un-invert
+				return -1 * opStick.getRawAxis(0);
 			}
 	
 			public double getRightVert() {
-				return opStick.getRawAxis(3); //right thumbstick vertical, un-inverting not necessary for some reason
+				return opStick.getRawAxis(3);
 			}
 	
 			public double getRightHorz() {
-				return -1 * opStick.getRawAxis(2); //left thumbstick vertical, multiplied by -1 to un-invert
+				return -1 * opStick.getRawAxis(2);
 			}
 		
-		//Bumper cars
+		//Bumpers
 			public boolean getLeftBumper() {
 				return opStick.getRawButton(5);
 			}
@@ -32,7 +45,7 @@ public class InputsOp {
 				return opStick.getRawButton(6);
 			}
 		
-		//I'm Triggered
+		//Triggers
 			public boolean getLeftTrigger() {
 				return opStick.getRawButton(7);
 			}
@@ -41,7 +54,7 @@ public class InputsOp {
 				return opStick.getRawButton(8);
 			}
 		
-		//Don't push my buttons
+		//Buttons
 			public boolean getAButton() {
 				return opStick.getRawButton(2);
 			}

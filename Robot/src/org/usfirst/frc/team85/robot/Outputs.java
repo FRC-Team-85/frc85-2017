@@ -34,7 +34,7 @@ public class Outputs {
     DigitalInput leftGearLimit;
     DigitalInput rightGearLimit;
     
-    private double _speedScale = 900; //900.0 for speed mode
+    private double _speedScale = 900;
   
     private Outputs() {
 
@@ -82,7 +82,6 @@ public class Outputs {
     }
     
     public void setGearMotorSpeed(double speed) {
-   
     	if (leftGearLimit.get() && speed < 0) {
     		speed = 0;
     		setGearEncoder(0);
@@ -105,6 +104,10 @@ public class Outputs {
     public void drive(double left, double right) {
     	setLeftSpeed(left);
     	setRightSpeed(right);
+    }
+    
+    public void climb(double speed) {
+    	_climbMotor.set(speed); 
     }
 
     public void visionTrack() {
@@ -138,8 +141,5 @@ public class Outputs {
 		}
     }
 */
-    public void climb(double speed) {
-    	_climbMotor.set(speed); 
-    }
     
 }
