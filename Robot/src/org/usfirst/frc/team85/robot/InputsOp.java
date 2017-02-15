@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class InputsOp {
 	
-	public Joystick opStick = new Joystick(0); //operator
+	public Joystick opStick = new Joystick(1); //operator
 	
 		//Thumbsticks
 			public double getLeftVert() {

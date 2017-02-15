@@ -19,20 +19,20 @@ public class TankDrive {
 			rightSpeed = _inputsDrive.getRightVert();
 		}
 		else if(_inputsDrive.getVertDpad() == -1) {
-			leftSpeed = -limitedSpeed;
-			rightSpeed = -limitedSpeed;
-		}
-		else if(_inputsDrive.getVertDpad() == 1) {
 			leftSpeed = limitedSpeed;
 			rightSpeed = limitedSpeed;
 		}
+		else if(_inputsDrive.getVertDpad() == 1) {
+			leftSpeed = -limitedSpeed;
+			rightSpeed = -limitedSpeed;
+		}
 		if (forward) {
-			SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(leftSpeed));
-			SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(rightSpeed));
+			SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(-leftSpeed));
+			SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(-rightSpeed));
 		}
 		else if (!forward) {
-			SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(-rightSpeed));
-			SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(-leftSpeed));	
+			SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(rightSpeed));
+			SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(leftSpeed));	
 		}
 		
 	}
