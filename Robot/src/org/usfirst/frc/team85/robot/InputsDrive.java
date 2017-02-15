@@ -50,6 +50,7 @@ public class InputsDrive {
 			}
 		
 		//Triggers
+				//self.isTriggered = true;
 			public boolean getLeftTrigger() {
 				return driveStick.getRawButton(7);
 			}

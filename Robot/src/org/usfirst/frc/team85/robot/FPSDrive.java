@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class FPSDrive {
 	
-    private InputsDrive _inputsDrive = InputsDrive.getInstance();
-    private Outputs _outputs = Outputs.getInstance();
-    
+	private InputsDrive _inputsDrive = InputsDrive.getInstance();
+	private Outputs _outputs = Outputs.getInstance();
+	
 	public void drive(boolean forward, double limitedSpeed) {
 		double turnScale = SmartDashboard.getNumber("turnScale", .5);
 		double leftSpeed = 0;

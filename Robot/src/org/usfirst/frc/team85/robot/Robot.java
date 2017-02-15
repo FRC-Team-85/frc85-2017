@@ -14,19 +14,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
-    private InputsDrive _inputsDrive = InputsDrive.getInstance();
-    private InputsOp _inputsOp = new InputsOp();
-    private Inputs _inputs = new Inputs();
-    private Outputs _outputs = Outputs.getInstance();
-    private FPSDrive _fpsDrive = new FPSDrive();
-    private DriverAssistCameras _driverAssistCameras;
-    private Auto _auto = new Auto();
-    
-    private boolean encoderReset = false;
-    private boolean forward = true;
-    
-    NetworkTable table;
-    
+    private InputsDrive _inputsDrive = InputsDrive.getInstance(); //left 1 line with spaces
+	private InputsOp _inputsOp = new InputsOp();
+	private Inputs _inputs = new Inputs();
+	private Outputs _outputs = Outputs.getInstance();
+	private FPSDrive _fpsDrive = new FPSDrive();
+	private DriverAssistCameras _driverAssistCameras;
+	private Auto _auto = new Auto();
+	
+	private boolean encoderReset = false;
+	private boolean forward = true;
+	
+	NetworkTable table;
+	
 	
 	/**
 	 * This function is run when the robot is first started up and should be

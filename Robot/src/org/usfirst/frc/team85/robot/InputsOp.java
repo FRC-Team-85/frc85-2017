@@ -33,6 +33,7 @@ public class InputsOp {
 			}
 		
 		//Triggers
+				//self.isTriggered = true;
 			public boolean getLeftTrigger() {
 				return opStick.getRawButton(7);
 			}

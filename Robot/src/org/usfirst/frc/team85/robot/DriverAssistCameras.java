@@ -15,26 +15,26 @@ public class DriverAssistCameras {
         new Thread(new Runnable() {
 			@Override
 			public void run() {
-		        _forwardCamera = CameraServer.getInstance().startAutomaticCapture(Addresses.FORWARD_CAMERA);
-		        //_forwardCamera.setResolution(640, 480);
-		            
-		        _reverseCamera = CameraServer.getInstance().startAutomaticCapture(Addresses.REVERSE_CAMERA);
-		        //_reverseCamera.setResolution(640, 480);
-		            
-		        _currentCamera = _forwardCamera;      
-		        
+				_forwardCamera = CameraServer.getInstance().startAutomaticCapture(Addresses.FORWARD_CAMERA);
+				//_forwardCamera.setResolution(640, 480);
+					
+				_reverseCamera = CameraServer.getInstance().startAutomaticCapture(Addresses.REVERSE_CAMERA);
+				//_reverseCamera.setResolution(640, 480);
+					
+				_currentCamera = _forwardCamera;      
+					
 				Mat frame = new Mat();
-		        CvSource outputStream = CameraServer.getInstance().putVideo("Drive", 320, 240);
+				CvSource outputStream = CameraServer.getInstance().putVideo("Drive", 320, 240);
 				
-			    while(!Thread.interrupted()) {
-			    	try {
-			    		CameraServer.getInstance().getVideo(_currentCamera).grabFrame(frame);
-			        	outputStream.putFrame(frame);
-			    	}
-			    	catch(Exception ex) {
-			    		System.out.println(ex.toString());
-			    	}
-			    }
+				while(!Thread.interrupted()) {
+					try {
+						CameraServer.getInstance().getVideo(_currentCamera).grabFrame(frame);
+						outputStream.putFrame(frame);
+					}
+					catch(Exception ex) {
+						System.out.println(ex.toString());
+					}
+				}
 			}
 		}).start();
 	}
