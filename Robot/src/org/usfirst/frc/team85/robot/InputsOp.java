@@ -6,7 +6,7 @@ public class InputsOp {
 	
 	public Joystick opStick = new Joystick(1); //operator
 	
-		//Thumbsticks
+		//Thumbtwigs 
 			public double getLeftVert() {
 				return -1 * opStick.getRawAxis(1); //left thumbstick vertical, multiplied by -1 to un-invert
 			}
@@ -23,7 +23,7 @@ public class InputsOp {
 				return -1 * opStick.getRawAxis(2); //left thumbstick vertical, multiplied by -1 to un-invert
 			}
 		
-		//Bumpers
+		//Bumper cars
 			public boolean getLeftBumper() {
 				return opStick.getRawButton(5);
 			}
@@ -32,7 +32,7 @@ public class InputsOp {
 				return opStick.getRawButton(6);
 			}
 		
-		//Triggers
+		//I'm Triggered
 			public boolean getLeftTrigger() {
 				return opStick.getRawButton(7);
 			}
@@ -41,7 +41,7 @@ public class InputsOp {
 				return opStick.getRawButton(8);
 			}
 		
-		//Buttons
+		//Don't push my buttons
 			public boolean getAButton() {
 				return opStick.getRawButton(2);
 			}
