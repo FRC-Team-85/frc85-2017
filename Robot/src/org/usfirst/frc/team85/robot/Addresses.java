@@ -26,5 +26,9 @@ public class Addresses {
 		
 		public static final int FORWARD_CAMERA = 0;
 		public static final int REVERSE_CAMERA = 1;
+		
+	//Don't actually know where this would go
+		public static final int LEFT_SERVO = 0;  //i have yet to learn numbers
+		public static final int RIGHT_SERVO = 1;
 	
 }

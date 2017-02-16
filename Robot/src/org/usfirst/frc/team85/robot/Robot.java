@@ -47,6 +47,9 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putString("autoFileString", "");
 		_driverAssistCameras = new DriverAssistCameras();
+		
+		_outputs.releaseRightFlap();
+		_outputs.releaseLeftFlap();
 	}
 
 	/**
@@ -63,6 +66,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		_auto.initAuto(SmartDashboard.getString("autoFileString", ""));
+		
+		_outputs.releaseRightFlap();
+		_outputs.releaseLeftFlap();
 	}
 
 	/**

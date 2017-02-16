@@ -1,15 +1,20 @@
 package org.usfirst.frc.team85.robot;
 
 import com.ctre.CANTalon;
+
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 
+import edu.wpi.first.wpilibj.Servo;
+
 
 public class Outputs {
 	
 	private static Outputs instance = null;
+	
+	
 	
 	public static Outputs getInstance() {
 		if (instance == null) {
@@ -30,6 +35,9 @@ public class Outputs {
 	private CANTalon _gearMotor = new CANTalon(Addresses.GEAR_MOTOR);
 	
 	private CANTalon _climbMotor = new CANTalon(Addresses.CLIMB_MOTOR);
+	
+	private Servo _leftServo = new Servo(Addresses.LEFT_SERVO);
+	private Servo _rightServo = new Servo(Addresses.RIGHT_SERVO);
 	
 	DigitalInput leftGearLimit;
 	DigitalInput rightGearLimit;
@@ -141,5 +149,12 @@ public class Outputs {
 		}
 	}
 */
+	public void releaseLeftFlap() {
+		_leftServo.set(1); //change if wrong, fully right
+	}
+	
+	public void releaseRightFlap() {
+		_rightServo.set(0); //change if wrong, fully left
+	}
 	
 }
