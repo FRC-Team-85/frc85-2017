@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	
-    private InputsDrive _inputsDrive = InputsDrive.getInstance(); //left 1 line with spaces
-	private InputsOp _inputsOp = new InputsOp();
+    
+	private InputsDrive _inputsDrive = InputsDrive.getInstance();
+	private InputsOp _inputsOp = InputsOp.getInstance();
 	private Inputs _inputs = new Inputs();
 	private Outputs _outputs = Outputs.getInstance();
 	private FPSDrive _fpsDrive = new FPSDrive();
@@ -78,15 +78,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-/*
-		if (!encoderReset) {
-			_inputs.driveEncodersReset();
-			return true;
-		}
-
-		double speedOne = SmartDashboard.getNumber("speedOne", 0);
-		double speedTwo = SmartDashboard.getNumber("speedTwo", 0);
-*/
+		
+		//Sets which direction is forward
 		if (_inputsDrive.getAButton()) {
 			_driverAssistCameras.setForward();
 			forward = true;
@@ -96,22 +89,23 @@ public class Robot extends IterativeRobot {
 			forward = false;
 		}
 		
+		//Moves gear manipulator
 		if (_inputsDrive.getLeftBumper()) {
-			
-			_outputs.setGearMotorSpeed(-.25); //random placeholder
+			_outputs.setGearMotorSpeed(-.25);
+		}
+		else if (_inputsDrive.getRightBumper()) {
+			_outputs.setGearMotorSpeed(.25);
 		}
 		
-		if (_inputsDrive.getRightBumper()) {
-			_outputs.setGearMotorSpeed(.25); //random placeholder
-		}
-		
+		//Turns on climb roller
 		if (_inputsOp.getYButton()) {
-			_outputs.climb(1); //"random" value
-		} else {
+			_outputs.climb(1);
+		}
+		else {
 			_outputs.climb(0);
 		}
-		
-		//_fpsDrive.drive(forward, 0.699999999999999999991);
+
+		_fpsDrive.drive(forward, 0.69);
 		
 
 	}
@@ -124,4 +118,3 @@ public class Robot extends IterativeRobot {
 		
 	}
 }
-

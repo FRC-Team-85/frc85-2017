@@ -34,47 +34,43 @@ public class Outputs {
 	DigitalInput leftGearLimit;
 	DigitalInput rightGearLimit;
 	
-	private double _speedScale = 1; //900.0 for speed mode
+	private double _speedScale = 900;
 	
 	private Outputs() {
-/*
-	_frontLeftMotor.setVoltageRampRate(7);
-	_backLeftMotor.setVoltageRampRate(7);
-	_frontRightMotor.setVoltageRampRate(7);
-	_backRightMotor.setVoltageRampRate(7);
-*/
-		_backLeftMotor.changeControlMode(TalonControlMode.Follower);
-		_backLeftMotor.set(_frontLeftMotor.getDeviceID());
-		
-		_backRightMotor.changeControlMode(TalonControlMode.Follower);
-		_backRightMotor.set(_frontRightMotor.getDeviceID());
-/*
+
 		_frontLeftMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		_frontRightMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		
 		_frontLeftMotor.changeControlMode(TalonControlMode.Speed);
 		_frontRightMotor.changeControlMode(TalonControlMode.Speed);
 		
+		_frontLeftMotor.reverseSensor(true);
+		
 		_frontLeftMotor.configNominalOutputVoltage(+0.0f, -0.0f);
 		_frontLeftMotor.configPeakOutputVoltage(+12.0f, -12.0f);
+		_frontRightMotor.configNominalOutputVoltage(+0.0f, -0.0f);
+		_frontRightMotor.configPeakOutputVoltage(+12.0f, -12.0f);
 		
+		_backLeftMotor.changeControlMode(TalonControlMode.Follower);
+		_backLeftMotor.set(_frontLeftMotor.getDeviceID());
+		
+		_backRightMotor.changeControlMode(TalonControlMode.Follower);
+		_backRightMotor.set(_frontRightMotor.getDeviceID());
+		
+		/*
 		_frontLeftMotor.setProfile(0);
 		_frontLeftMotor.setF(0.1097);
 		_frontLeftMotor.setP(0.22);
 		_frontLeftMotor.setI(0); 
 		_frontLeftMotor.setD(0);
-		
-		_frontRightMotor.configNominalOutputVoltage(+0.0f, -0.0f);
-		_frontRightMotor.configPeakOutputVoltage(+12.0f, -12.0f);
-		
 		_frontRightMotor.setProfile(0);
 		_frontRightMotor.setF(0.1097);
 		_frontRightMotor.setP(0.22);
 		_frontRightMotor.setI(0); 
 		_frontRightMotor.setD(0);
-*/
+		*/
 	}
-		
+	
 	public double setLeftSpeed(double targetSpeed) {
 		_frontLeftMotor.set(targetSpeed * _speedScale);
 		return _frontLeftMotor.getSpeed();
@@ -86,7 +82,6 @@ public class Outputs {
 	}
 	
 	public void setGearMotorSpeed(double speed) {
-		
 		if (leftGearLimit.get() && speed < 0) {
 			speed = 0;
 			setGearEncoder(0);
@@ -109,6 +104,10 @@ public class Outputs {
 	public void drive(double left, double right) {
 		setLeftSpeed(left);
 		setRightSpeed(right);
+	}
+	
+	public void climb(double speed) {
+		_climbMotor.set(speed); 
 	}
 
 	public void visionTrack() {
@@ -142,8 +141,5 @@ public class Outputs {
 		}
 	}
 */
-	public void climb(double climbtrue) {
-		_climbMotor.set(climbtrue); 
-	}
 	
 }

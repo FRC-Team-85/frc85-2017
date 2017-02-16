@@ -16,11 +16,11 @@ public class FPSDrive {
 			leftSpeed = _inputsDrive.getLeftVert();
 			rightSpeed = _inputsDrive.getLeftVert();
 		}
-		else if(_inputsDrive.getVertDpad() == -1) {
+		else if(_inputsDrive.getVertDpad() == 1) {
 			leftSpeed = -limitedSpeed;
 			rightSpeed = -limitedSpeed;
 		}
-		else if(_inputsDrive.getVertDpad() == 1) {
+		else if(_inputsDrive.getVertDpad() == -1) {
 			leftSpeed = limitedSpeed;
 			rightSpeed = limitedSpeed;
 		}
@@ -30,12 +30,12 @@ public class FPSDrive {
 			rightSpeed = rightSpeed + turnScale * _inputsDrive.getRightHorz();
 		}
 		if (forward) {
-			SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(leftSpeed));
-			SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(rightSpeed));
+			SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(-leftSpeed));
+			SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(-rightSpeed));
 		}
 		else if (!forward) {
-			SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(-rightSpeed));
-			SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(-leftSpeed));	
+			SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(rightSpeed));
+			SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(leftSpeed));	
 		}
 		
 	}
