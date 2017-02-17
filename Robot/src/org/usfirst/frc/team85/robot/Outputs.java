@@ -88,15 +88,16 @@ public class Outputs {
 	}
 
 	public void setGearMotorSpeed(double speed) {
-		/*SmartDashboard.putBoolean("Gear Manip Left Limit", leftGearLimit.get());
-		SmartDashboard.putBoolean("Gear Manip Right Limit", rightGearLimit.get());
-		if (leftGearLimit.get() && speed < 0) {
+		//SmartDashboard.putBoolean("Gear Manip Left Limit", leftGearLimit.get());
+		//SmartDashboard.putBoolean("Gear Manip Right Limit", rightGearLimit.get());
+		/*if (leftGearLimit.get() && speed < 0) {
+		if (speed < 0) {
 			speed = 0;
 		} else if (rightGearLimit.get() && speed > 0) {
 			speed = 0;
 		}
 
-		SmartDashboard.putNumber("Gear Manip Speed", speed);
+		//SmartDashboard.putNumber("Gear Manip Speed", speed);
 		_gearMotor.set(speed);*/
 	}
 

@@ -96,8 +96,8 @@ public class Robot extends IterativeRobot {
 			forward = false;
 		}
 		
-		//Moves gear manipulator
-		if (_inputsDrive.getLeftBumper()) {
+		//Moves gear manipulator according to drive bumpers
+/*		if (_inputsDrive.getLeftBumper()) {
 			_outputs.setGearMotorSpeed(-1);
 		}
 		else if (_inputsDrive.getRightBumper()) {
@@ -107,6 +107,17 @@ public class Robot extends IterativeRobot {
 			_outputs.setGearMotorSpeed(0);
 		}
 		
+*/		//Moves gear manipulator according to operator left joystick
+		if (_inputsOp.getLeftHorz() > .1) {
+			_outputs.setGearMotorSpeed(_inputsOp.getLeftHorz());
+		} 
+		else if (_inputsOp.getLeftHorz() < -.1) {
+			_outputs.setGearMotorSpeed(_inputsOp.getLeftHorz());
+		}
+		else {
+			_outputs.setGearMotorSpeed(0);
+		}
+			
 		//Turns on climb roller
 		if (_inputsOp.getYButton()) {
 			_outputs.climb(1);
