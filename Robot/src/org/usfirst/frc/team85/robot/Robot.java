@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot {
     private boolean forward = true;
     
     NetworkTable table;
-    
+	
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -48,6 +48,9 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putString("autoFileString", "");
 		_driverAssistCameras = new DriverAssistCameras();
+		
+		_outputs.releaseRightFlap();
+		_outputs.releaseLeftFlap();
 	}
 
 	/**
@@ -64,6 +67,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		_auto.initAuto(SmartDashboard.getString("autoFileString", ""));
+		
+		_outputs.releaseRightFlap();
+		_outputs.releaseLeftFlap();
 	}
 
 	/**
@@ -122,4 +128,3 @@ public class Robot extends IterativeRobot {
 		
 	}
 }
-

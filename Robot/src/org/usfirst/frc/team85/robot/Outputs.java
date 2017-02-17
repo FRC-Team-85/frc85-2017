@@ -1,11 +1,13 @@
 package org.usfirst.frc.team85.robot;
 
 import com.ctre.CANTalon;
+
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Servo;
 
 public class Outputs {
 
@@ -20,22 +22,25 @@ public class Outputs {
 	}
 
 	private Vision _vision = new Vision();
-
+	
 	private CANTalon _frontLeftMotor = new CANTalon(Addresses.LEFT_FRONT_MOTOR);
 	private CANTalon _backLeftMotor = new CANTalon(Addresses.LEFT_BACK_MOTOR);
-
+	
 	private CANTalon _frontRightMotor = new CANTalon(Addresses.RIGHT_FRONT_MOTOR);
 	private CANTalon _backRightMotor = new CANTalon(Addresses.RIGHT_BACK_MOTOR);
-
+	
 	private CANTalon _gearMotor = new CANTalon(Addresses.GEAR_MOTOR);
-
+	
 	private CANTalon _climbMotor = new CANTalon(Addresses.CLIMB_MOTOR);
-
-	private DigitalInput leftGearLimit = new DigitalInput(Addresses.GEAR_LEFT_LIMIT);
-	private DigitalInput rightGearLimit= new DigitalInput(Addresses.GEAR_RIGHT_LIMIT);
-
+	
+	private Servo _leftServo = new Servo(Addresses.LEFT_SERVO);
+	private Servo _rightServo = new Servo(Addresses.RIGHT_SERVO);
+	
+	DigitalInput leftGearLimit;
+	DigitalInput rightGearLimit;
+	
 	private double _speedScale = 900;
-
+	
 	private Outputs() {
 
 		_frontLeftMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
@@ -119,23 +124,37 @@ public class Outputs {
 		setLeftSpeed(-power);
 		setRightSpeed(power);
 	}
-	/*
-	 * public void encoderStraightDrive() {
-	 * 
-	 * int currentDifference = 0;
-	 * 
-	 * drive(leftSpeed,rightSpeed);
-	 * 
-	 * int leftEncoder = _inputs.getLeftFrontDriveEncoder(); int rightEncoder =
-	 * _inputs.getRightFrontDriveEncoder();
-	 * 
-	 * currentDifference = leftEncoder - rightEncoder;
-	 * 
-	 * if (currentDifference > 0) { //positive = left is ahead by 1 leftSpeed =
-	 * leftSpeed - .05; } else if (currentDifference < 0) { //negative = right
-	 * is ahead by 1 rightSpeed = rightSpeed - .05; } else { //auto friendly
-	 * values, set these to left joystick for teleop leftSpeed = 0.8; rightSpeed
-	 * = 0.8; } }
-	 */
 
+/*
+	public void encoderStraightDrive() {
+	
+	int currentDifference = 0;
+	
+		drive(leftSpeed,rightSpeed);
+	
+		int leftEncoder = _inputs.getLeftFrontDriveEncoder();
+		int rightEncoder = _inputs.getRightFrontDriveEncoder();
+	
+		currentDifference = leftEncoder - rightEncoder;
+	
+		if (currentDifference > 0) { //positive = left is ahead by 1
+			leftSpeed = leftSpeed - .05;
+		}
+		else if (currentDifference < 0) { //negative = right is ahead by 1
+			rightSpeed = rightSpeed - .05;
+		}
+		else { //auto friendly values, set these to left joystick for teleop
+			leftSpeed = 0.8;
+			rightSpeed = 0.8;
+		}
+	}
+*/
+	public void releaseLeftFlap() {
+		_leftServo.set(1); //change if wrong, fully right
+	}
+	
+	public void releaseRightFlap() {
+		_rightServo.set(0); //change if wrong, fully left
+	}
+	
 }
