@@ -2,12 +2,12 @@ package org.usfirst.frc.team85.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class FPSDrive {
+public class Drive {
 	
     private InputsDrive _inputsDrive = InputsDrive.getInstance();
     private Outputs _outputs = Outputs.getInstance();
     
-	public void drive(boolean forward, double limitedSpeed) {
+	public void FPSdrive(boolean forward, double limitedSpeed) {
 		double turnScale = SmartDashboard.getNumber("turnScale", .5);
 		double leftSpeed = 0;
 		double rightSpeed = 0;

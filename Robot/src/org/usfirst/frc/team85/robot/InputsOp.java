@@ -14,7 +14,7 @@ public class InputsOp {
 	}
 	
 	private InputsOp() {
-		opStick = new Joystick(0);
+		opStick = new Joystick(1);
 	}
 	
 	public Joystick opStick = new Joystick(1);

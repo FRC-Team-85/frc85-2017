@@ -11,20 +11,15 @@ public class Addresses {
 		
 		public static final int CLIMB_MOTOR = 20;
 		
-		public static final int GEAR_MOTOR = 21; //random number
-
-	//Encoders
-		//Drive-train encoders
-		public static final int LEFT_ENCODER_CH_A = 101;
-		public static final int LEFT_ENCODER_CH_B = 102;
+		public static final int GEAR_MOTOR = 21;
 		
-		public static final int RIGHT_ENCODER_CH_A = 201;
-		public static final int RIGHT_ENCODER_CH_B = 202;
-		//Gear manipulation
-		public static final int GEAR_MOTOR_ENCODER_CH_A = 301;
-		public static final int GEAR_MOTOR_ENCODER_CH_B = 302;
+	//Shooter
+		public static final int SHOOTER_MOTOR = 42;
+
+		public static final int GEAR_LEFT_LIMIT = 0;
+		public static final int GEAR_RIGHT_LIMIT = 1;
+		public static final int GEAR_PRESENT = 2;
 		
 		public static final int FORWARD_CAMERA = 0;
 		public static final int REVERSE_CAMERA = 1;
-	
 }

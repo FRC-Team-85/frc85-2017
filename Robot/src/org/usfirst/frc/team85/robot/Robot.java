@@ -18,7 +18,8 @@ public class Robot extends IterativeRobot {
     private InputsOp _inputsOp = InputsOp.getInstance();
     private Inputs _inputs = new Inputs();
     private Outputs _outputs = Outputs.getInstance();
-    private FPSDrive _fpsDrive = new FPSDrive();
+    private Shooter _shooter = Shooter.getInstance();
+    private Drive _drive = new Drive();
     private DriverAssistCameras _driverAssistCameras;
     private Auto _auto = new Auto();
     
@@ -91,10 +92,13 @@ public class Robot extends IterativeRobot {
 		
 		//Moves gear manipulator
 		if (_inputsDrive.getLeftBumper()) {
-			_outputs.setGearMotorSpeed(-.25);
+			_outputs.setGearMotorSpeed(-1);
 		}
 		else if (_inputsDrive.getRightBumper()) {
-			_outputs.setGearMotorSpeed(.25);
+			_outputs.setGearMotorSpeed(1);
+		}
+		else {
+			_outputs.setGearMotorSpeed(0);
 		}
 		
 		//Turns on climb roller
@@ -105,9 +109,9 @@ public class Robot extends IterativeRobot {
 			_outputs.climb(0);
 		}
 
-		_fpsDrive.drive(forward, 0.69);
-		
-
+		_drive.FPSdrive(forward, 0.69);
+		_shooter.setShooter(100);
+	
 	}
 
 	/**
