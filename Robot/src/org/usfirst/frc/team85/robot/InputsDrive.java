@@ -29,43 +29,49 @@ public class InputsDrive {
 			}
 			
 			public double getRightVert() {
-				return driveStick.getRawAxis(3);
+				return driveStick.getRawAxis(5);
+				//return driveStick.getRawAxis(3); //logitech
 			}
 			
 			public double getRightHorz() {
-				return driveStick.getRawAxis(2);
+				return driveStick.getRawAxis(4);
+				//return driveStick.getRawAxis(2); //logitech
 			}
 		
 		//Bumpers
 			public boolean getLeftBumper() {
-				return driveStick.getRawButton(5);
+				return driveStick.getRawButton(4);
+				//return driveStick.getRawButton(5); //logitech
 			}
 			
 			public boolean getRightBumper() {
-				return driveStick.getRawButton(6);
+				return driveStick.getRawButton(5);
+				//return driveStick.getRawButton(6); //logitech
 			}
 		
 		//Triggers
-				//self.isTriggered = true;
-			public boolean getLeftTrigger() {
-				return driveStick.getRawButton(7);
+			/*public boolean getLeftTrigger() {
+				return driveStick.getRawButton(7);  //logitech
 			}
 			
 			public boolean getRightTrigger() {
-				return driveStick.getRawButton(8);
-			}
+				return driveStick.getRawButton(8);  //logitech
+			}*/
 		
 		//Buttons
 			public boolean getAButton() {
-				return driveStick.getRawButton(2);
+				return driveStick.getRawButton(1);
+				//return driveStick.getRawButton(2); //logitech
 			}
 			
 			public boolean getBButton() {
-				return driveStick.getRawButton(3);
+				return driveStick.getRawButton(2);
+				//return driveStick.getRawButton(3); //logitech
 			}
 			
 			public boolean getXButton() {
-				return driveStick.getRawButton(1);
+				return driveStick.getRawButton(3);
+				//return driveStick.getRawButton(1); //logitech
 			}
 			
 			public boolean getYButton() {

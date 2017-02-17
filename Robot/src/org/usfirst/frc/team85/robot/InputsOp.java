@@ -17,59 +17,78 @@ public class InputsOp {
 		opStick = new Joystick(1);
 	}
 	
-	public Joystick opStick = new Joystick(1);
+	private Joystick opStick;
 	
 		//Thumbsticks
 			public double getLeftVert() {
-				return -1 * opStick.getRawAxis(1);
+				return opStick.getRawAxis(1);
 			}
-	
+			
 			public double getLeftHorz() {
-				return -1 * opStick.getRawAxis(0);
+				return opStick.getRawAxis(0);
 			}
-	
+			
 			public double getRightVert() {
-				return opStick.getRawAxis(3);
+				//return opStick.getRawAxis(5);
+				return opStick.getRawAxis(3); //logitech
 			}
-	
+			
 			public double getRightHorz() {
-				return -1 * opStick.getRawAxis(2);
+				//return opStick.getRawAxis(4);
+				return opStick.getRawAxis(2); //logitech
 			}
 		
 		//Bumpers
 			public boolean getLeftBumper() {
-				return opStick.getRawButton(5);
+				//return opStick.getRawButton(4);
+				return opStick.getRawButton(5); //logitech
 			}
 			
 			public boolean getRightBumper() {
-				return opStick.getRawButton(6);
+				//return opStick.getRawButton(5);
+				return opStick.getRawButton(6); //logitech
 			}
 		
 		//Triggers
-				//self.isTriggered = true;
-			public boolean getLeftTrigger() {
-				return opStick.getRawButton(7);
+			/*public boolean getLeftTrigger() {
+				return opStick.getRawButton(7);  //logitech
 			}
 			
 			public boolean getRightTrigger() {
-				return opStick.getRawButton(8);
-			}
+				return opStick.getRawButton(8);  //logitech
+			}*/
 		
 		//Buttons
 			public boolean getAButton() {
-				return opStick.getRawButton(2);
+				//return opStick.getRawButton(1);
+				return opStick.getRawButton(2); //logitech
 			}
 			
 			public boolean getBButton() {
-				return opStick.getRawButton(3);
+				//return opStick.getRawButton(2);
+				return opStick.getRawButton(3); //logitech
 			}
 			
 			public boolean getXButton() {
-				return opStick.getRawButton(1);
+				//return opStick.getRawButton(3);
+				return opStick.getRawButton(1); //logitech
 			}
 			
 			public boolean getYButton() {
 				return opStick.getRawButton(4);
+			}
+			
+		//Dpad
+			public double getVertDpad() {
+				int pov = opStick.getPOV(); // not pressed is -1, forward is 0, backward is 180
+				if (pov == 0) {
+					return -1;
+				}
+				else if (pov == 180) {
+					return 1;
+				}
+				
+				return 0;  
 			}
 			
 }
