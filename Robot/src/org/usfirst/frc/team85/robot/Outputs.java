@@ -6,8 +6,8 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Outputs {
 
@@ -36,8 +36,8 @@ public class Outputs {
 	private Servo _leftServo = new Servo(Addresses.LEFT_SERVO);
 	private Servo _rightServo = new Servo(Addresses.RIGHT_SERVO);
 	
-	DigitalInput leftGearLimit;
-	DigitalInput rightGearLimit;
+	DigitalInput leftGearLimit = new DigitalInput(Addresses.GEAR_LEFT_LIMIT);
+	DigitalInput rightGearLimit = new DigitalInput(Addresses.GEAR_RIGHT_LIMIT);
 	
 	private double _speedScale = 900;
 	
@@ -88,16 +88,16 @@ public class Outputs {
 	}
 
 	public void setGearMotorSpeed(double speed) {
-		/*SmartDashboard.putBoolean("Gear Manip Left Limit", leftGearLimit.get());
+		SmartDashboard.putBoolean("Gear Manip Left Limit", leftGearLimit.get());
 		SmartDashboard.putBoolean("Gear Manip Right Limit", rightGearLimit.get());
 		if (leftGearLimit.get() && speed < 0) {
 			speed = 0;
-		} else if (rightGearLimit.get() && speed > 0) {
+		}
+		else if (rightGearLimit.get() && speed > 0) {
 			speed = 0;
 		}
 
-		SmartDashboard.putNumber("Gear Manip Speed", speed);
-		_gearMotor.set(speed);*/
+		_gearMotor.set(speed);
 	}
 
 	/*public void setGearEncoder(double value) {

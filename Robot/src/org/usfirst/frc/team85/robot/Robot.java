@@ -16,7 +16,6 @@ public class Robot extends IterativeRobot {
 	
     private InputsDrive _inputsDrive = InputsDrive.getInstance();
     private InputsOp _inputsOp = InputsOp.getInstance();
-    private Inputs _inputs = new Inputs();
     private Outputs _outputs = Outputs.getInstance();
     private Shooter _shooter = Shooter.getInstance();
     private Drive _drive = new Drive();
