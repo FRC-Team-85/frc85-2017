@@ -65,10 +65,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		_auto.initAuto(SmartDashboard.getString("autoFileString", ""));
-		
 		_outputs.releaseRightFlap();
 		_outputs.releaseLeftFlap();
+		_auto.initAuto(SmartDashboard.getString("autoFileString", ""));
+		
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		
+		_auto.run();
 	}
 
 	/**

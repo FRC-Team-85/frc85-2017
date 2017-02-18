@@ -86,6 +86,14 @@ public class Outputs {
 		_frontRightMotor.set(targetSpeed * _speedScale);
 		return _frontRightMotor.getSpeed();
 	}
+	
+	public int getLeftEncoder() {
+		return _frontLeftMotor.getEncPosition();
+	}
+	
+	public int getRightEncoder() {
+		return _frontRightMotor.getEncPosition();
+	}
 
 	public void setGearMotorSpeed(double speed) {
 		SmartDashboard.putBoolean("Gear Manip Left Limit", leftGearLimit.get());

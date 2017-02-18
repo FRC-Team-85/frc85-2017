@@ -13,8 +13,7 @@ documentation:
 	"move" parameters:
 		1. left speed
 		2. right speed
-		3. left encoder values
-		4. right encoder values
+		3. encoder units
 		
 	"findBoiler" parameters:
 		
@@ -39,27 +38,24 @@ values are just random right now
 #do nothing#
 	:<nothing>;
 	
-#just move#
-	:<move>
-	: move, 0.75, 0.75, 20000, 20000;
+#place gear station 1 (left)#
+	:<gear1>
+	: move, 0.9, 0.9, 20000
+	: move, 0.9, -0.9, 20000
+	: move, 0.9, 0.9, 20000
+	: findGear, 3
+	: gear;
 	
-#move and shoot#
-	:<moveshoot>
-	: move, 0.5, 1, 20000, 20000 
-	: move, 1, 1, 20000, 20000
-	: findBoiler, 4
-	: shoot;
-
-#move and place gear#
-	:<movegear>
-	: move, 1, 1, 20000, 20000
-	: move, 1, 0.5, 20000, 20000
+#place gear station 2 (middle)#
+	:<gear2>
+	: move, 0.9, 0.9, 20000
 	: findGear, 3
 	: gear;
 
-#move and place gear 2#
-use	:<movegear2>
-	: move, 1, 1, 20000, 20000
-	: move, 0.5, 1, 20000, 20000
+#place gear station 3 (right)#
+use	:<gear3>
+	: move, 0.9, 0.9, 20000
+	: move, -0.9, 0.9, 20000
+	: move, 0.9, 0.9, 20000
 	: findGear, 3
-	: gear;
+	: gear

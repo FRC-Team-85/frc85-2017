@@ -6,8 +6,10 @@ import java.util.Arrays;
 public class Auto {
 	
 	private Outputs _outputs = Outputs.getInstance();
+	
 	//selected autonomous sequence as 2d array, entries are commands, array entries are command pieces separated by ","
 	private ArrayList<String[]> autoSequence = new ArrayList<String[]>();
+	private int i = 1;
 	
 	public void initAuto(String fileString) {
 		//argument fileString is the file
@@ -41,38 +43,47 @@ public class Auto {
 
 		
 		//split sequences into individual commands by ":"
-		for (int i = 0; i < sequences.size(); i++) { 
-			commands.add(sequences.get(i).split(":"));
+		for (int j = 0; j < sequences.size(); j++) { 
+			commands.add(sequences.get(j).split(":"));
 		}
 		
-		for (int i = 0; i < commands.size(); i++) {
+		for (int k = 0; k < commands.size(); k++) {
 			//detects which sequence says "use"
-			if (commands.get(i)[1].equals("use")) {
+			if (commands.get(k)[1].equals("use")) {
 				//split by "," and put in autonSequence
-				for (int j = 0; j < commands.get(i).length; j++) {
-					autoSequence.add(commands.get(i)[j].split(","));
+				for (int j = 0; j < commands.get(k).length; j++) {
+					autoSequence.add(commands.get(k)[j].split(","));
 				}
 				
 				break;
 			}
 		}
+	}	
 		
+	public void run() {
 		//loops over commands in the sequence and executes them
 		//count starts at 1 because 1st command indicates sequence to use
-		for (int i = 1; i < autoSequence.size(); i++) {
+		if (i < autoSequence.size()) {
+		
 			//switch is the first parameter of the command
 			switch (autoSequence.get(i)[0]) {
 				case "move":
 					//System.out.println("move robot");
-					/*
-					_inputs.driveEncodersReset();
-					while (_inputs.getLeftFrontEncoder < autoSequence.get(i)[4]
-						&& _inputs.getRightFrontEncoder < autoSequence.get(i)[5]) {
 					
-					_outputs.setLeftSpeed(Integer.parseInt(autoSequence.get(i)[2]));
-					_outputs.setRightSpeed(Integer.parseInt(autoSequence.get(i)[3]));
+					//_inputs.driveEncodersReset();
+					
+					_outputs.drive(
+							Double.parseDouble(autoSequence.get(i)[2]),
+							Double.parseDouble(autoSequence.get(i)[3])
+							);
+					
+					if (_outputs.getLeftEncoder() > Integer.parseInt(autoSequence.get(i)[4])
+						&& _outputs.getRightEncoder() > Integer.parseInt(autoSequence.get(i)[4])) {
+						i++;
+						_outputs.drive(0, 0);
 					}
-					*/
+					
+					
 					break;
 				
 				case "findBoiler":
