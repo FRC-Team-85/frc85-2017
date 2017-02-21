@@ -33,6 +33,10 @@ public class Outputs {
 	
 	private CANTalon _climbMotor = new CANTalon(Addresses.CLIMB_MOTOR);
 	
+    private CANTalon _stage = new CANTalon(Addresses.STAGE_MOTOR);
+    private CANTalon _intake = new CANTalon(Addresses.INTAKE_MOTOR);
+    private CANTalon _shooter = new CANTalon(Addresses.SHOOTER_MOTOR);
+	
 	private Servo _leftServo = new Servo(Addresses.LEFT_SERVO);
 	private Servo _rightServo = new Servo(Addresses.RIGHT_SERVO);
 	
@@ -45,6 +49,12 @@ public class Outputs {
 
 		_frontLeftMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		_frontRightMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+		
+	    //_shooter.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+		//_shooter.changeControlMode(TalonControlMode.Speed);
+		
+		//_shooter.configNominalOutputVoltage(+0.0f, -0.0f);
+		//_shooter.configPeakOutputVoltage(+12.0f, -12.0f);
 
 		_frontLeftMotor.changeControlMode(TalonControlMode.Speed);
 		_frontRightMotor.changeControlMode(TalonControlMode.Speed);
@@ -140,6 +150,19 @@ public class Outputs {
 		setLeftSpeed(-power);
 		setRightSpeed(power);
 	}
+	
+    public void setStage(double speed) {
+    	_stage.set(speed);
+    }
+    
+    public void setIntake(double speed) {
+    	_intake.set(speed);
+    }
+    
+    public void setShooter(double speed) {
+    	_shooter.set(speed);
+    	//_shooter.set(speed);
+    }
 
 /*
 	public void encoderStraightDrive() {

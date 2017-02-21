@@ -15,6 +15,8 @@ public class Addresses {
 		
 	//Shooter
 		public static final int SHOOTER_MOTOR = 42;
+		public static final int STAGE_MOTOR = 43;
+		public static final int INTAKE_MOTOR = 44;
 
 		public static final int GEAR_LEFT_LIMIT = 0;
 		public static final int GEAR_RIGHT_LIMIT = 1;

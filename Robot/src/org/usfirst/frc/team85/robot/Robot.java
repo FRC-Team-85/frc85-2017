@@ -98,19 +98,7 @@ public class Robot extends IterativeRobot {
 			_driverAssistCameras.setReverse();
 			forward = false;
 		}
-		
-		//Moves gear manipulator according to drive bumpers
-/*		if (_inputsDrive.getLeftBumper()) {
-			_outputs.setGearMotorSpeed(-1);
-		}
-		else if (_inputsDrive.getRightBumper()) {
-			_outputs.setGearMotorSpeed(1);
-		}
-		else {
-			_outputs.setGearMotorSpeed(0);
-		}
-		
-*/		//Moves gear manipulator according to operator left joystick
+		//Moves gear manipulator according to operator left joystick
 		if (_inputsOp.getLeftHorz() > .1) {
 			_outputs.setGearMotorSpeed(_inputsOp.getLeftHorz());
 		} 
@@ -128,9 +116,32 @@ public class Robot extends IterativeRobot {
 		else {
 			_outputs.climb(0);
 		}
+		
+		//Intake
+		if(_inputsOp.getAButton()) {
+			_outputs.setIntake(1);
+		}
+		else {
+			_outputs.setIntake(0);
+		}
+		
+		//Stage
+		if(_inputsOp.getBButton()) {
+			_outputs.setStage(1);
+		}
+		else {
+			_outputs.setStage(0);
+		}
+		
+		//Shooter
+		if(_inputsOp.getRightBumper()) {
+			_outputs.setShooter(-1);
+		}
+		else {
+			_outputs.setShooter(0);
+		}
 
 		_drive.FPSdrive(forward, 0.69);
-		_shooter.setShooter(100);
 	
 	}
 

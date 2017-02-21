@@ -33,6 +33,6 @@ public class Shooter {
     }
     
     public void setShooter(double targetSpeed) {
-		_shooter.set(_speed);
+		_shooter.set(targetSpeed);
     }
 }
