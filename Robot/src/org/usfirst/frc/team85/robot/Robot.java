@@ -98,12 +98,13 @@ public class Robot extends IterativeRobot {
 			_driverAssistCameras.setReverse();
 			forward = false;
 		}
+		
 		//Moves gear manipulator according to operator left joystick
 		if (_inputsOp.getLeftHorz() > .1) {
-			_outputs.setGearMotorSpeed(_inputsOp.getLeftHorz());
+			_outputs.setGearMotorSpeed(_inputsOp.getRightHorz());
 		} 
 		else if (_inputsOp.getLeftHorz() < -.1) {
-			_outputs.setGearMotorSpeed(_inputsOp.getLeftHorz());
+			_outputs.setGearMotorSpeed(_inputsOp.getRightHorz());
 		}
 		else {
 			_outputs.setGearMotorSpeed(0);
