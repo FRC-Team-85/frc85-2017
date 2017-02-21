@@ -103,11 +103,11 @@ public class Robot extends IterativeRobot {
 			forward = false;
 		}
 		
-		//Moves gear manipulator according to operator left joystick
-		if (_inputsOp.getLeftHorz() > .1) {
+		//Moves gear manipulator according to operator right joystick
+		if (_inputsOp.getRightHorz() > .1) {
 			_outputs.setGearMotorSpeed(_inputsOp.getRightHorz());
 		} 
-		else if (_inputsOp.getLeftHorz() < -.1) {
+		else if (_inputsOp.getRightHorz() < -.1) {
 			_outputs.setGearMotorSpeed(_inputsOp.getRightHorz());
 		}
 		else {
