@@ -94,6 +94,14 @@ public class Outputs {
 	public int getRightEncoder() {
 		return _frontRightMotor.getEncPosition();
 	}
+	
+	public void resetDriveEncoders() {
+		_frontLeftMotor.setEncPosition(0);
+		_frontRightMotor.setEncPosition(0); 
+
+		System.out.println("Left encoder is " + getLeftEncoder());
+		System.out.println("Right encoder is " + getRightEncoder());
+	}
 
 	public void setGearMotorSpeed(double speed) {
 		SmartDashboard.putBoolean("Gear Manip Left Limit", leftGearLimit.get());

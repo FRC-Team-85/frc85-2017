@@ -45,7 +45,7 @@ public class Robot extends IterativeRobot {
 		
 		_inputs.driveEncodersReset(); */
 		
-		SmartDashboard.putString("autoFileString", "");
+		SmartDashboard.putString("autoFileString", "use:<name>:move, 0.5, 0.5, 20000, 20000");
 		_driverAssistCameras = new DriverAssistCameras();
 		
 		_outputs.releaseRightFlap();
@@ -67,8 +67,9 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		_outputs.releaseRightFlap();
 		_outputs.releaseLeftFlap();
-		_auto.initAuto(SmartDashboard.getString("autoFileString", ""));
-		
+		_auto.resetI();
+		_outputs.resetDriveEncoders();
+		_auto.initAuto(SmartDashboard.getString("autoFileString", "use:<name>:move, 0.5, 0.5, 20000, 20000"));
 	}
 
 	/**
@@ -76,7 +77,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		//_auto.initAuto(SmartDashboard.getString("autoFileString", "use:<name>:move, 0.5, 0.5, 20000, 20000"));
 		_auto.run();
+		System.out.println("RIGHT" + _outputs.getRightEncoder());
+		System.out.println("LEFT" + _outputs.getLeftEncoder());
 	}
 
 	/**

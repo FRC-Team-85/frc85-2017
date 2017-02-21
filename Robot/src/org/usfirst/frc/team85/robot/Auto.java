@@ -9,9 +9,15 @@ public class Auto {
 	
 	//selected autonomous sequence as 2d array, entries are commands, array entries are command pieces separated by ","
 	private ArrayList<String[]> autoSequence = new ArrayList<String[]>();
-	private int i = 1;
+	private int i = 0;
+	
+	public void resetI() {
+		i = 0;
+	}
+	
 	
 	public void initAuto(String fileString) {
+		autoSequence.clear();
 		//argument fileString is the file
 		//will be file without whitespace and comments
 		String string = "";
@@ -38,51 +44,64 @@ public class Auto {
 		
 		//whole file split into sequences by ";"
 		ArrayList<String> sequences = new ArrayList<String>(Arrays.asList(string.split(";")));
+		System.out.println("sequences size: " + sequences.size());
 		//whole file as 2d array, entries are CommandStrings entries split apart by ":" into arrays
 		ArrayList<String[]> commands = new ArrayList<String[]>();
+		System.out.println("commands.size: " + commands.size());
 
-		
-		//split sequences into individual commands by ":"
-		for (int j = 0; j < sequences.size(); j++) { 
-			commands.add(sequences.get(j).split(":"));
-		}
-		
-		for (int k = 0; k < commands.size(); k++) {
-			//detects which sequence says "use"
-			if (commands.get(k)[1].equals("use")) {
-				//split by "," and put in autonSequence
-				for (int j = 0; j < commands.get(k).length; j++) {
-					autoSequence.add(commands.get(k)[j].split(","));
-				}
-				
-				break;
+		try
+		{
+			//split sequences into individual commands by ":"
+			for (int j = 0; j < sequences.size(); j++) { 
+				commands.add(sequences.get(j).split(":"));
 			}
+			
+			System.out.println("Amount of commands: " + commands.size());
+		
+			for (int k = 0; k < commands.size(); k++) {
+				//detects which sequence says "use"
+				String[] command = commands.get(k);
+				if (command[0].equals("use")) {
+					System.out.println("Found 'use' in command.");
+					//split by "," and put in autonSequence
+					for (int j = 2; j < command.length; j++) {
+						autoSequence.add(command[j].split(","));
+					}
+				
+					break;
+				}
+			}
+			
+			//System.out.println("Amount of );
+		}
+		catch (Exception ex)
+		{
+			System.out.println(ex.toString());
 		}
 	}	
 		
 	public void run() {
 		//loops over commands in the sequence and executes them
 		//count starts at 1 because 1st command indicates sequence to use
+		System.out.println("autoSequence size:" + autoSequence.size());
 		if (i < autoSequence.size()) {
-		
+			System.out.println("Loop reached");
 			//switch is the first parameter of the command
 			switch (autoSequence.get(i)[0]) {
 				case "move":
-					//System.out.println("move robot");
-					
-					//_inputs.driveEncodersReset();
-					
+					System.out.println("move robot");
 					_outputs.drive(
-							Double.parseDouble(autoSequence.get(i)[2]),
-							Double.parseDouble(autoSequence.get(i)[3])
+							Double.parseDouble(autoSequence.get(i)[1]),
+							Double.parseDouble(autoSequence.get(i)[2])
 							);
 					
-					if (_outputs.getLeftEncoder() > Integer.parseInt(autoSequence.get(i)[4])
-						&& _outputs.getRightEncoder() > Integer.parseInt(autoSequence.get(i)[4])) {
+					if (Math.abs(_outputs.getLeftEncoder()) >= Integer.parseInt(autoSequence.get(i)[3])
+						|| Math.abs(_outputs.getRightEncoder()) >= Integer.parseInt(autoSequence.get(i)[4])) {
 						i++;
 						_outputs.drive(0, 0);
+						_outputs.resetDriveEncoders();
 					}
-					
+					else {}
 					
 					break;
 				
