@@ -3,6 +3,8 @@ package org.usfirst.frc.team85.robot;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 public class Auto {
 	
 	private Outputs _outputs = Outputs.getInstance();
@@ -10,6 +12,8 @@ public class Auto {
 	//selected autonomous sequence as 2d array, entries are commands, array entries are command pieces separated by ","
 	private ArrayList<String[]> autoSequence = new ArrayList<String[]>();
 	private int i = 0;
+	private double _waitTime = 0;
+	private double _waitStart = 0;
 	
 	public void resetI() {
 		i = 0;
@@ -101,7 +105,21 @@ public class Auto {
 						_outputs.drive(0, 0);
 						_outputs.resetDriveEncoders();
 					}
-					else {}
+					
+					break;
+					
+				case "wait":
+					if (_waitTime == 0)
+					{
+						_waitTime = Double.parseDouble(autoSequence.get(i)[1]);
+						_waitStart = DriverStation.getInstance().getMatchTime();
+					}
+					
+					if (DriverStation.getInstance().getMatchTime() - _waitStart >= _waitTime)
+					{
+						i++;
+						_waitTime = 0;
+					}
 					
 					break;
 				
