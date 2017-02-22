@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 
 public class Auto {
 	
@@ -14,6 +15,7 @@ public class Auto {
 	private int i = 0;
 	private double _waitTime = 0;
 	private double _waitStart = 0;
+	private Timer _waitTimer = new Timer();
 	
 	public void resetI() {
 		i = 0;
@@ -21,6 +23,9 @@ public class Auto {
 	
 	
 	public void initAuto(String fileString) {
+		_waitTime = 0;
+		_waitStart = 0;
+		_waitTimer.reset();
 		autoSequence.clear();
 		//argument fileString is the file
 		//will be file without whitespace and comments
@@ -77,6 +82,9 @@ public class Auto {
 			}
 			
 			//System.out.println("Amount of );
+			_outputs.resetDriveEncoders();
+			
+			_waitTimer.start();
 		}
 		catch (Exception ex)
 		{
@@ -87,9 +95,9 @@ public class Auto {
 	public void run() {
 		//loops over commands in the sequence and executes them
 		//count starts at 1 because 1st command indicates sequence to use
-		System.out.println("autoSequence size:" + autoSequence.size());
+		//System.out.println("autoSequence size:" + autoSequence.size());
 		if (i < autoSequence.size()) {
-			System.out.println("Loop reached");
+			//System.out.println("Loop reached");
 			//switch is the first parameter of the command
 			switch (autoSequence.get(i)[0]) {
 				case "move":
@@ -109,14 +117,17 @@ public class Auto {
 					break;
 					
 				case "wait":
+					double currentTime = _waitTimer.get();
+					
 					if (_waitTime == 0)
 					{
 						_waitTime = Double.parseDouble(autoSequence.get(i)[1]);
-						_waitStart = DriverStation.getInstance().getMatchTime();
+						_waitStart = currentTime;
+						System.out.printf("Wait for '%f' seconds starting at second '%f'.\n", _waitTime, _waitStart);
 					}
-					
-					if (DriverStation.getInstance().getMatchTime() - _waitStart >= _waitTime)
+					else if (currentTime - _waitStart >= _waitTime)
 					{
+						System.out.printf("Ending wait at '%f' seconds.\n", currentTime);
 						i++;
 						_waitTime = 0;
 					}
