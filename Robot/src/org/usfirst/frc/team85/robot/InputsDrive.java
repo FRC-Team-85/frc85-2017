@@ -40,11 +40,11 @@ public class InputsDrive {
 		
 		//Bumpers
 			public boolean getLeftBumper() {
-				return driveStick.getRawButton(4);
+				return driveStick.getRawButton(5);
 			}
 			
 			public boolean getRightBumper() {
-				return driveStick.getRawButton(5);
+				return driveStick.getRawButton(6);
 			}
 		
 		//Triggers

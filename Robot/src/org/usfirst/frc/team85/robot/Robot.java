@@ -54,6 +54,7 @@ public class Robot extends IterativeRobot {
 		
 		_outputs.releaseRightFlap();
 		_outputs.releaseLeftFlap();
+		SmartDashboard.putNumber("decreasedSpeed", 2);
 	}
 
 	/**
@@ -69,8 +70,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		_outputs.releaseRightFlap();
-		_outputs.releaseLeftFlap();
 		_auto.resetI();
 		_outputs.resetDriveEncoders();
 		_auto.initAuto(SmartDashboard.getString("autoFileString", ""));
@@ -146,7 +145,14 @@ public class Robot extends IterativeRobot {
 			_outputs.setShooter(0);
 		}
 
-		_drive.FPSdrive(forward, 0.69);
+		if(_inputsDrive.getRightBumper()) {
+			_drive.FPSdrive(forward, 0.69, true);
+			SmartDashboard.putNumber("buttonPressed", 1);
+		}
+		else {
+			_drive.FPSdrive(forward, 0.69, false);
+			SmartDashboard.putNumber("buttonPressed", 0);
+		}  
 	
 	}
 

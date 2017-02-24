@@ -7,14 +7,23 @@ public class Drive {
     private InputsDrive _inputsDrive = InputsDrive.getInstance();
     private Outputs _outputs = Outputs.getInstance();
     
-	public void FPSdrive(boolean forward, double limitedSpeed) {
+    boolean halfSpeed = false;
+    
+	public void FPSdrive(boolean forward, double limitedSpeed, boolean halfSpeed) {
 		double turnScale = SmartDashboard.getNumber("turnScale", .5);
 		double leftSpeed = 0;
 		double rightSpeed = 0;
 		
+		double decreasedSpeed = SmartDashboard.getNumber("decreasedSpeed", 2);	
+		
 		if(Math.abs(_inputsDrive.getLeftVert()) >= 0.2 ) { //logitech deadband: 0.02, xbox deadband: 0.2
 			leftSpeed = _inputsDrive.getLeftVert();
 			rightSpeed = _inputsDrive.getLeftVert();
+			
+			if(halfSpeed) {
+				leftSpeed = leftSpeed / decreasedSpeed;
+				rightSpeed = rightSpeed / decreasedSpeed;
+			}
 		}
 		else if(_inputsDrive.getVertDpad() == 1) {
 			leftSpeed = -limitedSpeed;
