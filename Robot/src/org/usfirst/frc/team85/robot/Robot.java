@@ -25,6 +25,8 @@ public class Robot extends IterativeRobot {
     private boolean encoderReset = false;
     private boolean forward = true;
     
+    private boolean prankCode = false;
+    
     NetworkTable table;
 	
 	
@@ -164,6 +166,20 @@ public class Robot extends IterativeRobot {
 		}
 		else {
 			_outputs.setOpOverride(false);
+		}
+		
+		if (_inputsOp.getStartButton()) {
+			
+			prankCode = !prankCode;
+			
+			if (prankCode) {
+				InputsOp _inputsDrive = InputsOp.getInstance();
+				InputsDrive _inputsOp = InputsDrive.getInstance();
+			}
+			else {
+				InputsDrive _inputsDrive = InputsDrive.getInstance();
+				InputsOp _inputsOp = InputsOp.getInstance();
+			}
 		}
 	
 	}

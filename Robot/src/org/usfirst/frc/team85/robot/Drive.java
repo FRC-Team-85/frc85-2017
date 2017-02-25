@@ -5,8 +5,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Drive {
 	
     private InputsDrive _inputsDrive = InputsDrive.getInstance();
+    private InputsOp _inputsOp = InputsOp.getInstance();
     private Outputs _outputs = Outputs.getInstance();
     
+    private boolean prankCode = false;
     boolean halfSpeed = false;
     
 	public void FPSdrive(boolean forward, double limitedSpeed, boolean halfSpeed) {
@@ -47,6 +49,20 @@ public class Drive {
 			SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(leftSpeed));	
 		}
 		
+	}
+	
+	if (_inputsOp.getStartButton()) {
+		
+		prankCode = !prankCode;
+		
+		if (prankCode) {
+			InputsOp _inputsDrive = InputsOp.getInstance();
+			InputsDrive _inputsOp = InputsDrive.getInstance();
+		}
+		else {
+			InputsDrive _inputsDrive = InputsDrive.getInstance();
+			InputsOp _inputsOp = InputsOp.getInstance();
+		}
 	}
 	
 }
