@@ -17,16 +17,17 @@ public class Auto {
 	private double _waitStart = 0;
 	private Timer _waitTimer = new Timer();
 	
-	public void resetI() {
+	public void resetAuto() {
+		_waitTime = 0;
+		_waitStart = 0;
 		i = 0;
+		_waitTimer.reset();
+		autoSequence.clear();
 	}
 	
 	
 	public void initAuto(String fileString) {
-		_waitTime = 0;
-		_waitStart = 0;
-		_waitTimer.reset();
-		autoSequence.clear();
+		resetAuto();
 		//argument fileString is the file
 		//will be file without whitespace and comments
 		String string = "";
@@ -107,8 +108,8 @@ public class Auto {
 							Double.parseDouble(autoSequence.get(i)[2])
 							);
 					
-					if (Math.abs(_outputs.getLeftEncoder()) >= Integer.parseInt(autoSequence.get(i)[3])
-						|| Math.abs(_outputs.getRightEncoder()) >= Integer.parseInt(autoSequence.get(i)[4])) {
+					if (Math.abs(_outputs.getLeftEncoder()) >= Double.parseDouble(autoSequence.get(i)[3])
+						|| Math.abs(_outputs.getRightEncoder()) >= Double.parseDouble(autoSequence.get(i)[4])) {
 						i++;
 						_outputs.drive(0, 0);
 						_outputs.resetDriveEncoders();

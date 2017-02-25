@@ -43,7 +43,7 @@ public class Robot extends IterativeRobot {
 		String auto = SmartDashboard.getString("autoFileString", "");
 		if (auto == null || auto.isEmpty())
 		{
-			SmartDashboard.putString("autoFileString", "use:<name>:move, 0.5, 0.5, 20, 20:wait,2:move,-0.8,-0.8, 10, 10");
+			SmartDashboard.putString("autoFileString", "");
 		}
 		
 		_driverAssistCameras = new DriverAssistCameras();
@@ -66,7 +66,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		_auto.resetI();
 		_outputs.resetDriveEncoders();
 		_auto.initAuto(SmartDashboard.getString("autoFileString", ""));
 	}
@@ -76,10 +75,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		//_auto.initAuto(SmartDashboard.getString("autoFileString", "use:<name>:move, 0.5, 0.5, 20000, 20000"));
 		_auto.run();
 		SmartDashboard.putNumber("DriveRightEncoder", _outputs.getRightEncoder());
 		SmartDashboard.putNumber("DriveLeftEncoder", _outputs.getLeftEncoder());
+	}
+	
+	@Override
+	public void disabledPeriodic() {
+		_auto.resetAuto();
 	}
 
 	/**
