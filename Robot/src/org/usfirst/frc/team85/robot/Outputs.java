@@ -137,10 +137,10 @@ public class Outputs {
 	public void setGearMotorSpeed(double speed) {
 		SmartDashboard.putBoolean("Gear Manip Left Limit", leftGearLimit.get());
 		SmartDashboard.putBoolean("Gear Manip Right Limit", rightGearLimit.get());
-		if (leftGearLimit.get() && speed < 0 || opOverride) {
+		if (leftGearLimit.get() && speed < 0 && !opOverride) {
 			speed = 0;
 		}
-		else if (rightGearLimit.get() && speed > 0 || opOverride) {
+		else if (rightGearLimit.get() && speed > 0 && !opOverride) {
 			speed = 0;
 		}
 

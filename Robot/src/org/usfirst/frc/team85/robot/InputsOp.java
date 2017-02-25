@@ -41,12 +41,12 @@ public class InputsOp {
 		//Bumpers
 			public boolean getLeftBumper() {
 				//return opStick.getRawButton(4);
-				return opStick.getRawButton(4); //logitech
+				return opStick.getRawButton(5); //logitech
 			}
 			
 			public boolean getRightBumper() {
 				//return opStick.getRawButton(5);
-				return opStick.getRawButton(5); //logitech
+				return opStick.getRawButton(6); //logitech
 			}
 		
 		//Triggers

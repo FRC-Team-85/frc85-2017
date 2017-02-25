@@ -141,6 +141,7 @@ public class Robot extends IterativeRobot {
 			_outputs.setShooter(0);
 		}
 
+		//Decreased Speed
 		if(_inputsDrive.getRightBumper()) {
 			_drive.FPSdrive(forward, 0.69, true);
 			SmartDashboard.putNumber("buttonPressed", 1);
@@ -151,7 +152,7 @@ public class Robot extends IterativeRobot {
 		} 
 		
 		//Drive override
-		if(_inputsDrive.getRightBumper()) {
+		if(_inputsDrive.getLeftBumper()) {
 			_outputs.setDriveOverride(true);
 		}
 		else {
@@ -159,7 +160,7 @@ public class Robot extends IterativeRobot {
 		}
 		
 		//Op override
-		if(_inputsOp.getRightBumper()) {
+		if(_inputsOp.getLeftBumper()) {
 			_outputs.setOpOverride(true);
 		}
 		else {
