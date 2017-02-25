@@ -34,16 +34,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		//NetworkTable.setClientMode();
-		//NetworkTable.setIPAddress("roborio-85-frc.local");
-		//table = NetworkTable.getTable("SmartDashboard");
+
 		SmartDashboard.putNumber("turnScale", .5);
-/*
-		NetworkTable.setClientMode();
-		NetworkTable.setIPAddress("roborio-85-frc.local");
-		table = NetworkTable.getTable("SmartDashboard"); 
-		
-		_inputs.driveEncodersReset(); */
+		SmartDashboard.putNumber("decreasedSpeed", 2);
+		SmartDashboard.putBoolean("Drive Override", false);
+		SmartDashboard.putBoolean("Op Override", false);
+
 		String auto = SmartDashboard.getString("autoFileString", "");
 		if (auto == null || auto.isEmpty())
 		{
@@ -54,7 +50,7 @@ public class Robot extends IterativeRobot {
 		
 		_outputs.releaseRightFlap();
 		_outputs.releaseLeftFlap();
-		SmartDashboard.putNumber("decreasedSpeed", 2);
+		
 	}
 
 	/**
@@ -152,7 +148,23 @@ public class Robot extends IterativeRobot {
 		else {
 			_drive.FPSdrive(forward, 0.69, false);
 			SmartDashboard.putNumber("buttonPressed", 0);
-		}  
+		} 
+		
+		//Drive override
+		if(_inputsDrive.getRightBumper()) {
+			_outputs.setDriveOverride(true);
+		}
+		else {
+			_outputs.setDriveOverride(false);
+		}
+		
+		//Op override
+		if(_inputsOp.getRightBumper()) {
+			_outputs.setOpOverride(true);
+		}
+		else {
+			_outputs.setOpOverride(false);
+		}
 	
 	}
 

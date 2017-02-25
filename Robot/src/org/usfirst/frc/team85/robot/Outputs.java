@@ -45,6 +45,9 @@ public class Outputs {
 	
 	private double _speedScale = 900;
 	
+	private boolean driveOverride = false;
+	private boolean opOverride = false;
+	
 	private Outputs() {
 
 		_frontLeftMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
@@ -55,9 +58,6 @@ public class Outputs {
 		
 		//_shooter.configNominalOutputVoltage(+0.0f, -0.0f);
 		//_shooter.configPeakOutputVoltage(+12.0f, -12.0f);
-
-		_frontLeftMotor.changeControlMode(TalonControlMode.Speed);
-		_frontRightMotor.changeControlMode(TalonControlMode.Speed);
 
 		_frontLeftMotor.reverseSensor(true);
 
@@ -88,12 +88,30 @@ public class Outputs {
 	}
 
 	public double setLeftSpeed(double targetSpeed) {
-		_frontLeftMotor.set(targetSpeed * _speedScale);
+		
+		if(!driveOverride) {
+			_frontLeftMotor.changeControlMode(TalonControlMode.Speed);
+			_frontLeftMotor.set(targetSpeed * _speedScale);
+		}
+		else {
+			_frontLeftMotor.changeControlMode(TalonControlMode.PercentVbus);
+			_frontLeftMotor.set(targetSpeed);
+		}
+		
 		return _frontLeftMotor.getSpeed();
+		
 	}
 
 	public double setRightSpeed(double targetSpeed) {
-		_frontRightMotor.set(targetSpeed * _speedScale);
+		if(!driveOverride) {
+			_frontRightMotor.changeControlMode(TalonControlMode.Speed);
+			_frontRightMotor.set(targetSpeed * _speedScale);
+		}
+		else {
+			_frontRightMotor.changeControlMode(TalonControlMode.PercentVbus);
+			_frontRightMotor.set(targetSpeed);
+		}
+		
 		return _frontRightMotor.getSpeed();
 	}
 	
@@ -119,10 +137,10 @@ public class Outputs {
 	public void setGearMotorSpeed(double speed) {
 		SmartDashboard.putBoolean("Gear Manip Left Limit", leftGearLimit.get());
 		SmartDashboard.putBoolean("Gear Manip Right Limit", rightGearLimit.get());
-		if (leftGearLimit.get() && speed < 0) {
+		if (leftGearLimit.get() && speed < 0 || opOverride) {
 			speed = 0;
 		}
-		else if (rightGearLimit.get() && speed > 0) {
+		else if (rightGearLimit.get() && speed > 0 || opOverride) {
 			speed = 0;
 		}
 
@@ -167,30 +185,6 @@ public class Outputs {
     	//_shooter.set(speed);
     }
 
-/*
-	public void encoderStraightDrive() {
-	
-	int currentDifference = 0;
-	
-		drive(leftSpeed,rightSpeed);
-	
-		int leftEncoder = _inputs.getLeftFrontDriveEncoder();
-		int rightEncoder = _inputs.getRightFrontDriveEncoder();
-	
-		currentDifference = leftEncoder - rightEncoder;
-	
-		if (currentDifference > 0) { //positive = left is ahead by 1
-			leftSpeed = leftSpeed - .05;
-		}
-		else if (currentDifference < 0) { //negative = right is ahead by 1
-			rightSpeed = rightSpeed - .05;
-		}
-		else { //auto friendly values, set these to left joystick for teleop
-			leftSpeed = 0.8;
-			rightSpeed = 0.8;
-		}
-	}
-*/
 	public void releaseLeftFlap() {
 		_leftServo.set(1); //change if wrong, fully right
 	}
@@ -199,4 +193,13 @@ public class Outputs {
 		_rightServo.set(0); //change if wrong, fully left
 	}
 	
+	public void setDriveOverride(boolean on) {
+		driveOverride = on;
+		SmartDashboard.putBoolean("Drive Override", on);
+	}
+	
+	public void setOpOverride(boolean on) {
+		opOverride = on;
+		SmartDashboard.putBoolean("Op Override", on);
+	}
 }
