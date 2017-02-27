@@ -24,6 +24,8 @@ public class Robot extends IterativeRobot {
     
     private boolean encoderReset = false;
     private boolean forward = true;
+    private boolean teleopHasInited = false;
+    private double gearCenterTolerance = 5;	//subject to change
     
     NetworkTable table;
 	
@@ -91,6 +93,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		
+		//center gear
+		/*
+			if(!teleopHasInited && !_outputs.leftGearLimit.get()) {
+				_outputs.setGearMotorSpeed(-1);
+			}
+		*/
+		
 		//Sets which direction is forward
 		if (_inputsDrive.getAButton()) {
 			_driverAssistCameras.setForward();
@@ -102,16 +111,32 @@ public class Robot extends IterativeRobot {
 		}
 		
 		//Moves gear manipulator according to operator right joystick
-		if (_inputsOp.getRightHorz() > .1) {
-			_outputs.setGearMotorSpeed(_inputsOp.getRightHorz());
-		} 
-		else if (_inputsOp.getRightHorz() < -.1) {
+		if(_inputsOp.getXButton() && !(Math.abs(_outputs.getGearEncoder()) <= gearCenterTolerance)) {//buttons subject to change
+			if(_outputs.getGearEncoder() > gearCenterTolerance) {
+				_outputs.setGearMotorSpeed(-.5);
+			}
+			else if(_outputs.getGearEncoder() < gearCenterTolerance) {
+				_outputs.setGearMotorSpeed(.5);
+			}
+		}
+		else if (_inputsOp.getRightHorz() > .1 || _inputsOp.getRightHorz() < -.1) {
 			_outputs.setGearMotorSpeed(_inputsOp.getRightHorz());
 		}
 		else {
 			_outputs.setGearMotorSpeed(0);
 		}
-			
+		
+		/*
+		//attempts at centering gear manipulator
+		if(_outputs.leftGearLimit.get()) {
+			_outputs.resetGearEncoder();
+			System.out.println("Gear Encoder Reset");
+		}
+		
+		
+		*/
+		
+		/*
 		//Turns on climb roller
 		if (_inputsOp.getYButton()) {
 			_outputs.climb(1);
@@ -119,6 +144,7 @@ public class Robot extends IterativeRobot {
 		else {
 			_outputs.climb(0);
 		}
+		*/
 		
 		//Intake
 		if(_inputsOp.getAButton()) {

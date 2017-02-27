@@ -155,6 +155,10 @@ public class Outputs {
 		return _gearMotor.getPosition();
 	}
 
+	public void resetGearEncoder() {
+		_gearMotor.setPosition(0);
+	}
+	
 	public void drive(double left, double right) {
 		setLeftSpeed(left);
 		setRightSpeed(right);
