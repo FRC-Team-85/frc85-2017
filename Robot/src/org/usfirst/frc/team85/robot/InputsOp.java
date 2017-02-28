@@ -50,13 +50,13 @@ public class InputsOp {
 			}
 		
 		//Triggers
-			/*public boolean getLeftTrigger() {
+			public boolean getLeftTrigger() {
 				return opStick.getRawButton(7);  //logitech
 			}
 			
 			public boolean getRightTrigger() {
 				return opStick.getRawButton(8);  //logitech
-			}*/
+			}
 		
 		//Buttons
 			public boolean getAButton() {
@@ -71,14 +71,14 @@ public class InputsOp {
 			
 			public boolean getXButton() {
 				//return opStick.getRawButton(3);
-				return opStick.getRawButton(11); //logitech //wrong
+				return opStick.getRawButton(1); //logitech //wrong
 			}
 			
 			public boolean getYButton() {
 				return opStick.getRawButton(4);
 			}
 			public boolean getStartButton() {
-				return opStick.getRawButton(9);
+				return opStick.getRawButton(10);
 			}
 			
 		//Dpad

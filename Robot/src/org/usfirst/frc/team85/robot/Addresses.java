@@ -27,4 +27,6 @@ public class Addresses {
 
 		public static final int LEFT_SERVO = 9;  //i have yet to learn numbers
 		public static final int RIGHT_SERVO = 8;
+		
+		public static final int VISION_LED = 0;
 }

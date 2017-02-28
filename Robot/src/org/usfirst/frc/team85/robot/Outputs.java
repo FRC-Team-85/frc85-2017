@@ -6,6 +6,8 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Relay.Direction;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -42,6 +44,7 @@ public class Outputs {
 	
 	DigitalInput leftGearLimit = new DigitalInput(Addresses.GEAR_LEFT_LIMIT);
 	DigitalInput rightGearLimit = new DigitalInput(Addresses.GEAR_RIGHT_LIMIT);
+	Relay visionLED = new Relay(Addresses.VISION_LED);
 	
 	private double _speedScale = 900;
 	
@@ -85,6 +88,8 @@ public class Outputs {
 		
 		_gearMotor.changeControlMode(TalonControlMode.PercentVbus);
 		_gearMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		
+		visionLED.setDirection(Direction.kForward);
 	}
 
 	public double setLeftSpeed(double targetSpeed) {
@@ -206,4 +211,13 @@ public class Outputs {
 		opOverride = on;
 		SmartDashboard.putBoolean("Op Override", on);
 	}
+	
+    public void setLED(boolean on) {
+    	if(on) {
+    		visionLED.set(Relay.Value.kOn);
+    	}
+    	else {
+    		visionLED.set(Relay.Value.kOff);
+    	}
+    }
 }

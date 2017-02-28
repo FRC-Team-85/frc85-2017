@@ -25,7 +25,7 @@ public class Robot extends IterativeRobot {
     private boolean encoderReset = false;
     private boolean forward = true;
     private boolean teleopHasInited = false;
-    private double gearCenterTolerance = 5;	//subject to change
+    private double gearCenterTolerance = 20000;	//subject to change
     
     NetworkTable table;
 	
@@ -110,6 +110,7 @@ public class Robot extends IterativeRobot {
 			forward = false;
 		}
 		
+		SmartDashboard.putNumber("GearEncoder", _outputs.getGearEncoder());
 		//Moves gear manipulator according to operator right joystick
 		if(_inputsOp.getXButton() && !(Math.abs(_outputs.getGearEncoder()) <= gearCenterTolerance)) {//buttons subject to change
 			if(_outputs.getGearEncoder() > gearCenterTolerance) {
@@ -136,15 +137,15 @@ public class Robot extends IterativeRobot {
 		
 		*/
 		
-		/*
+		
 		//Turns on climb roller
-		if (_inputsOp.getYButton()) {
-			_outputs.climb(1);
+		if(_inputsOp.getLeftVert() <= -.2) {
+			_outputs.climb(Math.abs(_inputsOp.getLeftVert()));
 		}
 		else {
 			_outputs.climb(0);
 		}
-		*/
+		
 		
 		//Intake
 		if(_inputsOp.getAButton()) {
@@ -155,7 +156,7 @@ public class Robot extends IterativeRobot {
 		}
 		
 		//Stage
-		if(_inputsOp.getBButton()) {
+		if(_inputsOp.getRightTrigger()) {
 			_outputs.setStage(1);
 		}
 		else {
@@ -163,7 +164,7 @@ public class Robot extends IterativeRobot {
 		}
 		
 		//Shooter
-		if(_inputsOp.getRightBumper()) {
+		if(_inputsOp.getLeftTrigger()) {
 			_outputs.setShooter(-1);
 		}
 		else {
@@ -194,6 +195,16 @@ public class Robot extends IterativeRobot {
 		}
 		else {
 			_outputs.setOpOverride(false);
+		}
+		
+		//Vision LED
+		if(_inputsOp.getStartButton()) {
+			_outputs.setLED(true);
+			SmartDashboard.putBoolean("ledbutton", true);
+		}
+		else {
+			_outputs.setLED(false);
+			SmartDashboard.putBoolean("ledbutton", false);
 		}
 	
 	}
