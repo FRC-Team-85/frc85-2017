@@ -22,6 +22,9 @@ public class Addresses {
 		public static final int GEAR_RIGHT_LIMIT = 1;
 		public static final int GEAR_PRESENT = 2;
 		
+		public static final int CLIMB_LEFT_LIMIT = 3;
+		public static final int CLIMB_RIGHT_LIMIT = 4;
+		
 		public static final int FORWARD_CAMERA = 0;
 		public static final int REVERSE_CAMERA = 1;
 

@@ -46,6 +46,9 @@ public class Outputs {
 	DigitalInput rightGearLimit = new DigitalInput(Addresses.GEAR_RIGHT_LIMIT);
 	Relay visionLED = new Relay(Addresses.VISION_LED);
 	
+	DigitalInput leftClimberLimit = new DigitalInput(Addresses.CLIMB_LEFT_LIMIT);
+	DigitalInput rightClimberLimit = new DigitalInput(Addresses.CLIMB_RIGHT_LIMIT);
+	
 	private double _speedScale = 900;
 	
 	private boolean driveOverride = false;
@@ -170,7 +173,12 @@ public class Outputs {
 	}
 
 	public void climb(double speed) {
-		_climbMotor.set(speed);
+		if(leftClimberLimit.get() && rightClimberLimit.get()) {
+			_climbMotor.set(speed);
+		}
+		else {
+			_climbMotor.set(0);
+		}
 	}
 
 	public void visionTrack() {

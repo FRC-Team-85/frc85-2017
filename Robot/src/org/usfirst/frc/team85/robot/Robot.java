@@ -27,6 +27,8 @@ public class Robot extends IterativeRobot {
     private boolean teleopHasInited = false;
     private double gearCenterTolerance = 20000;	//subject to change
     
+    private double shooterSpeed;
+    
     NetworkTable table;
 	
 	
@@ -41,6 +43,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("decreasedSpeed", 2);
 		SmartDashboard.putBoolean("Drive Override", false);
 		SmartDashboard.putBoolean("Op Override", false);
+		
+		SmartDashboard.putNumber("stageSpeed", 1);
 
 		String auto = SmartDashboard.getString("autoFileString", "");
 		if (auto == null || auto.isEmpty())
@@ -137,7 +141,10 @@ public class Robot extends IterativeRobot {
 		
 		*/
 		
-		
+		SmartDashboard.putNumber("shooterSpeed", shooterSpeed);
+		SmartDashboard.putNumber("Left Encoder", _outputs.getLeftEncoder());
+		SmartDashboard.putNumber("Right Endoer",  _outputs.getRightEncoder());
+
 		//Turns on climb roller
 		if(_inputsOp.getLeftVert() <= -.2) {
 			_outputs.climb(Math.abs(_inputsOp.getLeftVert()));
@@ -157,7 +164,7 @@ public class Robot extends IterativeRobot {
 		
 		//Stage
 		if(_inputsOp.getRightTrigger()) {
-			_outputs.setStage(1);
+			_outputs.setStage(SmartDashboard.getNumber("stageSpeed", 1));
 		}
 		else {
 			_outputs.setStage(0);
@@ -165,7 +172,7 @@ public class Robot extends IterativeRobot {
 		
 		//Shooter
 		if(_inputsOp.getLeftTrigger()) {
-			_outputs.setShooter(-1);
+			_outputs.setShooter(-SmartDashboard.getNumber("shooterSpeed", 1));
 		}
 		else {
 			_outputs.setShooter(0);
@@ -205,6 +212,15 @@ public class Robot extends IterativeRobot {
 		else {
 			_outputs.setLED(false);
 			SmartDashboard.putBoolean("ledbutton", false);
+		}
+		
+		if(_inputsOp.getVertDpad() == 1) {
+			shooterSpeed = shooterSpeed + .002;
+		}
+		if(_inputsOp.getVertDpad() == -1) {
+			shooterSpeed = shooterSpeed - .002;
+		}
+		else{
 		}
 	
 	}
