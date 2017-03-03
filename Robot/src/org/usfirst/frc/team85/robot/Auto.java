@@ -15,12 +15,14 @@ public class Auto {
 	private int i = 0;
 	private double _waitTime = 0;
 	private double _waitStart = 0;
+	private double currentTime = 0;
 	private Timer _waitTimer = new Timer();
 	
 	public void resetAuto() {
 		_waitTime = 0;
 		_waitStart = 0;
 		i = 0;
+		currentTime = 0;
 		_waitTimer.reset();
 		autoSequence.clear();
 	}
@@ -118,7 +120,7 @@ public class Auto {
 					break;
 					
 				case "wait":
-					double currentTime = _waitTimer.get();
+					currentTime = _waitTimer.get();
 					
 					if (_waitTime == 0)
 					{
@@ -138,21 +140,42 @@ public class Auto {
 				case "findBoiler":
 					//vision targeting stuff
 					//System.out.println("find boiler target");
+					
+					break;
+				
+				case "shoot":
+					//shoot into boiler
+					
+					currentTime = _waitTimer.get();
+					
+					if (_waitTime == 0) {
+						_outputs.setStage(1.0);
+						_outputs.setShooter(Double.parseDouble(autoSequence.get(i)[1]));
+						_waitTime = Double.parseDouble(autoSequence.get(i)[2]);
+						_waitStart = currentTime;
+						System.out.printf("Wait for '%f' seconds starting at second '%f'.\n", _waitTime, _waitStart);
+					}
+					else if (currentTime - _waitStart >= _waitTime) {
+						System.out.printf("Ending wait at '%f' seconds.\n", currentTime);
+						_outputs.setStage(0.0);
+						_outputs.setShooter(0.0);
+						i++;
+						_waitTime = 0;
+					}
+					
 					break;
 				
 				case "findGear":
 					//vision targeting stuff
 					//System.out.println("find gear target");
-					break;
-				
-				case "shoot":
-					//shoot into boiler
-					//System.out.println("shoot");
+					
 					break;
 				
 				case "gear":
 					//place gear
 					//System.out.println("place gear");
+					//do we need this case?
+					
 					break;
 			}
 		}
