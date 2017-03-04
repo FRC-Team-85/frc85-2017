@@ -179,14 +179,26 @@ public class Robot extends IterativeRobot {
 		}
 
 		//Decreased Speed
-		if(_inputsDrive.getRightBumper()) {
-			_drive.FPSdrive(forward, 0.69, true);
-			SmartDashboard.putNumber("buttonPressed", 1);
+		if(_inputsDrive.getYButton()) {
+			if(_inputsDrive.getRightBumper()) {
+				_drive.FPSdrive(forward, 0.69, true, true);
+				SmartDashboard.putNumber("buttonPressed", 1);
+			}
+			else {
+				_drive.FPSdrive(forward, 0.69, false, true);
+				SmartDashboard.putNumber("buttonPressed", 0);
+			}
 		}
 		else {
-			_drive.FPSdrive(forward, 0.69, false);
-			SmartDashboard.putNumber("buttonPressed", 0);
-		} 
+			if(_inputsDrive.getRightBumper()) {
+				_drive.FPSdrive(forward, 0.69, true, false);
+				SmartDashboard.putNumber("buttonPressed", 1);
+			}
+			else {
+				_drive.FPSdrive(forward, 0.69, false, false);
+				SmartDashboard.putNumber("buttonPressed", 0);
+			}
+		}
 		
 		//Drive override
 		if(_inputsDrive.getLeftBumper()) {
