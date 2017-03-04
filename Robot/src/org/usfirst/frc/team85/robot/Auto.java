@@ -149,11 +149,14 @@ public class Auto {
 					currentTime = _waitTimer.get();
 					
 					if (_waitTime == 0) {
-						_outputs.setStage(1.0);
 						_outputs.setShooter(Double.parseDouble(autoSequence.get(i)[1]));
 						_waitTime = Double.parseDouble(autoSequence.get(i)[2]);
 						_waitStart = currentTime;
 						System.out.printf("Wait for '%f' seconds starting at second '%f'.\n", _waitTime, _waitStart);
+					}
+					else if (_waitTime >= 3) {
+						_outputs.setIntake(1.0);
+						_outputs.setStage(1.0);
 					}
 					else if (currentTime - _waitStart >= _waitTime) {
 						System.out.printf("Ending wait at '%f' seconds.\n", currentTime);
