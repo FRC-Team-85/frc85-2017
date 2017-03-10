@@ -45,6 +45,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Op Override", false);
 		
 		SmartDashboard.putNumber("stageSpeed", 1);
+		SmartDashboard.putNumber("AUTO MODE", 0);
+		SmartDashboard.putNumber("Shooter Speed", 1);
 
 		String auto = SmartDashboard.getString("autoFileString", "");
 		if (auto == null || auto.isEmpty())
@@ -73,7 +75,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		_outputs.resetDriveEncoders();
-		_auto.initAuto(SmartDashboard.getString("autoFileString", ""));
+		_auto.initAuto();
 	}
 
 	/**
@@ -89,6 +91,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		_auto.resetAuto();
+		_outputs.climb(0);
 	}
 
 	/**
@@ -141,11 +144,11 @@ public class Robot extends IterativeRobot {
 		
 		*/
 		
-		SmartDashboard.putNumber("shooterSpeed", shooterSpeed);
 		SmartDashboard.putNumber("Left Encoder", _outputs.getLeftEncoder());
 		SmartDashboard.putNumber("Right Endoer",  _outputs.getRightEncoder());
 
 		//Turns on climb roller
+		SmartDashboard.putNumber("Climb output", _inputsOp.getLeftVert());
 		if(_inputsOp.getLeftVert() <= -.2) {
 			_outputs.climb(Math.abs(_inputsOp.getLeftVert()));
 		}
@@ -172,33 +175,22 @@ public class Robot extends IterativeRobot {
 		
 		//Shooter
 		if(_inputsOp.getLeftTrigger()) {
-			_outputs.setShooter(-SmartDashboard.getNumber("shooterSpeed", 1));
+			_outputs.setShooter(SmartDashboard.getNumber("Shooter Speed", 1));
 		}
 		else {
 			_outputs.setShooter(0);
 		}
 
 		//Decreased Speed
-		if(_inputsDrive.getYButton()) {
 			if(_inputsDrive.getRightBumper()) {
-				_drive.FPSdrive(forward, 0.69, true, true);
+				_drive.FPSdrive(forward, 0.69, true);
 				SmartDashboard.putNumber("buttonPressed", 1);
 			}
 			else {
-				_drive.FPSdrive(forward, 0.69, false, true);
+				_drive.FPSdrive(forward, 0.69, false);
 				SmartDashboard.putNumber("buttonPressed", 0);
 			}
-		}
-		else {
-			if(_inputsDrive.getRightBumper()) {
-				_drive.FPSdrive(forward, 0.69, true, false);
-				SmartDashboard.putNumber("buttonPressed", 1);
-			}
-			else {
-				_drive.FPSdrive(forward, 0.69, false, false);
-				SmartDashboard.putNumber("buttonPressed", 0);
-			}
-		}
+
 		
 		//Drive override
 		if(_inputsDrive.getLeftBumper()) {

@@ -148,7 +148,7 @@ public class Outputs {
 		if (leftGearLimit.get() && speed < 0 && !opOverride) {
 			speed = 0;
 		}
-		else if (rightGearLimit.get() && speed > 0 && !opOverride) {
+		else if (!rightGearLimit.get() && speed > 0 && !opOverride) {
 			speed = 0;
 		}
 
@@ -173,7 +173,7 @@ public class Outputs {
 	}
 
 	public void climb(double speed) {
-		if(leftClimberLimit.get() && rightClimberLimit.get()) {
+		if(!leftClimberLimit.get() && !rightClimberLimit.get()) {
 			_climbMotor.set(speed);
 		}
 		else {
@@ -198,7 +198,7 @@ public class Outputs {
     }
     
     public void setShooter(double speed) {
-    	_shooter.set(speed);
+    	_shooter.set(-speed);
     	//_shooter.set(speed);
     }
 

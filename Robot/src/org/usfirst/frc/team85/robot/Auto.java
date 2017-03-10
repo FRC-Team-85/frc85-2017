@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Auto {
 	
@@ -28,8 +29,28 @@ public class Auto {
 	}
 	
 	
-	public void initAuto(String fileString) {
+	public void initAuto() {
+		
+		double auto = SmartDashboard.getNumber("AUTO MODE", 0);
+		
 		resetAuto();
+		
+		String fileString;
+		
+		
+		if(auto == 1) {
+			fileString ="use:<name>:move, 0.5, 0.5, 8.25, 8.25:wait, 2.0:move, -0.5, -0.5, 3, 3:wait, 0.3";
+		}
+		else if(auto == 2) {
+			fileString = "use:<name>:move, 0.5, 0.5, 4.5, 4.5:wait, 0.3:move, 0, 0.5, 3.25, 3.25:wait, 0.3:move, 0.5, 0.5, 6.7, 6.7:wait, 0.1:move, 0.2, 0.2, 1.7, 1.7:wait, 2.0:move, -0.5, -0.5, 3.0, 3.0:wait, 0.3:move, -0.5, 0, 2.9, 2.9:wait, 0.3:shoot, 0.75, 6:wait, 0.3";
+		}
+		else if(auto == 3) {
+			fileString = "use:<name>:move, 0.5, 0.5, 4.5, 4.5:wait, 0.3:move, 0.5, 0, 3.25, 3.25:wait, 0.3:move, 0.5, 0.5, 6.7, 6.7:wait, 0.1:move, 0.2, 0.2, 1.7, 1.7:wait, 2.0:move, -0.5, -0.5, 3.0, 3.0:wait, 0.3:move, -0.5, 0, 2.9, 2.9:wait, 0.3:shoot, 0.75, 6:wait, 0.3";
+		}
+		else {
+			fileString = SmartDashboard.getString("autoFileString", "");
+		}
+		
 		//argument fileString is the file
 		//will be file without whitespace and comments
 		String string = "";
@@ -138,8 +159,7 @@ public class Auto {
 					break;
 				
 				case "findBoiler":
-					//vision targeting stuff
-					//System.out.println("find boiler target");
+					//vision targeting stuff		//System.out.println("find boiler target");
 					
 					break;
 				
@@ -147,17 +167,26 @@ public class Auto {
 					//shoot into boiler
 					
 					currentTime = _waitTimer.get();
-					
+			
 					if (_waitTime == 0) {
-						_outputs.setStage(1.0);
-						_outputs.setShooter(Double.parseDouble(autoSequence.get(i)[1]));
 						_waitTime = Double.parseDouble(autoSequence.get(i)[2]);
 						_waitStart = currentTime;
-						System.out.printf("Wait for '%f' seconds starting at second '%f'.\n", _waitTime, _waitStart);
+						System.out.printf("Shooting for '%f' seconds starting at second '%f'.\n", _waitTime, _waitStart);	
+					}
+					else if (currentTime - _waitStart < 1.5) { //no stage motor, time for shooter to warm up
+						_outputs.setStage(0.0);
+						_outputs.setIntake(1.0);
+						_outputs.setShooter(Double.parseDouble(autoSequence.get(i)[1]));
+					}
+					else if (currentTime - _waitStart >= 1.5 && currentTime - _waitStart < _waitTime) { //stage motor enabled, balls begin to shoot
+						_outputs.setStage(1.0);
+						_outputs.setIntake(1.0);
+						_outputs.setShooter(Double.parseDouble(autoSequence.get(i)[1]));
 					}
 					else if (currentTime - _waitStart >= _waitTime) {
-						System.out.printf("Ending wait at '%f' seconds.\n", currentTime);
+						System.out.printf("Ending shoot at '%f' seconds.\n", currentTime);
 						_outputs.setStage(0.0);
+						_outputs.setIntake(0.0);
 						_outputs.setShooter(0.0);
 						i++;
 						_waitTime = 0;

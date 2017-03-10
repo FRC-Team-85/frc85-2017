@@ -9,13 +9,12 @@ public class Drive {
     
     boolean halfSpeed = false;
     
-	public void FPSdrive(boolean forward, double limitedSpeed, boolean halfSpeed, boolean fpsDrive) {
+	public void FPSdrive(boolean forward, double limitedSpeed, boolean halfSpeed) {
 		double turnScale = SmartDashboard.getNumber("turnScale", .5);
 		double leftSpeed = 0;
 		double rightSpeed = 0;
 		double decreasedSpeed = SmartDashboard.getNumber("decreasedSpeed", 2);	
 		
-		if(fpsDrive) { //FPS Drive
 			if(Math.abs(_inputsDrive.getLeftVert()) >= 0.2 ) { //logitech deadband: 0.02, xbox deadband: 0.2
 				leftSpeed = _inputsDrive.getLeftVert();
 				rightSpeed = _inputsDrive.getLeftVert();
@@ -47,27 +46,5 @@ public class Drive {
 				SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(leftSpeed));	
 			}
 		}
-		else { //Tank Drive
-			if(Math.abs(_inputsDrive.getLeftVert()) >= 0.2 ) { //logitech deadband: 0.02, xbox deadband: 0.2
-				leftSpeed = _inputsDrive.getLeftVert();
-				rightSpeed = _inputsDrive.getLeftVert();
-				
-				if(halfSpeed) {
-					leftSpeed = leftSpeed / decreasedSpeed;
-					rightSpeed = rightSpeed / decreasedSpeed;
-				}
-			}
-			
-			if (forward) {
-				SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(-leftSpeed));
-				SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(-rightSpeed));
-			}
-			else if (!forward) {
-				SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(rightSpeed));
-				SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(leftSpeed));	
-			}
-		}
 		
 	}
-	
-}
