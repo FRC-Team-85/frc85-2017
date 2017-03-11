@@ -92,6 +92,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		_auto.resetAuto();
 		_outputs.climb(0);
+		_outputs.resetDriveEncoders();
 	}
 
 	/**
