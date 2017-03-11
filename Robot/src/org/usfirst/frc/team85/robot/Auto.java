@@ -196,10 +196,6 @@ public class Auto {
 						_outputs.setIntake(1.0);
 						_outputs.setShooter(Double.parseDouble(autoSequence.get(i)[1]));
 					}
-					else if (_waitTime >= 3) {
-						_outputs.setIntake(1.0);
-						_outputs.setStage(1.0);
-					}
 					else if (currentTime - _waitStart >= _waitTime) {
 						System.out.printf("Ending shoot at '%f' seconds.\n", currentTime);
 						_outputs.setStage(0.0);
