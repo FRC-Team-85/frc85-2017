@@ -39,14 +39,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
-		SmartDashboard.putNumber("turnScale", .5);
-		SmartDashboard.putNumber("decreasedSpeed", 2);
-		SmartDashboard.putBoolean("Drive Override", false);
-		SmartDashboard.putBoolean("Op Override", false);
+		//SmartDashboard.putNumber("turnScale", .5);
+		//SmartDashboard.putNumber("decreasedSpeed", 2);
+		//SmartDashboard.putBoolean("Drive Override", false);
+		//SmartDashboard.putBoolean("Op Override", false);
 		
-		SmartDashboard.putNumber("stageSpeed", 1);
+		//SmartDashboard.putNumber("stageSpeed", 1);
 		SmartDashboard.putNumber("AUTO MODE", 0);
-		SmartDashboard.putNumber("Shooter Speed", 1);
+		//SmartDashboard.putNumber("Shooter Speed", 1);
 
 		String auto = SmartDashboard.getString("autoFileString", "");
 		if (auto == null || auto.isEmpty())
@@ -184,11 +184,11 @@ public class Robot extends IterativeRobot {
 		//Decreased Speed
 			if(_inputsDrive.getRightBumper()) {
 				_drive.FPSdrive(forward, 0.69, true);
-				SmartDashboard.putNumber("buttonPressed", 1);
+				//SmartDashboard.putNumber("buttonPressed", 1);
 			}
 			else {
 				_drive.FPSdrive(forward, 0.69, false);
-				SmartDashboard.putNumber("buttonPressed", 0);
+				//SmartDashboard.putNumber("buttonPressed", 0);
 			}
 
 		
@@ -211,11 +211,11 @@ public class Robot extends IterativeRobot {
 		//Vision LED
 		if(_inputsOp.getStartButton()) {
 			_outputs.setLED(true);
-			SmartDashboard.putBoolean("ledbutton", true);
+			//SmartDashboard.putBoolean("ledbutton", true);
 		}
 		else {
 			_outputs.setLED(false);
-			SmartDashboard.putBoolean("ledbutton", false);
+			//SmartDashboard.putBoolean("ledbutton", false);
 		}
 		
 		if(_inputsOp.getVertDpad() == 1) {
