@@ -6,33 +6,31 @@ import java.io.FileWriter;
 
 public class Diagnostics {
 	
-	 private InputsDrive _inputsDrive = InputsDrive.getInstance();
-	 private InputsOp _inputsOp = InputsOp.getInstance();
-	 private Outputs _outputs = Outputs.getInstance();
-	 private Shooter _shooter = Shooter.getInstance();
-	 private Drive _drive = new Drive();
-	 private DriverAssistCameras _driverAssistCameras;
-	 private Auto _auto = new Auto();
+	private Outputs _outputs = Outputs.getInstance();
 	
 	public void log() {
 	
 		double leftEncoder = _outputs.getLeftEncoder();
 		double rightEncoder = _outputs.getRightEncoder();
 		
-		File log = new File("log.txt");
+		File log = new File("log.csv");
 		
 		String leftEncoder1 = Double.toString(leftEncoder);
 		String rightEncoder1 = Double.toString(rightEncoder);
 				
 		try {
-					
-			if (log.exists() == false) {
-				log.createNewFile();
-			}
-				
+			
 			BufferedWriter out = new BufferedWriter(new FileWriter(log, true));
 			
-			out.append("LeftEncoder - " + leftEncoder1 + "; RightEncoder - " + rightEncoder1);
+			if (log.exists() == false) {
+				log.createNewFile();
+				out.append("Left Encoder,Right Encoder");
+				out.newline();
+				out.close();
+			}
+			
+			
+			out.append(leftEncoder1 + "," + rightEncoder1);
 			out.newLine();
 			out.close();
 				
