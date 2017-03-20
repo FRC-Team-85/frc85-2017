@@ -148,7 +148,7 @@ public class Outputs {
 		if (leftGearLimit.get() && speed < 0 && !opOverride) {
 			speed = 0;
 		}
-		else if (!rightGearLimit.get() && speed > 0 && !opOverride) {
+		else if (rightGearLimit.get() && speed > 0 && !opOverride) {
 			speed = 0;
 		}
 

@@ -46,7 +46,7 @@ public class Robot extends IterativeRobot {
 		
 		//SmartDashboard.putNumber("stageSpeed", 1);
 		SmartDashboard.putNumber("AUTO MODE", 0);
-		//SmartDashboard.putNumber("Shooter Speed", 1);
+		SmartDashboard.putNumber("Shooter Speed", 1);
 
 		String auto = SmartDashboard.getString("autoFileString", "");
 		if (auto == null || auto.isEmpty())

@@ -18,6 +18,11 @@ public class Auto {
 	private double _waitStart = 0;
 	private double currentTime = 0;
 	private Timer _waitTimer = new Timer();
+	boolean creepStarted = false;
+	boolean shimmyStop = false;
+	double moveTime = 0.5;
+	
+	private Timer _creepTimer = new Timer();
 	
 	public void resetAuto() {
 		_waitTime = 0;
@@ -26,6 +31,9 @@ public class Auto {
 		currentTime = 0;
 		_waitTimer.reset();
 		autoSequence.clear();
+		shimmyStop = false;
+		creepStarted = false;
+		_creepTimer.reset();
 	}
 	
 	
@@ -203,6 +211,43 @@ public class Auto {
 						_outputs.setShooter(0.0);
 						i++;
 						_waitTime = 0;
+					}
+					
+					break;
+					
+				case "creep": //move and shimmy
+					System.out.println("creep");
+	
+					if (!creepStarted) {
+						_creepTimer.start();
+						creepStarted = true;
+					}
+
+					double time = _creepTimer.get();	
+					
+					if(time < moveTime && !shimmyStop) {
+						_outputs.setGearMotorSpeed(1);
+					}
+					else if (time > moveTime && time < moveTime*2 && !shimmyStop) {
+						_outputs.setGearMotorSpeed(-1);
+					}
+					else {
+						_creepTimer.reset();
+					}
+
+					_outputs.drive(
+							Double.parseDouble(autoSequence.get(i)[1]),
+							Double.parseDouble(autoSequence.get(i)[2])
+							);
+					
+					if (Math.abs(_outputs.getLeftEncoder()) >= Double.parseDouble(autoSequence.get(i)[3])
+						|| Math.abs(_outputs.getRightEncoder()) >= Double.parseDouble(autoSequence.get(i)[4])) {
+						i++;
+						_outputs.drive(0, 0);
+						_outputs.setGearMotorSpeed(0);
+						_outputs.resetDriveEncoders();
+						shimmyStop = true;
+						_creepTimer.stop();
 					}
 					
 					break;
