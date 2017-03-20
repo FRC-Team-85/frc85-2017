@@ -47,26 +47,15 @@ public class Auto {
 		
 		
 		if(auto == 1) { //CENTER
-			fileString = "use:<name>:move, 0.5, 0.5, 8.25, 8.25:wait, 3.2:move, -0.1, -0.1, 0.6, 0.6:wait, 0.3";
+			fileString = "use:<name>:move, 0.5, 0.5, 6.0, 6.0:wait, 0.5:creep, 0.15, 0.15, 2.5, 2.5:wait, 2.0";
 		}
-		else if(auto == 2) { //RED BOILER (SHOOT)
-			fileString = "use:<name>:move, 0.5, 0.5, 5.1, 5.1:wait, 0.3:move, 0, 0.5, 2.9, 2.9:wait, 0.3:move, 0.5, 0.5, 6.7, 6.7:wait, 0.1:move, 0.2, 0.2, 1.7, 1.7:wait, 2.0:move, -0.5, -0.5, 3.0, 3.0:wait, 0.3:move, -0.5, 0, 1.5, 1.5:wait, 0.3:shoot, 0.75, 6:wait, 0.3";
+		else if(auto == 2) { //TURN LEFT
+			fileString = "use:<name>:move, 0.5, 0.5, 5.1, 5.1:wait, 0.3:move, 0, 0.5, 2.9, 2.9:wait, 0.3:move, 0.5, 0.5, 5.0, 5.0:wait, 0.1:creep, 0.15, 0.15, 3.4, 3.4:wait, 2.0";
 		}
-		else if(auto == 3) { //BLUE BOILER (SHOOT)
-			fileString = "use:<name>:move, 0.5, 0.5, 5.1, 5.1:wait, 0.3:move, 0.5, 0, 2.9, 2.9:wait, 0.3:move, 0.5, 0.5, 6.7, 6.7:wait, 0.1:move, 0.2, 0.2, 1.7, 1.7:wait, 2.0:move, -0.5, -0.5, 3.0, 3.0:wait, 0.3:move, 0, -0.5, 1.5, 1.5:wait, 0.3:shoot, 0.75, 6:wait, 0.3";
+		else if(auto == 3) { //TURN RIGHT
+			fileString = "use:<name>:move, 0.5, 0.5, 5.1, 5.1:wait, 0.3:move, 0.5, 0.0, 2.9, 2.9:wait, 0.3:move, 0.5, 0.5, 5.0, 5.0:wait, 0.1:creep, 0.15, 0.15, 3.4, 3.4:wait, 2.0";
 		}
-		else if(auto == 4) { //RED LOAD
-			fileString = "use:<name>:move, 0.5, 0.5, 5.1, 5.1:wait, 0.3:move, 0.5, 0, 2.9, 2.9:wait, 0.3:move, 0.5, 0.5, 6.7, 6.7:wait, 0.1:move, 0.2, 0.2, 1.7, 1.7:wait, 2.0";
-		}
-		else if(auto == 5) { //BLUE LOAD
-			fileString = "use:<name>:move, 0.5, 0.5, 5.1, 5.1:wait, 0.3:move, 0, 0.5, 2.9, 2.9:wait, 0.3:move, 0.5, 0.5, 6.7, 6.7:wait, 0.1:move, 0.2, 0.2, 1.7, 1.7:wait, 2.0";
-		}
-		else if(auto == 6) { //RED BOILER (NO SHOOT)
-			fileString = "use:<name>:move, 0.5, 0.5, 5.1, 5.1:wait, 0.3:move, 0, 0.5, 2.9, 2.9:wait, 0.3:move, 0.5, 0.5, 6.7, 6.7:wait, 0.1:move, 0.2, 0.2, 1.7, 1.7:wait, 2.0";
-		}
-		else if(auto == 7) { //BLUE BOILER (NO SHOOT)
-			fileString = "use:<name>:move, 0.5, 0.5, 5.1, 5.1:wait, 0.3:move, 0.5, 0, 2.9, 2.9:wait, 0.3:move, 0.5, 0.5, 6.7, 6.7:wait, 0.1:move, 0.2, 0.2, 1.7, 1.7:wait, 2.0";
-		}
+
 		else {
 			fileString = SmartDashboard.getString("autoFileString", "");
 		}
