@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	
     private InputsDrive _inputsDrive = InputsDrive.getInstance();
+    private Diagnostics _diagnostics = new Diagnostics();
     private InputsOp _inputsOp = InputsOp.getInstance();
     private Outputs _outputs = Outputs.getInstance();
     private Shooter _shooter = Shooter.getInstance();
@@ -109,6 +110,9 @@ public class Robot extends IterativeRobot {
 		*/
 		
 		//Sets which direction is forward
+		
+		_diagnostics.log();
+		
 		if (_inputsDrive.getAButton()) {
 			_driverAssistCameras.setForward();
 			forward = true;
