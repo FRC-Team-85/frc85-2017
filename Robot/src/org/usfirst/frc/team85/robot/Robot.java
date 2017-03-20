@@ -77,6 +77,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		_outputs.resetDriveEncoders();
 		_auto.initAuto();
+		_diagnostics.init();
 	}
 
 	/**
@@ -85,6 +86,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		_auto.run();
+		_diagnostics.log();
 		SmartDashboard.putNumber("DriveRightEncoder", _outputs.getRightEncoder());
 		SmartDashboard.putNumber("DriveLeftEncoder", _outputs.getLeftEncoder());
 	}
@@ -94,6 +96,12 @@ public class Robot extends IterativeRobot {
 		_auto.resetAuto();
 		_outputs.climb(0);
 		_outputs.resetDriveEncoders();
+		_diagnostics.close();
+	}
+	
+	@Override
+	public void teleopInit() {
+		_diagnostics.init();
 	}
 
 	/**

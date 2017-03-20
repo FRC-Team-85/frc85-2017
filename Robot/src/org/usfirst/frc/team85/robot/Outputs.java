@@ -180,6 +180,11 @@ public class Outputs {
 			_climbMotor.set(0);
 		}
 	}
+	
+	public double getClimberCurrent()
+	{
+		return _climbMotor.getOutputCurrent();
+	}
 
 	public void visionTrack() {
 
