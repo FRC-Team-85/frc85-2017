@@ -47,13 +47,19 @@ public class Auto {
 		
 		
 		if(auto == 1) { //CENTER
-			fileString = "use:<name>:move, 0.5, 0.5, 6.0, 6.0:wait, 0.5:creep, 0.15, 0.15, 2.5, 2.5:wait, 2.0";
+			fileString = "use:<name>:move, 0.5, 0.5, 6.0, 6.0:wait, 0.5:creep, 0.15, 0.15, 2.1, 2.1:creep, 0.0001, 0.0001, 2.1, 2.1";
 		}
-		else if(auto == 2) { //TURN LEFT
-			fileString = "use:<name>:move, 0.5, 0.5, 5.1, 5.1:wait, 0.3:move, 0, 0.5, 2.9, 2.9:wait, 0.3:move, 0.5, 0.5, 5.0, 5.0:wait, 0.1:creep, 0.15, 0.15, 3.4, 3.4:wait, 2.0";
+		else if(auto == 2) { //TURN LEFT FROM DANGER ZONE
+			fileString = "use:<name>:move, 0.5, 0.5, 5.1, 5.1:wait, 0.3:move, 0.0, 0.5, 2.9, 2.9:wait, 0.3:move, 0.5, 0.5, 4.8, 4.8:wait, 0.1:creep, 0.15, 0.15, 3.0, 3.0:wait, 2.0";
 		}
-		else if(auto == 3) { //TURN RIGHT
-			fileString = "use:<name>:move, 0.5, 0.5, 5.1, 5.1:wait, 0.3:move, 0.5, 0.0, 2.9, 2.9:wait, 0.3:move, 0.5, 0.5, 5.0, 5.0:wait, 0.1:creep, 0.15, 0.15, 3.4, 3.4:wait, 2.0";
+		else if(auto == 3) { //TURN RIGHT FROM DANGER ZONE
+			fileString = "use:<name>:move, 0.5, 0.5, 5.1, 5.1:wait, 0.3:move, 0.5, 0.0, 2.9, 2.9:wait, 0.3:move, 0.5, 0.5, 4.8, 4.8:wait, 0.1:creep, 0.15, 0.15, 3.0, 3.0:wait, 2.0";
+		}
+		else if(auto == 4) { //TURN LEFT FROM SAFE ZONE
+			fileString = "use:<name>:move, 0.5, 0.5, 9, 9:wait, 0.3:move, 0.0, 0.5, 2.9, 2.9:wait, 0.3:creep, 0.15, 0.15, 0.97, 0.97:wait, 2.0";
+		}
+		else if(auto == 5) { //TURN RIGHT FROM SAFE ZONE
+			fileString = "use:<name>:move, 0.5, 0.5, 9, 9:wait, 0.3:move, 0.5, 0.0, 2.9, 2.9:wait, 0.3:creep, 0.15, 0.15, 0.97, 0.97:wait, 2.0";
 		}
 
 		else {
@@ -204,7 +210,7 @@ public class Auto {
 					
 					break;
 					
-				case "creep": //move and shimmy
+				case "creep": //move and get jiggy with it
 					System.out.println("creep");
 	
 					if (!creepStarted) {
