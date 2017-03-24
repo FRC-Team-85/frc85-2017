@@ -185,6 +185,46 @@ public class Outputs {
 	{
 		return _climbMotor.getOutputCurrent();
 	}
+	
+	public double getFrontLeftCurrent()
+	{
+		return _frontLeftMotor.getOutputCurrent();
+	}
+	
+	public double getFrontRightCurrent()
+	{
+		return _frontRightMotor.getOutputCurrent();
+	}
+	
+	public double getBackLeftCurrent()
+	{
+		return _backLeftMotor.getOutputCurrent();
+	}
+	
+	public double getBackRightCurrent()
+	{
+		return _backRightMotor.getOutputCurrent();
+	}
+	
+	public double getFrontLeftVoltage()
+	{
+		return _frontLeftMotor.getOutputVoltage();
+	}
+	
+	public double getFrontRightVoltage()
+	{
+		return _frontRightMotor.getOutputVoltage();
+	}
+	
+	public double getBackLeftVoltage()
+	{
+		return _backLeftMotor.getOutputVoltage();
+	}
+	
+	public double getBackRightVoltage()
+	{
+		return _backRightMotor.getOutputVoltage();
+	}
 
 	public void visionTrack() {
 

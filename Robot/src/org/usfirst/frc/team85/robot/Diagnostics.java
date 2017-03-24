@@ -23,7 +23,7 @@ public class Diagnostics {
 			if (log.exists() == false) {
 				log.createNewFile();
 				out = new BufferedWriter(new FileWriter(log, true));
-				out.append("Match Time,Left Encoder,Right Encoder,Climb Current,Climb Left Limit,Climb Right Limit");
+				out.append("Match Time,Left Encoder,Right Encoder,Climb Current,Climb Left Limit,Climb Right Limit,Front Left Current,Front Right Current,Back Left Current,Back Right Current,Front Left Voltage,Front Right Voltage,Back Left Voltage,Back Right Voltage");
 				out.newLine();
 			}	
 		} catch (Exception ex) {
@@ -43,11 +43,21 @@ public class Diagnostics {
 		String climberCurrent = Double.toString(_outputs.getClimberCurrent());
 		String climbLeftLimit = Boolean.toString(_outputs.leftClimberLimit.get());
 		String climbRightLimit = Boolean.toString(_outputs.rightClimberLimit.get());
-				
+		
+		String frontLeftCurrent = Double.toString(_outputs.getFrontLeftCurrent());
+		String frontRightCurrent = Double.toString(_outputs.getFrontRightCurrent());
+		String backLeftCurrent = Double.toString(_outputs.getBackLeftCurrent());
+		String backRightCurrent = Double.toString(_outputs.getBackRightCurrent());
+	
+		String frontLeftVoltage = Double.toString(_outputs.getFrontLeftVoltage());
+		String frontRightVoltage = Double.toString(_outputs.getFrontRightVoltage());
+		String backLeftVoltage = Double.toString(_outputs.getBackLeftVoltage());
+		String backRightVoltage = Double.toString(_outputs.getBackRightVoltage());		
+		
 		try {
 			if (leftEncoder != 0 || rightEncoder != 0)
 			{
-				out.append(matchTime + "," + leftEncoder1 + "," + rightEncoder1 + "," + climberCurrent + "," + climbLeftLimit + "," + climbRightLimit);
+				out.append(matchTime + "," + leftEncoder1 + "," + rightEncoder1 + "," + climberCurrent + "," + climbLeftLimit + "," + climbRightLimit + "," + frontLeftCurrent+ "," + frontRightCurrent+ "," + backLeftCurrent+ "," + backRightCurrent + "," + frontLeftVoltage+ "," + frontRightVoltage+ "," + backLeftVoltage+ "," + backRightVoltage);
 				out.newLine();
 			}
 		} catch (Exception ex) {
