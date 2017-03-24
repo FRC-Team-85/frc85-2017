@@ -56,7 +56,7 @@ public class Outputs {
 	
 	private Outputs() {
 
-		_frontLeftMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
+		_backLeftMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		_frontRightMotor.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
 		
 	    //_shooter.setFeedbackDevice(FeedbackDevice.CtreMagEncoder_Relative);
@@ -65,24 +65,24 @@ public class Outputs {
 		//_shooter.configNominalOutputVoltage(+0.0f, -0.0f);
 		//_shooter.configPeakOutputVoltage(+12.0f, -12.0f);
 
-		_frontLeftMotor.reverseSensor(true);
+		_backLeftMotor.reverseSensor(true);
 
-		_frontLeftMotor.configNominalOutputVoltage(+0.0f, -0.0f);
-		_frontLeftMotor.configPeakOutputVoltage(+12.0f, -12.0f);
+		_backLeftMotor.configNominalOutputVoltage(+0.0f, -0.0f);
+		_backLeftMotor.configPeakOutputVoltage(+12.0f, -12.0f);
 		_frontRightMotor.configNominalOutputVoltage(+0.0f, -0.0f);
 		_frontRightMotor.configPeakOutputVoltage(+12.0f, -12.0f);
 
-		_backLeftMotor.changeControlMode(TalonControlMode.Follower);
-		_backLeftMotor.set(_frontLeftMotor.getDeviceID());
+		_frontLeftMotor.changeControlMode(TalonControlMode.Follower);
+		_backLeftMotor.set(_backLeftMotor.getDeviceID());
 
 		_backRightMotor.changeControlMode(TalonControlMode.Follower);
 		_backRightMotor.set(_frontRightMotor.getDeviceID());
 
-		_frontLeftMotor.setProfile(0);
-		_frontLeftMotor.setF(0.1097);
-		_frontLeftMotor.setP(0.22);
-		_frontLeftMotor.setI(0);
-		_frontLeftMotor.setD(0);
+		_backLeftMotor.setProfile(0);
+		_backLeftMotor.setF(0.1097);
+		_backLeftMotor.setP(0.22);
+		_backLeftMotor.setI(0);
+		_backLeftMotor.setD(0);
 		_frontRightMotor.setProfile(0);
 		_frontRightMotor.setF(0.1097);
 		_frontRightMotor.setP(0.22);
@@ -98,15 +98,15 @@ public class Outputs {
 	public double setLeftSpeed(double targetSpeed) {
 		
 		if(!driveOverride) {
-			_frontLeftMotor.changeControlMode(TalonControlMode.Speed);
-			_frontLeftMotor.set(targetSpeed * _speedScale);
+			_backLeftMotor.changeControlMode(TalonControlMode.Speed);
+			_backLeftMotor.set(targetSpeed * _speedScale);
 		}
 		else {
-			_frontLeftMotor.changeControlMode(TalonControlMode.PercentVbus);
-			_frontLeftMotor.set(targetSpeed);
+			_backLeftMotor.changeControlMode(TalonControlMode.PercentVbus);
+			_backLeftMotor.set(targetSpeed);
 		}
 		
-		return _frontLeftMotor.getSpeed();
+		return _backLeftMotor.getSpeed();
 		
 	}
 
@@ -124,7 +124,7 @@ public class Outputs {
 	}
 	
 	public double getLeftEncoder() {
-		return _frontLeftMotor.getPosition();
+		return _backLeftMotor.getPosition();
 	}
 	
 	public double getRightEncoder() {
@@ -135,7 +135,7 @@ public class Outputs {
 		System.out.println("Pre-reset Left encoder is " + getLeftEncoder());
 		System.out.println("Pre-reset Right encoder is " + getRightEncoder());
 		
-		_frontLeftMotor.setPosition(0);
+		_backLeftMotor.setPosition(0);
 		_frontRightMotor.setPosition(0);
 
 		System.out.println("Post-reset Left encoder is " + getLeftEncoder());
