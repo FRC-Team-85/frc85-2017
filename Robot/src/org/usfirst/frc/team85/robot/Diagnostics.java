@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 public class Diagnostics {
 	
 	private Outputs _outputs = Outputs.getInstance();
+	private Drive _drive = Drive.getInstance();
 
 	File log;
 	BufferedWriter out = null;
@@ -23,7 +24,7 @@ public class Diagnostics {
 			if (log.exists() == false) {
 				log.createNewFile();
 				out = new BufferedWriter(new FileWriter(log, true));
-				out.append("Match Time,Left Encoder,Right Encoder,Climb Current,Climb Left Limit,Climb Right Limit,Front Left Current,Front Right Current,Back Left Current,Back Right Current,Front Left Voltage,Front Right Voltage,Back Left Voltage,Back Right Voltage");
+				out.append("Match Time,Left Enc Dist,Right Enc Dist,Left Enc Speed,Right Enc Speed,Left Calc Speed,Right Calc Speed,Climb Current,Climb Left Limit,Climb Right Limit,Front Left Current,Front Right Current,Back Left Current,Back Right Current,Front Left Voltage,Front Right Voltage,Back Left Voltage,Back Right Voltage,Drive Override,Op Override");
 				out.newLine();
 			}	
 		} catch (Exception ex) {
@@ -38,8 +39,8 @@ public class Diagnostics {
 		double rightEncoder = _outputs.getRightEncoder();
 		
 		String matchTime = Double.toString(DriverStation.getInstance().getMatchTime());
-		String leftEncoder1 = Double.toString(leftEncoder);
-		String rightEncoder1 = Double.toString(rightEncoder);
+		String leftEncoderDist = Double.toString(leftEncoder);
+		String rightEncoderDist = Double.toString(rightEncoder);
 		String climberCurrent = Double.toString(_outputs.getClimberCurrent());
 		String climbLeftLimit = Boolean.toString(_outputs.leftClimberLimit.get());
 		String climbRightLimit = Boolean.toString(_outputs.rightClimberLimit.get());
@@ -52,12 +53,21 @@ public class Diagnostics {
 		String frontLeftVoltage = Double.toString(_outputs.getFrontLeftVoltage());
 		String frontRightVoltage = Double.toString(_outputs.getFrontRightVoltage());
 		String backLeftVoltage = Double.toString(_outputs.getBackLeftVoltage());
-		String backRightVoltage = Double.toString(_outputs.getBackRightVoltage());		
+		String backRightVoltage = Double.toString(_outputs.getBackRightVoltage());	
+		
+		String leftEncSpeed = Double.toString(_outputs.getLeftSpeed());	
+		String rightEncSpeed = Double.toString(_outputs.getRightSpeed());
+		
+		String leftCalcSpeed = Double.toString(_drive.getLeftSpeed());	
+		String rightCalcSpeed = Double.toString(_drive.getRightSpeed());
+		
+		String driveOverride = Boolean.toString(_outputs.getDriveOverride());
+		String opOverride = Boolean.toString(_outputs.getOpOverride());
 		
 		try {
 			if (leftEncoder != 0 || rightEncoder != 0)
 			{
-				out.append(matchTime + "," + leftEncoder1 + "," + rightEncoder1 + "," + climberCurrent + "," + climbLeftLimit + "," + climbRightLimit + "," + frontLeftCurrent+ "," + frontRightCurrent+ "," + backLeftCurrent+ "," + backRightCurrent + "," + frontLeftVoltage+ "," + frontRightVoltage+ "," + backLeftVoltage+ "," + backRightVoltage);
+				out.append(matchTime + "," + leftEncoderDist + "," + rightEncoderDist + "," + leftEncSpeed + "," + rightEncSpeed + "," + leftCalcSpeed + "," + rightCalcSpeed + "," + climberCurrent + "," + climbLeftLimit + "," + climbRightLimit + "," + frontLeftCurrent+ "," + frontRightCurrent+ "," + backLeftCurrent+ "," + backRightCurrent + "," + frontLeftVoltage+ "," + frontRightVoltage+ "," + backLeftVoltage + "," + backRightVoltage+ "," + driveOverride + "," + opOverride);
 				out.newLine();
 			}
 		} catch (Exception ex) {

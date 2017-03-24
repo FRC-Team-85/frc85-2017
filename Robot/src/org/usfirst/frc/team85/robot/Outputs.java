@@ -73,7 +73,7 @@ public class Outputs {
 		_frontRightMotor.configPeakOutputVoltage(+12.0f, -12.0f);
 
 		_frontLeftMotor.changeControlMode(TalonControlMode.Follower);
-		_backLeftMotor.set(_backLeftMotor.getDeviceID());
+		_frontLeftMotor.set(_backLeftMotor.getDeviceID());
 
 		_backRightMotor.changeControlMode(TalonControlMode.Follower);
 		_backRightMotor.set(_frontRightMotor.getDeviceID());
@@ -120,6 +120,14 @@ public class Outputs {
 			_frontRightMotor.set(targetSpeed);
 		}
 		
+		return _frontRightMotor.getSpeed();
+	}
+	
+	public double getLeftSpeed() {
+		return _backLeftMotor.getSpeed();
+	}
+	
+	public double getRightSpeed() {
 		return _frontRightMotor.getSpeed();
 	}
 	
@@ -224,6 +232,16 @@ public class Outputs {
 	public double getBackRightVoltage()
 	{
 		return _backRightMotor.getOutputVoltage();
+	}
+	
+	public boolean getDriveOverride()
+	{
+		return driveOverride;
+	}
+	
+	public boolean getOpOverride()
+	{
+		return opOverride;
 	}
 
 	public void visionTrack() {

@@ -229,20 +229,21 @@ public class Auto {
 					else {
 						_creepTimer.reset();
 					}
-
-					_outputs.drive(
-							Double.parseDouble(autoSequence.get(i)[1]),
-							Double.parseDouble(autoSequence.get(i)[2])
-							);
 					
 					if (Math.abs(_outputs.getLeftEncoder()) >= Double.parseDouble(autoSequence.get(i)[3])
 						|| Math.abs(_outputs.getRightEncoder()) >= Double.parseDouble(autoSequence.get(i)[4])) {
-						i++;
+						//i++;
 						_outputs.drive(0, 0);
-						_outputs.setGearMotorSpeed(0);
-						_outputs.resetDriveEncoders();
-						shimmyStop = true;
-						_creepTimer.stop();
+						//_outputs.setGearMotorSpeed(0);
+						//_outputs.resetDriveEncoders();
+						//shimmyStop = true;
+						//_creepTimer.stop();
+					}
+					else {
+						_outputs.drive(
+								Double.parseDouble(autoSequence.get(i)[1]),
+								Double.parseDouble(autoSequence.get(i)[2])
+								);
 					}
 					
 					break;
