@@ -24,7 +24,11 @@ public class Diagnostics {
 			if (log.exists() == false) {
 				log.createNewFile();
 				out = new BufferedWriter(new FileWriter(log, true));
-				out.append("Match Time,Left Enc Dist,Right Enc Dist,Left Enc Speed,Right Enc Speed,Left Calc Speed,Right Calc Speed,Climb Current,Climb Left Limit,Climb Right Limit,Front Left Current,Front Right Current,Back Left Current,Back Right Current,Front Left Voltage,Front Right Voltage,Back Left Voltage,Back Right Voltage,Drive Override,Op Override");
+				out.append("Match Time,Left Enc Dist,Right Enc Dist,Left Enc Speed,Right Enc Speed,"
+						+ "Left Calc Speed,Right Calc Speed,Climb Current,Climb Left Limit,Climb Right Limit,"
+						+ "Front Left Current,Front Right Current,Back Left Current,Back Right Current,"
+						+ "Front Left Voltage,Front Right Voltage,Back Left Voltage,Back Right Voltage,"
+						+ "Drive Override,Op Override,Up/Down Stick,Left/Right Stick,Battery Voltage,Forward Direction");
 				out.newLine();
 			}	
 		} catch (Exception ex) {
@@ -64,10 +68,21 @@ public class Diagnostics {
 		String driveOverride = Boolean.toString(_outputs.getDriveOverride());
 		String opOverride = Boolean.toString(_outputs.getOpOverride());
 		
+		String leftStick = Double.toString(_drive.getLeftStick());	
+		String rightStick = Double.toString(_drive.getRightStick());
+		
+		String batteryVoltage = Double.toString(DriverStation.getInstance().getBatteryVoltage());
+
+		String forwardDirection = Boolean.toString(_drive.getDirection());
+		
 		try {
 			if (leftEncoder != 0 || rightEncoder != 0)
 			{
-				out.append(matchTime + "," + leftEncoderDist + "," + rightEncoderDist + "," + leftEncSpeed + "," + rightEncSpeed + "," + leftCalcSpeed + "," + rightCalcSpeed + "," + climberCurrent + "," + climbLeftLimit + "," + climbRightLimit + "," + frontLeftCurrent+ "," + frontRightCurrent+ "," + backLeftCurrent+ "," + backRightCurrent + "," + frontLeftVoltage+ "," + frontRightVoltage+ "," + backLeftVoltage + "," + backRightVoltage+ "," + driveOverride + "," + opOverride);
+				out.append(matchTime + "," + leftEncoderDist + "," + rightEncoderDist + "," + leftEncSpeed + "," + rightEncSpeed + "," 
+						+ leftCalcSpeed + "," + rightCalcSpeed + "," + climberCurrent + "," + climbLeftLimit + "," + climbRightLimit + "," 
+						+ frontLeftCurrent+ "," + frontRightCurrent+ "," + backLeftCurrent+ "," + backRightCurrent + "," 
+						+ frontLeftVoltage+ "," + frontRightVoltage+ "," + backLeftVoltage + "," + backRightVoltage+ "," 
+						+ driveOverride + "," + opOverride + "," + leftStick + "," + rightStick + "," + batteryVoltage + "," + forwardDirection);
 				out.newLine();
 			}
 		} catch (Exception ex) {

@@ -21,10 +21,13 @@ public class Drive {
     
 	private double leftSpeed = 0;
 	private double rightSpeed = 0;
+	
+	private boolean forward;
     
 	public void FPSdrive(boolean forward, double limitedSpeed, boolean halfSpeed) {
 		double turnScale = SmartDashboard.getNumber("turnScale", .5);
 		double decreasedSpeed = SmartDashboard.getNumber("decreasedSpeed", 2);	
+		forward = forward;
 		leftSpeed = 0;
 		rightSpeed = 0;
 		
@@ -66,6 +69,18 @@ public class Drive {
 	
 	public double getRightSpeed() {
 		return rightSpeed;
+	}
+	
+	public double getLeftStick() {
+		return _inputsDrive.getLeftVert();
+	}
+	
+	public double getRightStick() {
+		return _inputsDrive.getRightHorz();
+	}
+	
+	public boolean getDirection() {
+		return forward;
 	}
 		
 	}
