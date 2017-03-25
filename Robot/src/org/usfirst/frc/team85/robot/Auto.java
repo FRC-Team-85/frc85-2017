@@ -62,8 +62,11 @@ public class Auto {
 		else if(auto == 5) { //TURN RIGHT FROM SAFE ZONE (NARROW)
 			fileString = "use:<name>:move, 0.335, 0.35, 9.3, 9.3:wait, 0.3:move, 0.5, 0.0, 2.9, 2.9:wait, 0.3:creep, 0.15, 0.15, 1.1, 1.1:wait, 2.0";
 		}
-		else if (auto == 6) {
+		else if (auto == 6) { //SHOOT RED
 			fileString = "use:<name>:shoot, 1, 6:wait, 0.5:move, 0.75, 0.15, 3.8, 3.8:wait, 0.5:move, 0.435, 0.45, 8.5, 8.5";
+		}
+		else if (auto == 7) { //SHOOT BLUE
+			fileString = "use:<name>:shoot, 1, 6:wait, 0.5:move, 0.15, 0.75, 3.8, 3.8:wait, 0.5:move, 0.435, 0.45, 8.5, 8.5";
 		}
 		else {
 			fileString = SmartDashboard.getString("autoFileString", "");
