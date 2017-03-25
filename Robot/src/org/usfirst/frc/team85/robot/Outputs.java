@@ -50,6 +50,9 @@ public class Outputs {
 	DigitalInput rightClimberLimit = new DigitalInput(Addresses.CLIMB_RIGHT_LIMIT);
 	
 	private double _speedScale = 900;
+	private double gearSpeed;
+	private double shooterSpeed;
+	private double climbSpeed;
 	
 	private boolean driveOverride = false;
 	private boolean opOverride = false;
@@ -161,6 +164,11 @@ public class Outputs {
 		}
 
 		_gearMotor.set(speed);
+		gearSpeed = speed;
+	}
+	
+	public double getGearMotorSpeed() {
+		return gearSpeed;
 	}
 
 	/*public void setGearEncoder(double value) {
@@ -187,6 +195,12 @@ public class Outputs {
 		else {
 			_climbMotor.set(0);
 		}
+		
+		climbSpeed = speed;
+	}
+	
+	public double getClimbSpeed() {
+		return climbSpeed;
 	}
 	
 	public double getClimberCurrent()
@@ -262,9 +276,21 @@ public class Outputs {
     
     public void setShooter(double speed) {
     	_shooter.set(-speed);
-    	//_shooter.set(speed);
+    	shooterSpeed = -speed;
+    }
+    
+    public double getShooterSpeed() {
+    	return shooterSpeed;
     }
 
+    public double getShooterVoltage() {
+    	return _shooter.getOutputVoltage();
+    }
+    
+    public double getShooterCurrent() {
+    	return _shooter.getOutputCurrent();
+    }
+    
 	public void releaseLeftFlap() {
 		_leftServo.set(1); //change if wrong, fully right
 	}

@@ -62,7 +62,9 @@ public class Auto {
 		else if(auto == 5) { //TURN RIGHT FROM SAFE ZONE (NARROW)
 			fileString = "use:<name>:move, 0.335, 0.35, 9.3, 9.3:wait, 0.3:move, 0.5, 0.0, 2.9, 2.9:wait, 0.3:creep, 0.15, 0.15, 1.1, 1.1:wait, 2.0";
 		}
-
+		else if (auto == 6) {
+			fileString = "use:<name>:shoot, 1, 6:wait, 0.5:move, 0.75, 0.15, 3.8, 3.8:wait, 0.5:move, 0.435, 0.45, 8.5, 8.5";
+		}
 		else {
 			fileString = SmartDashboard.getString("autoFileString", "");
 		}
@@ -192,7 +194,7 @@ public class Auto {
 					}
 					else if (currentTime - _waitStart < 1.5) { //no stage motor, time for shooter to warm up
 						_outputs.setStage(0.0);
-						_outputs.setIntake(1.0);
+						_outputs.setIntake(0.0);
 						_outputs.setShooter(Double.parseDouble(autoSequence.get(i)[1]));
 					}
 					else if (currentTime - _waitStart >= 1.5 && currentTime - _waitStart < _waitTime) { //stage motor enabled, balls begin to shoot
