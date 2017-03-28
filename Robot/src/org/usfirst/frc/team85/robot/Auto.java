@@ -11,7 +11,7 @@ public class Auto {
 	
 	private Outputs _outputs = Outputs.getInstance();
 	
-	//selected autonomous sequence as 2d array, entries are commands, array entries are command pieces separated by ","
+	//autonomous sequence as 2d array, each entry is a command (separated by ":"), entries are arrays of command pieces (separated by ",")
 	private ArrayList<String[]> autoSequence = new ArrayList<String[]>();
 	private int i = 0;
 	private double _waitTime = 0;
@@ -46,37 +46,35 @@ public class Auto {
 		
 		String fileString;
 		
-		
 		if(auto == 1) { //CENTER
-			fileString = "use:<name>:move, 0.335, 0.35, 6.2, 6.2:wait, 0.5:creep, 0.15, 0.15, 2.2, 2.2:creep, 0.0001, 0.0001, 2.1, 2.1";
+			fileString = "move, 0.335, 0.35, 6.2, 6.2:wait, 0.5:creep, 0.15, 0.15, 2.2, 2.2:creep, 0.0001, 0.0001, 2.1, 2.1";
 		}
 		else if(auto == 2) { //TURN LEFT FROM DANGER ZONE (WIDE)
-			fileString = "use:<name>:move, 0.335, 0.35, 5.75, 5.75:wait, 0.3:move, 0.0, 0.5, 3, 3:wait, 0.3:move, 0.335, 0.35, 4.8, 4.8:wait, 0.1:creep, 0.15, 0.15, 3.2, 3.2:wait, 2.0";
+			fileString = "move, 0.335, 0.35, 5.75, 5.75:wait, 0.3:move, 0.0, 0.5, 3, 3:wait, 0.3:move, 0.335, 0.35, 4.8, 4.8:wait, 0.1:creep, 0.15, 0.15, 3.2, 3.2:wait, 2.0";
 		}
 		else if(auto == 3) { //TURN RIGHT FROM DANGER ZONE (WIDE)
-			fileString = "use:<name>:move, 0.335, 0.35, 5.75, 5.75:wait, 0.3:move, 0.5, 0.0, 2.9, 2.9:wait, 0.3:move, 0.335, 0.35, 4.8, 4.8:wait, 0.1:creep, 0.15, 0.15, 3.2, 3.2:wait, 2.0";
+			fileString = "move, 0.335, 0.35, 5.75, 5.75:wait, 0.3:move, 0.5, 0.0, 2.9, 2.9:wait, 0.3:move, 0.335, 0.35, 4.8, 4.8:wait, 0.1:creep, 0.15, 0.15, 3.2, 3.2:wait, 2.0";
 		}
 		else if(auto == 4) { //TURN LEFT FROM SAFE ZONE (NARROW)
-			fileString = "use:<name>:move, 0.335, 0.35, 9.3, 9.3:wait, 0.3:move, 0.0, 0.5, 3, 3:wait, 0.3:creep, 0.15, 0.15, 1.1, 1.1:wait, 2.0";
+			fileString = "move, 0.335, 0.35, 9.3, 9.3:wait, 0.3:move, 0.0, 0.5, 3, 3:wait, 0.3:creep, 0.15, 0.15, 1.1, 1.1:wait, 2.0";
 		}
 		else if(auto == 5) { //TURN RIGHT FROM SAFE ZONE (NARROW)
-			fileString = "use:<name>:move, 0.335, 0.35, 9.3, 9.3:wait, 0.3:move, 0.5, 0.0, 2.9, 2.9:wait, 0.3:creep, 0.15, 0.15, 1.1, 1.1:wait, 2.0";
+			fileString = "move, 0.335, 0.35, 9.3, 9.3:wait, 0.3:move, 0.5, 0.0, 2.9, 2.9:wait, 0.3:creep, 0.15, 0.15, 1.1, 1.1:wait, 2.0";
 		}
 		else if (auto == 6) { //SHOOT RED
-			fileString = "use:<name>:shoot, 1, 6:wait, 0.5:move, 0.75, 0.15, 3.8, 3.8:wait, 0.5:move, 0.435, 0.45, 8.5, 8.5";
+			fileString = "shoot, 1, 6:wait, 0.5:move, 0.75, 0.15, 3.8, 3.8:wait, 0.5:move, 0.435, 0.45, 8.5, 8.5";
 		}
 		else if (auto == 7) { //SHOOT BLUE
-			fileString = "use:<name>:shoot, 1, 6:wait, 0.5:move, 0.15, 0.75, 3.8, 3.8:wait, 0.5:move, 0.435, 0.45, 8.5, 8.5";
+			fileString = "shoot, 1, 6:wait, 0.5:move, 0.15, 0.75, 3.8, 3.8:wait, 0.5:move, 0.435, 0.45, 8.5, 8.5";
 		}
 		else {
 			fileString = SmartDashboard.getString("autoFileString", "");
 		}
 		
-		//argument fileString is the file
-		//will be file without whitespace and comments
-		String string = "";
-		//is toggled for comments
-		boolean comment = false;
+		
+		String string = ""; //will be without whitespace and comments
+		
+		boolean comment = false; //is toggled for comments
 		
 		//remove comments
 		for (int i = 0; i < fileString.length(); i++) {
@@ -90,40 +88,19 @@ public class Auto {
 			}
 		}
 		
-		//remove enter character, space character, tabs and <>
-		//runs faster doing all at once?
+		//remove enter character, space character, tabs and <>, runs faster doing all at once?
 		string = string.replaceAll(System.getProperty("line.separator"), "").replaceAll(" ", "").replaceAll("\t", "").replaceAll("<", "").replaceAll(">", "");
 		
 		System.out.println(string);
 		
-		//whole file split into sequences by ";"
-		ArrayList<String> sequences = new ArrayList<String>(Arrays.asList(string.split(";")));
-		System.out.println("sequences size: " + sequences.size());
-		//whole file as 2d array, entries are CommandStrings entries split apart by ":" into arrays
-		ArrayList<String[]> commands = new ArrayList<String[]>();
-		System.out.println("commands.size: " + commands.size());
-
-		try
-		{
-			//split sequences into individual commands by ":"
-			for (int j = 0; j < sequences.size(); j++) { 
-				commands.add(sequences.get(j).split(":"));
-			}
-			
-			System.out.println("Amount of commands: " + commands.size());
+		ArrayList<String> commands = new ArrayList<String>(Arrays.asList(string.split(":"))); //entries are commands split apart by ":"
 		
-			for (int k = 0; k < commands.size(); k++) {
-				//detects which sequence says "use"
-				String[] command = commands.get(k);
-				if (command[0].equals("use")) {
-					System.out.println("Found 'use' in command.");
-					//split by "," and put in autonSequence
-					for (int j = 2; j < command.length; j++) {
-						autoSequence.add(command[j].split(","));
-					}
-				
-					break;
-				}
+
+		try {
+			System.out.println("number of commands: " + commands.size());
+		
+			for (int j = 0; j < command.length; j++) { //split by "," and put in autonSequence
+				autoSequence.add(command[j].split(","));
 			}
 			
 			//System.out.println("Amount of );
@@ -131,20 +108,17 @@ public class Auto {
 			
 			_waitTimer.start();
 		}
-		catch (Exception ex)
-		{
+		catch (Exception ex) {
 			System.out.println(ex.toString());
 		}
 	}	
-		
+	
+	//is called repeatedly in autonomousPeriodic
 	public void run() {
-		//loops over commands in the sequence and executes them
-		//count starts at 1 because 1st command indicates sequence to use
 		//System.out.println("autoSequence size:" + autoSequence.size());
 		if (i < autoSequence.size()) {
 			//System.out.println("Loop reached");
-			//switch is the first parameter of the command
-			switch (autoSequence.get(i)[0]) {
+			switch (autoSequence.get(i)[0]) { //switch is the first parameter of the command
 				case "move":
 					System.out.println("move robot");
 					_outputs.drive(
@@ -179,11 +153,6 @@ public class Auto {
 					
 					break;
 				
-				case "findBoiler":
-					//vision targeting stuff		//System.out.println("find boiler target");
-					
-					break;
-				
 				case "shoot":
 					//shoot into boiler
 					
@@ -215,7 +184,7 @@ public class Auto {
 					}
 					
 					break;
-					
+				
 				case "creep": //move and get jiggy with it
 					System.out.println("creep");
 	
@@ -257,13 +226,6 @@ public class Auto {
 				case "findGear":
 					//vision targeting stuff
 					//System.out.println("find gear target");
-					
-					break;
-				
-				case "gear":
-					//place gear
-					//System.out.println("place gear");
-					//do we need this case?
 					
 					break;
 			}
