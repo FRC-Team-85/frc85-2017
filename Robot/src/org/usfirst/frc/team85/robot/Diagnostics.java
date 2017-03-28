@@ -12,6 +12,9 @@ public class Diagnostics {
 	private Drive _drive = Drive.getInstance();
 	private InputsDrive _inputsDrive = InputsDrive.getInstance();
 	private InputsOp _inputsOp = InputsOp.getInstance();
+	
+	private long epoch = System.currentTimeMillis()/1000;
+	private String date = new java.text.SimpleDateFormat("MM-dd-yyyy HH-mm-ss").format(new java.util.Date (epoch*1000));
 
 	File log;
 	BufferedWriter out = null;
@@ -22,7 +25,7 @@ public class Diagnostics {
 		{
 			close();
 			
-			log = new File("/home/lvuser/log" + System.currentTimeMillis() + ".csv");
+			log = new File("/home/lvuser/log " + date + ".csv");
 			if (log.exists() == false) {
 				log.createNewFile();
 				out = new BufferedWriter(new FileWriter(log, true));

@@ -59,6 +59,7 @@ public class Robot extends IterativeRobot {
 		
 		_outputs.releaseRightFlap();
 		_outputs.releaseLeftFlap();
+		_outputs.gyroCalibrate();
 		
 	}
 

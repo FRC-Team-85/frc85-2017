@@ -21,6 +21,7 @@ public class Auto {
 	boolean creepStarted = false;
 	boolean shimmyStop = false;
 	double moveTime = 0.5;
+	boolean gyroReset = false;
 	
 	private Timer _creepTimer = new Timer();
 	
@@ -222,7 +223,32 @@ public class Auto {
 					}
 					
 					break;
-				
+					
+				case "gyro":
+					
+					double angle = Math.abs(_outputs.gyroAngle());
+					double desiredAngle = angle + Double.parseDouble(autoSequence.get(i)[3]);
+					
+					if(!gyroReset) {
+						_outputs.gyroReset();
+						gyroReset = true;
+					}
+					
+					System.out.println("turn gyro");
+					_outputs.drive(
+							Double.parseDouble(autoSequence.get(i)[1]),
+							Double.parseDouble(autoSequence.get(i)[2])
+							);
+					
+					if (angle >= desiredAngle) {
+						i++;
+						_outputs.drive(0, 0);
+						_outputs.resetDriveEncoders();
+						gyroReset = false;
+					}
+					
+					break;
+					
 				case "findGear":
 					//vision targeting stuff
 					//System.out.println("find gear target");

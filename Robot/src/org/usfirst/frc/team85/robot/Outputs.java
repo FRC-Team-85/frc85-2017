@@ -5,9 +5,11 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Direction;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -41,6 +43,7 @@ public class Outputs {
 	
 	private Servo _leftServo = new Servo(Addresses.LEFT_SERVO);
 	private Servo _rightServo = new Servo(Addresses.RIGHT_SERVO);
+	private ADXRS450_Gyro _gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 	
 	DigitalInput leftGearLimit = new DigitalInput(Addresses.GEAR_LEFT_LIMIT);
 	DigitalInput rightGearLimit = new DigitalInput(Addresses.GEAR_RIGHT_LIMIT);
@@ -316,5 +319,21 @@ public class Outputs {
     	else {
     		visionLED.set(Relay.Value.kOff);
     	}
+    }
+    
+    public void gyroCalibrate() {
+    	_gyro.calibrate();
+    }
+    
+    public void gyroReset() {
+    	_gyro.reset();
+    }
+    
+    public double gyroAngle() {
+    	return _gyro.getAngle();
+    }
+    
+    public double gyroRate() {
+    	return _gyro.getRate();
     }
 }
