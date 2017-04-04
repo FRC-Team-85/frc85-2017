@@ -52,7 +52,7 @@ public class Outputs {
 	DigitalInput leftClimberLimit = new DigitalInput(Addresses.CLIMB_LEFT_LIMIT);
 	DigitalInput rightClimberLimit = new DigitalInput(Addresses.CLIMB_RIGHT_LIMIT);
 	
-	private double _speedScale = 900;
+	private double _speedScale = 1000;
 	private double gearSpeed;
 	private double shooterSpeed;
 	private double climbSpeed;
@@ -85,24 +85,47 @@ public class Outputs {
 		_backRightMotor.set(_frontRightMotor.getDeviceID());
 
 		_backLeftMotor.setProfile(0);
-		_backLeftMotor.setF(0.1097);
-		_backLeftMotor.setP(0.22);
-		_backLeftMotor.setI(0);
-		_backLeftMotor.setD(0);
+		_backLeftMotor.configPeakOutputVoltage(+12.0f, -12.0f);
 		_frontRightMotor.setProfile(0);
-		_frontRightMotor.setF(0.1097);
-		_frontRightMotor.setP(0.22);
-		_frontRightMotor.setI(0);
-		_frontRightMotor.setD(0);
+		_frontRightMotor.configPeakOutputVoltage(+12.0f, -12.0f);
 		
 		_gearMotor.changeControlMode(TalonControlMode.PercentVbus);
 		_gearMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		
 		visionLED.setDirection(Direction.kForward);
+		SmartDashboard.putNumber("Drive F", 0.150);
+		SmartDashboard.putNumber("Drive P", 0.05);
+		SmartDashboard.putNumber("Drive I", 0);
+		SmartDashboard.putNumber("Drive D", 0);
+	}
+	
+	public void setPID() {
+		double f = SmartDashboard.getNumber("Drive F", 0.150);
+		double p = SmartDashboard.getNumber("Drive P", 0.05);
+		double i = SmartDashboard.getNumber("Drive I", 0);
+		double d = SmartDashboard.getNumber("Drive D", 0);
+		
+		_backLeftMotor.setF(f);
+		_backLeftMotor.setP(p);
+		_backLeftMotor.setI(i);
+		_backLeftMotor.setD(d);
+		_frontRightMotor.setF(f);
+		_frontRightMotor.setP(p);
+		_frontRightMotor.setI(i);
+		_frontRightMotor.setD(d);
+		
+		SmartDashboard.putNumber("Drive Left Error", _backLeftMotor.getError());
+		SmartDashboard.putNumber("Drive Right Error", _frontRightMotor.getError());		
 	}
 
 	public double setLeftSpeed(double targetSpeed) {
-		
+		/*if (targetSpeed < 0) {
+			_backLeftMotor.configPeakOutputVoltage(0f, -12.0f);
+		}
+		else if (targetSpeed > 0) {
+			_backLeftMotor.configPeakOutputVoltage(+12.0f, 0f);
+		}*/
+	
 		if(!driveOverride) {
 			_backLeftMotor.changeControlMode(TalonControlMode.Speed);
 			_backLeftMotor.set(targetSpeed * _speedScale);
@@ -112,11 +135,17 @@ public class Outputs {
 			_backLeftMotor.set(targetSpeed);
 		}
 		
-		return _backLeftMotor.getSpeed();
-		
+		return _backLeftMotor.getSpeed();		
 	}
 
 	public double setRightSpeed(double targetSpeed) {
+		/*if (targetSpeed < 0) {
+			_frontRightMotor.configPeakOutputVoltage(0f, -12.0f);
+		}
+		else if (targetSpeed > 0) {
+			_frontRightMotor.configPeakOutputVoltage(+12.0f, 0f);
+		}*/
+		
 		if(!driveOverride) {
 			_frontRightMotor.changeControlMode(TalonControlMode.Speed);
 			_frontRightMotor.set(targetSpeed * _speedScale);

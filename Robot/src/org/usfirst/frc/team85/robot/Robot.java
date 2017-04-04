@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot {
     private boolean forward = true;
     private boolean teleopHasInited = false;
     private double gearCenterTolerance = 20000;	//subject to change
-    
+    private boolean _driveDistance = false;
     private double shooterSpeed;
     
     NetworkTable table;
@@ -47,7 +47,11 @@ public class Robot extends IterativeRobot {
 		
 		//SmartDashboard.putNumber("stageSpeed", 1);
 		SmartDashboard.putNumber("AUTO MODE", 0);
-		SmartDashboard.putNumber("Shooter Speed", 1);
+		SmartDashboard.putNumber("Speed Shooter", 1);
+		SmartDashboard.putNumber("Speed Stage", 1);
+		SmartDashboard.putNumber("Speed Intake", 1);
+		SmartDashboard.putBoolean("Xbox Driver controller", false);
+		SmartDashboard.putNumber("Backwards Drive Distance", 0.15);
 
 		String auto = SmartDashboard.getString("autoFileString", "");
 		if (auto == null || auto.isEmpty())
@@ -88,8 +92,8 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		_auto.run();
 		_diagnostics.log();
-		SmartDashboard.putNumber("DriveRightEncoder", _outputs.getRightEncoder());
-		SmartDashboard.putNumber("DriveLeftEncoder", _outputs.getLeftEncoder());
+		SmartDashboard.putNumber("Drive Left Encoder", _outputs.getLeftEncoder());
+		SmartDashboard.putNumber("Drive Right Encoder", _outputs.getRightEncoder());
 	}
 	
 	@Override
@@ -158,8 +162,8 @@ public class Robot extends IterativeRobot {
 		
 		*/
 		
-		SmartDashboard.putNumber("Left Encoder", _outputs.getLeftEncoder());
-		SmartDashboard.putNumber("Right Endoer",  _outputs.getRightEncoder());
+		SmartDashboard.putNumber("Drive Left Encoder", _outputs.getLeftEncoder());
+		SmartDashboard.putNumber("Drive Right Endoer",  _outputs.getRightEncoder());
 
 		//Turns on climb roller
 		SmartDashboard.putNumber("Climb output", _inputsOp.getLeftVert());
@@ -173,7 +177,7 @@ public class Robot extends IterativeRobot {
 		
 		//Intake
 		if(_inputsOp.getAButton()) {
-			_outputs.setIntake(1);
+			_outputs.setIntake(SmartDashboard.getNumber("Speed Intake", 1));
 		}
 		else {
 			_outputs.setIntake(0);
@@ -181,7 +185,7 @@ public class Robot extends IterativeRobot {
 		
 		//Stage
 		if(_inputsOp.getRightTrigger()) {
-			_outputs.setStage(SmartDashboard.getNumber("stageSpeed", 1));
+			_outputs.setStage(SmartDashboard.getNumber("Speed Stage", 1));
 		}
 		else {
 			_outputs.setStage(0);
@@ -189,22 +193,35 @@ public class Robot extends IterativeRobot {
 		
 		//Shooter
 		if(_inputsOp.getLeftTrigger()) {
-			_outputs.setShooter(SmartDashboard.getNumber("Shooter Speed", 1));
+			_outputs.setShooter(SmartDashboard.getNumber("Speed Shooter", 1));
 		}
 		else {
 			_outputs.setShooter(0);
 		}
+		
 
+		if(_inputsOp.getYButton() && !_driveDistance) {
+			double distance = -Math.abs(SmartDashboard.getNumber("Backwards Drive Distance", 0.15));
+			_drive.setDistanceTargets(distance, distance);
+			_driveDistance = true;
+		}
+		
+		_inputsDrive.setXbox(SmartDashboard.getBoolean("Xbox Driver controller", false));
+
+		_outputs.setPID();
 		//Decreased Speed
-			if(_inputsDrive.getRightBumper()) {
-				_drive.FPSdrive(forward, 0.69, true);
-				//SmartDashboard.putNumber("buttonPressed", 1);
-			}
-			else {
-				_drive.FPSdrive(forward, 0.69, false);
-				//SmartDashboard.putNumber("buttonPressed", 0);
-			}
-
+		if (_driveDistance) {
+			_driveDistance = _drive.driveBackwards(0.3);
+		}
+		else if(_inputsDrive.getRightBumper()) {
+			//_drive.FPSdrive(forward, 0.69, true);
+			//SmartDashboard.putNumber("buttonPressed", 1);
+			_drive.tankDrive(forward, 0.69, false);
+		}
+		else {
+			_drive.FPSdrive(forward, 0.69, false);
+			//SmartDashboard.putNumber("buttonPressed", 0);
+		}
 		
 		//Drive override
 		if(_inputsDrive.getLeftBumper()) {
@@ -235,12 +252,9 @@ public class Robot extends IterativeRobot {
 		if(_inputsOp.getVertDpad() == 1) {
 			shooterSpeed = shooterSpeed + .002;
 		}
-		if(_inputsOp.getVertDpad() == -1) {
+		else if(_inputsOp.getVertDpad() == -1) {
 			shooterSpeed = shooterSpeed - .002;
-		}
-		else{
-		}
-	
+		}	
 	}
 
 	/**

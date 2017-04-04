@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class InputsDrive {
 	
 	private static InputsDrive instance = null;
+	private boolean _xbox;
 	
 	public static InputsDrive getInstance() {
 		if (instance == null) {
@@ -19,6 +20,10 @@ public class InputsDrive {
 	
 	private Joystick driveStick;
 	
+	public void setXbox(boolean xbox) {
+		_xbox = xbox;
+	}
+	
 		//Thumbsticks
 			public double getLeftVert() {
 				return driveStick.getRawAxis(1);
@@ -29,13 +34,21 @@ public class InputsDrive {
 			}
 			
 			public double getRightVert() {
-				return driveStick.getRawAxis(5);
-				//return driveStick.getRawAxis(3); //logitech
+				if (_xbox) {					
+					return driveStick.getRawAxis(5);
+				}
+				else {
+					return driveStick.getRawAxis(3); //logitech
+				}
 			}
 			
 			public double getRightHorz() {
-				return driveStick.getRawAxis(4);
-				//return driveStick.getRawAxis(2); //logitech
+				if (_xbox) {					
+					return driveStick.getRawAxis(4);
+				}
+				else {
+					return driveStick.getRawAxis(2); //logitech
+				}
 			}
 		
 		//Bumpers
@@ -58,18 +71,30 @@ public class InputsDrive {
 		
 		//Buttons
 			public boolean getAButton() {
-				return driveStick.getRawButton(1);
-				//return driveStick.getRawButton(2); //logitech
+				if (_xbox) {					
+					return driveStick.getRawButton(1);
+				}
+				else {
+					return driveStick.getRawButton(2); //logitech
+				}
 			}
 			
 			public boolean getBButton() {
-				return driveStick.getRawButton(2);
-				//return driveStick.getRawButton(3); //logitech
+				if (_xbox) {					
+					return driveStick.getRawButton(2);
+				}
+				else {					
+					return driveStick.getRawButton(3); //logitech
+				}
 			}
 			
 			public boolean getXButton() {
-				return driveStick.getRawButton(3);
-				//return driveStick.getRawButton(1); //logitech
+				if (_xbox) {					
+					return driveStick.getRawButton(3);
+				}
+				else {
+					return driveStick.getRawButton(1); //logitech
+				}
 			}
 			
 			public boolean getYButton() {

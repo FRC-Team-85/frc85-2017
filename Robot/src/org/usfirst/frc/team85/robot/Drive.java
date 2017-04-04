@@ -22,12 +22,15 @@ public class Drive {
 	private double leftSpeed = 0;
 	private double rightSpeed = 0;
 	
-	private boolean forward;
+	private boolean _forward;
+	
+	private double _leftTarget;
+	private double _rightTarget;
     
 	public void FPSdrive(boolean forward, double limitedSpeed, boolean halfSpeed) {
 		double turnScale = SmartDashboard.getNumber("turnScale", .5);
 		double decreasedSpeed = SmartDashboard.getNumber("decreasedSpeed", 2);	
-		forward = forward;
+		_forward = forward;
 		leftSpeed = 0;
 		rightSpeed = 0;
 		
@@ -63,6 +66,64 @@ public class Drive {
 			}
 		}
 	
+	public void tankDrive(boolean forward, double limitedSpeed, boolean halfSpeed) {
+		double decreasedSpeed = SmartDashboard.getNumber("decreasedSpeed", 2);
+		leftSpeed = 0;
+		rightSpeed = 0;
+		
+		if(Math.abs(_inputsDrive.getLeftVert()) >= 0.2 ) { //logitech deadband: 0.02, xbox deadband: 0.2
+			leftSpeed = _inputsDrive.getLeftVert();
+		}
+		
+		if (Math.abs(_inputsDrive.getRightVert()) >= 0.2) {
+			rightSpeed = _inputsDrive.getRightVert();
+		}
+			
+		if(halfSpeed) {
+			leftSpeed = leftSpeed / decreasedSpeed;
+			rightSpeed = rightSpeed / decreasedSpeed;
+		}
+		
+		if(_inputsDrive.getVertDpad() == 1) {
+			leftSpeed = -limitedSpeed;
+			rightSpeed = -limitedSpeed;
+		}
+		else if(_inputsDrive.getVertDpad() == -1) {
+			leftSpeed = limitedSpeed;
+			rightSpeed = limitedSpeed;
+		}	
+		
+		if (forward) {
+			SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(-leftSpeed));
+			SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(-rightSpeed));
+		}
+		else if (!forward) {
+			SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(rightSpeed));
+			SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(leftSpeed));	
+		}
+	}
+	
+	public void setDistanceTargets(double leftTarget, double rightTarget) {
+		_leftTarget = _outputs.getLeftEncoder() + leftTarget;
+		_rightTarget = _outputs.getRightEncoder() + rightTarget;
+	}
+	
+	public boolean driveBackwards(double speed) {
+		double rightEnc = _outputs.getRightEncoder();
+		double leftEnc = _outputs.getLeftEncoder();
+		
+		if(leftEnc <= _leftTarget && rightEnc <= _rightTarget) {
+			_outputs.setLeftSpeed(0);
+			_outputs.setRightSpeed(0);
+			return false;
+		}
+		else {
+			_outputs.setLeftSpeed(-speed);
+			_outputs.setRightSpeed(-speed);
+			return true;
+		}
+	}
+	
 	public double getLeftSpeed() {
 		return leftSpeed;
 	}
@@ -80,7 +141,7 @@ public class Drive {
 	}
 	
 	public boolean getDirection() {
-		return forward;
+		return _forward;
 	}
 		
 	}

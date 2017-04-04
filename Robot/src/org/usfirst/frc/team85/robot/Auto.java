@@ -100,8 +100,8 @@ public class Auto {
 		try {
 			System.out.println("number of commands: " + commands.size());
 		
-			for (int j = 0; j < command.length; j++) { //split by "," and put in autonSequence
-				autoSequence.add(command[j].split(","));
+			for (int j = 0; j < commands.size(); j++) { //split by "," and put in autonSequence
+				autoSequence.add(commands.get(j).split(","));
 			}
 			
 			//System.out.println("Amount of );
