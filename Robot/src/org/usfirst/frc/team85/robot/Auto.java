@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Auto {
 	
 	private Outputs _outputs = Outputs.getInstance();
+	private Drive _drive = Drive.getInstance();
 	
 	//autonomous sequence as 2d array, each entry is a command (separated by ":"), entries are arrays of command pieces (separated by ",")
 	private ArrayList<String[]> autoSequence = new ArrayList<String[]>();
@@ -48,30 +49,31 @@ public class Auto {
 		String fileString;
 		
 		if(auto == 1) { //CENTER
-			fileString = "move, 0.335, 0.35, 6.2, 6.2:wait, 0.5:creep, 0.15, 0.15, 2.2, 2.2:creep, 0.0001, 0.0001, 2.1, 2.1";
+			fileString = "move, 0.35, 0.35, 6.75, 6.75:wait, 0.5:creep, 0.15, 0.15, 2.2, 2.2:creep, 0.0001, 0.0001, 2.1, 2.1";
 		}
 		else if(auto == 2) { //TURN LEFT FROM DANGER ZONE (WIDE)
-			fileString = "move, 0.335, 0.35, 5.75, 5.75:wait, 0.3:move, 0.0, 0.5, 3, 3:wait, 0.3:move, 0.335, 0.35, 4.8, 4.8:wait, 0.1:creep, 0.15, 0.15, 3.2, 3.2:wait, 2.0";
+			fileString = "move, 0.35, 0.35, 8.0, 8.0:wait, 0.3:move, -0.3, 0.3, 1.65, 1.65:wait, 0.3:move, 0.35, 0.35, 6.1, 6.1:wait, 0.1:creep, 0.15, 0.15, 3.2, 3.2:wait, 2.0";
 		}
 		else if(auto == 3) { //TURN RIGHT FROM DANGER ZONE (WIDE)
-			fileString = "move, 0.335, 0.35, 5.75, 5.75:wait, 0.3:move, 0.5, 0.0, 2.9, 2.9:wait, 0.3:move, 0.335, 0.35, 4.8, 4.8:wait, 0.1:creep, 0.15, 0.15, 3.2, 3.2:wait, 2.0";
+			fileString = "move, 0.35, 0.35, 8.0, 8.0:wait, 0.3:move, 0.3, -0.3, 1.65, 1.65:wait, 0.3:move, 0.35, 0.35, 6.1, 6.1:wait, 0.1:creep, 0.15, 0.15, 3.2, 3.2:wait, 2.0";
 		}
 		else if(auto == 4) { //TURN LEFT FROM SAFE ZONE (NARROW)
-			fileString = "move, 0.335, 0.35, 9.3, 9.3:wait, 0.3:move, 0.0, 0.5, 3, 3:wait, 0.3:creep, 0.15, 0.15, 1.1, 1.1:wait, 2.0";
+			fileString = "move, 0.35, 0.35, 11.0, 11.0:wait, 0.3:move, -0.3, 0.3, 1.9, 1.9:wait, 0.3:creep, 0.15, 0.15, 1.8, 1.8:wait, 2.0";
 		}
 		else if(auto == 5) { //TURN RIGHT FROM SAFE ZONE (NARROW)
-			fileString = "move, 0.335, 0.35, 9.3, 9.3:wait, 0.3:move, 0.5, 0.0, 2.9, 2.9:wait, 0.3:creep, 0.15, 0.15, 1.1, 1.1:wait, 2.0";
+			fileString = "move, 0.35, 0.35, 11.0, 11.0:wait, 0.3:move, 0.3, -0.3, 1.9, 1.9:wait, 0.3:creep, 0.15, 0.15, 1.8, 1.8:wait, 2.0";
 		}
 		else if (auto == 6) { //SHOOT RED
-			fileString = "shoot, 1, 6:wait, 0.5:move, 0.75, 0.15, 3.8, 3.8:wait, 0.5:move, 0.435, 0.45, 8.5, 8.5";
+			fileString = "shoot, 0.87, 10:wait, 0.5:move, -0.15, 0.75, 4.2:wait, 0.5:move, 0.45, 0.45, 10.5, 10.5";
 		}
 		else if (auto == 7) { //SHOOT BLUE
-			fileString = "shoot, 1, 6:wait, 0.5:move, 0.15, 0.75, 3.8, 3.8:wait, 0.5:move, 0.435, 0.45, 8.5, 8.5";
+			fileString = "shoot, 0.87, 10:wait, 0.5:move, 0.75, -0.15, 4.2, 4.2:wait, 0.5:move, 0.45, 0.45, 10.5, 10.5";
 		}
 		else {
 			fileString = SmartDashboard.getString("autoFileString", "");
 		}
 		
+		SmartDashboard.putString("autoFileString", fileString);
 		
 		String string = ""; //will be without whitespace and comments
 		
@@ -122,10 +124,14 @@ public class Auto {
 			switch (autoSequence.get(i)[0]) { //switch is the first parameter of the command
 				case "move":
 					System.out.println("move robot");
-					_outputs.drive(
-							Double.parseDouble(autoSequence.get(i)[1]),
-							Double.parseDouble(autoSequence.get(i)[2])
-							);
+					double left = Double.parseDouble(autoSequence.get(i)[1]);
+					double right = Double.parseDouble(autoSequence.get(i)[2]);
+					if (left == right) {
+						_drive.FPSdrive(true, 0,  false, -left);
+					}
+					else {
+						_outputs.drive(left, right);
+					}
 					
 					if (Math.abs(_outputs.getLeftEncoder()) >= Double.parseDouble(autoSequence.get(i)[3])
 						|| Math.abs(_outputs.getRightEncoder()) >= Double.parseDouble(autoSequence.get(i)[4])) {
@@ -171,8 +177,8 @@ public class Auto {
 						_outputs.setShooter(Double.parseDouble(autoSequence.get(i)[1]));
 					}
 					else if (currentTime - _waitStart >= 1.5 && currentTime - _waitStart < _waitTime) { //stage motor enabled, balls begin to shoot
-						_outputs.setStage(1.0);
-						_outputs.setIntake(1.0);
+						_outputs.setStage(SmartDashboard.getNumber("Speed Stage", 0.5));
+						_outputs.setIntake(SmartDashboard.getNumber("Speed Intake", 1));
 						_outputs.setShooter(Double.parseDouble(autoSequence.get(i)[1]));
 					}
 					else if (currentTime - _waitStart >= _waitTime) {

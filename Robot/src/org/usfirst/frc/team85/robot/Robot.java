@@ -47,11 +47,16 @@ public class Robot extends IterativeRobot {
 		
 		//SmartDashboard.putNumber("stageSpeed", 1);
 		SmartDashboard.putNumber("AUTO MODE", 0);
-		SmartDashboard.putNumber("Speed Shooter", 1);
-		SmartDashboard.putNumber("Speed Stage", 1);
+		SmartDashboard.putNumber("Speed Shooter", 0.87);
+		SmartDashboard.putNumber("Speed Stage", 0.5);
 		SmartDashboard.putNumber("Speed Intake", 1);
 		SmartDashboard.putBoolean("Xbox Driver controller", false);
 		SmartDashboard.putNumber("Backwards Drive Distance", 0.15);
+		SmartDashboard.putBoolean("Straight driving auto calibration", false);
+		SmartDashboard.putNumber("Straight driving position tolerance", 0.05);
+		SmartDashboard.putNumber("Straight driving scale change factor", 0.999);
+		SmartDashboard.putNumber("Straight driving left scale", 1);
+		SmartDashboard.putNumber("Straight driving right scale", 1);
 
 		String auto = SmartDashboard.getString("autoFileString", "");
 		if (auto == null || auto.isEmpty())
@@ -83,6 +88,7 @@ public class Robot extends IterativeRobot {
 		_outputs.resetDriveEncoders();
 		_auto.initAuto();
 		_diagnostics.init();
+		_outputs.setDriveBrakeMode(true);
 	}
 
 	/**
@@ -100,13 +106,17 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		_auto.resetAuto();
 		_outputs.climb(0);
+		_outputs.drive(0, 0);
 		_outputs.resetDriveEncoders();
 		_diagnostics.close();
+		_drive.resetStraightDriving();
+		_outputs.setDriveBrakeMode(false);
 	}
 	
 	@Override
 	public void teleopInit() {
 		_diagnostics.init();
+		_outputs.setDriveBrakeMode(false);
 	}
 
 	/**
@@ -163,7 +173,7 @@ public class Robot extends IterativeRobot {
 		*/
 		
 		SmartDashboard.putNumber("Drive Left Encoder", _outputs.getLeftEncoder());
-		SmartDashboard.putNumber("Drive Right Endoer",  _outputs.getRightEncoder());
+		SmartDashboard.putNumber("Drive Right Encoder",  _outputs.getRightEncoder());
 
 		//Turns on climb roller
 		SmartDashboard.putNumber("Climb output", _inputsOp.getLeftVert());
@@ -185,7 +195,7 @@ public class Robot extends IterativeRobot {
 		
 		//Stage
 		if(_inputsOp.getRightTrigger()) {
-			_outputs.setStage(SmartDashboard.getNumber("Speed Stage", 1));
+			_outputs.setStage(SmartDashboard.getNumber("Speed Stage", 0.5));
 		}
 		else {
 			_outputs.setStage(0);
@@ -193,7 +203,7 @@ public class Robot extends IterativeRobot {
 		
 		//Shooter
 		if(_inputsOp.getLeftTrigger()) {
-			_outputs.setShooter(SmartDashboard.getNumber("Speed Shooter", 1));
+			_outputs.setShooter(SmartDashboard.getNumber("Speed Shooter", 0.87));
 		}
 		else {
 			_outputs.setShooter(0);
@@ -219,7 +229,7 @@ public class Robot extends IterativeRobot {
 			_drive.tankDrive(forward, 0.69, false);
 		}
 		else {
-			_drive.FPSdrive(forward, 0.69, false);
+			_drive.FPSdrive(forward, 0.69, false, _inputsDrive.getLeftVert());
 			//SmartDashboard.putNumber("buttonPressed", 0);
 		}
 		

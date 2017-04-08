@@ -26,17 +26,21 @@ public class Drive {
 	
 	private double _leftTarget;
 	private double _rightTarget;
-    
-	public void FPSdrive(boolean forward, double limitedSpeed, boolean halfSpeed) {
+	private double _lastLeftPosition = 0;
+	private double _lastRightPosition = 0;
+	private double _leftScale = 1;
+	private double _rightScale = 1;
+	
+	public void FPSdrive(boolean forward, double limitedSpeed, boolean halfSpeed, double forwardSpeed) {
 		double turnScale = SmartDashboard.getNumber("turnScale", .5);
 		double decreasedSpeed = SmartDashboard.getNumber("decreasedSpeed", 2);	
 		_forward = forward;
 		leftSpeed = 0;
 		rightSpeed = 0;
 		
-			if(Math.abs(_inputsDrive.getLeftVert()) >= 0.2 ) { //logitech deadband: 0.02, xbox deadband: 0.2
-				leftSpeed = _inputsDrive.getLeftVert();
-				rightSpeed = _inputsDrive.getLeftVert();
+			if(Math.abs(forwardSpeed) >= 0.02 ) { //logitech deadband: 0.02, xbox deadband: 0.2
+				leftSpeed = forwardSpeed;
+				rightSpeed = forwardSpeed;
 				
 				if(halfSpeed) {
 					leftSpeed = leftSpeed / decreasedSpeed;
@@ -52,10 +56,47 @@ public class Drive {
 				rightSpeed = limitedSpeed;
 			}
 			
-			if(Math.abs(_inputsDrive.getRightHorz()) >= 0.2) { //logitech deadband: 0.02, xbox deadband: 0.2
+			if(Math.abs(_inputsDrive.getRightHorz()) >= 0.02) { //logitech deadband: 0.02, xbox deadband: 0.2
 				leftSpeed = leftSpeed + turnScale * -_inputsDrive.getRightHorz();
 				rightSpeed = rightSpeed + turnScale * _inputsDrive.getRightHorz();
+				resetStraightDriving();
 			}
+			else {
+				double leftPos = _outputs.getLeftEncoder();
+				double rightPos = _outputs.getRightEncoder();
+								
+				double leftDiff = leftPos - _lastLeftPosition;
+				double rightDiff = rightPos - _lastRightPosition;
+				
+				SmartDashboard.putNumber("Straight driving left difference", leftDiff);
+				SmartDashboard.putNumber("Straight driving right difference", rightDiff);
+				
+				double tolerance = SmartDashboard.getNumber("Straight driving position tolerance", 0.01);
+				double scaleFactor = SmartDashboard.getNumber("Straight driving scale change factor", 0.99);
+				if (SmartDashboard.getBoolean("Straight driving auto calibration", false) && leftSpeed != 0 && rightSpeed != 0 && _lastLeftPosition != 0 && _lastRightPosition != 0) {
+					if (leftDiff - rightDiff > tolerance) {
+						_leftScale *= scaleFactor;
+					}
+					else if (rightDiff - leftDiff > tolerance) {
+						_rightScale *= scaleFactor;
+					}
+					
+					SmartDashboard.putNumber("Straight driving left scale", _leftScale);
+					SmartDashboard.putNumber("Straight driving right scale", _rightScale);
+				}
+				else {
+					_leftScale = SmartDashboard.getNumber("Straight driving left scale", 1);
+					_rightScale = SmartDashboard.getNumber("Straight driving right scale", 1);
+				}
+				
+				_lastLeftPosition = leftPos;
+				_lastRightPosition = rightPos;
+				
+				
+				leftSpeed *= _leftScale;
+				rightSpeed *= _rightScale;
+			}
+			
 			if (forward) {
 				SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(-leftSpeed));
 				SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(-rightSpeed));
@@ -101,6 +142,11 @@ public class Drive {
 			SmartDashboard.putNumber("leftSpeed", _outputs.setLeftSpeed(rightSpeed));
 			SmartDashboard.putNumber("rightSpeed", _outputs.setRightSpeed(leftSpeed));	
 		}
+	}
+	
+	public void resetStraightDriving() {
+		_lastLeftPosition = 0;
+		_lastRightPosition = 0;
 	}
 	
 	public void setDistanceTargets(double leftTarget, double rightTarget) {

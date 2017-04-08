@@ -99,6 +99,13 @@ public class Outputs {
 		SmartDashboard.putNumber("Drive D", 0);
 	}
 	
+	public void setDriveBrakeMode(boolean enable) {
+		_frontLeftMotor.enableBrakeMode(enable);
+		_frontRightMotor.enableBrakeMode(enable);
+		_backLeftMotor.enableBrakeMode(enable);
+		_backRightMotor.enableBrakeMode(enable);
+	}
+	
 	public void setPID() {
 		double f = SmartDashboard.getNumber("Drive F", 0.150);
 		double p = SmartDashboard.getNumber("Drive P", 0.05);
@@ -119,13 +126,6 @@ public class Outputs {
 	}
 
 	public double setLeftSpeed(double targetSpeed) {
-		/*if (targetSpeed < 0) {
-			_backLeftMotor.configPeakOutputVoltage(0f, -12.0f);
-		}
-		else if (targetSpeed > 0) {
-			_backLeftMotor.configPeakOutputVoltage(+12.0f, 0f);
-		}*/
-	
 		if(!driveOverride) {
 			_backLeftMotor.changeControlMode(TalonControlMode.Speed);
 			_backLeftMotor.set(targetSpeed * _speedScale);
@@ -139,13 +139,6 @@ public class Outputs {
 	}
 
 	public double setRightSpeed(double targetSpeed) {
-		/*if (targetSpeed < 0) {
-			_frontRightMotor.configPeakOutputVoltage(0f, -12.0f);
-		}
-		else if (targetSpeed > 0) {
-			_frontRightMotor.configPeakOutputVoltage(+12.0f, 0f);
-		}*/
-		
 		if(!driveOverride) {
 			_frontRightMotor.changeControlMode(TalonControlMode.Speed);
 			_frontRightMotor.set(targetSpeed * _speedScale);
