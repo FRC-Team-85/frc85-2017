@@ -43,7 +43,7 @@ public class Outputs {
 	
 	private Servo _leftServo = new Servo(Addresses.LEFT_SERVO);
 	private Servo _rightServo = new Servo(Addresses.RIGHT_SERVO);
-	private ADXRS450_Gyro _gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+	private ADXRS450_Gyro _gyro = null;
 	
 	DigitalInput leftGearLimit = new DigitalInput(Addresses.GEAR_LEFT_LIMIT);
 	DigitalInput rightGearLimit = new DigitalInput(Addresses.GEAR_RIGHT_LIMIT);
@@ -97,6 +97,13 @@ public class Outputs {
 		SmartDashboard.putNumber("Drive P", 0.05);
 		SmartDashboard.putNumber("Drive I", 0);
 		SmartDashboard.putNumber("Drive D", 0);
+		
+		try {
+			_gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+		}		
+		catch (Exception ex) {
+			System.out.println("Error initializing gyro: " + ex.toString());
+		}
 	}
 	
 	public void setDriveBrakeMode(boolean enable) {
@@ -344,18 +351,32 @@ public class Outputs {
     }
     
     public void gyroCalibrate() {
-    	_gyro.calibrate();
+    	if (_gyro != null) {
+    		_gyro.calibrate();
+    	}
     }
     
     public void gyroReset() {
-    	_gyro.reset();
+    	if (_gyro != null) {
+    		_gyro.reset();
+    	}
     }
     
     public double gyroAngle() {
-    	return _gyro.getAngle();
+    	if (_gyro != null) {
+    		return _gyro.getAngle();
+    	}
+    	else {
+    		return 0;
+    	}
     }
     
     public double gyroRate() {
-    	return _gyro.getRate();
+    	if (_gyro != null) {
+    		return _gyro.getRate();
+    	}
+    	else {
+    		return 0;
+    	}
     }
 }

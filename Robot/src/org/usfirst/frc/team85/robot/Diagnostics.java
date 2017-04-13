@@ -13,8 +13,6 @@ public class Diagnostics {
 	private InputsDrive _inputsDrive = InputsDrive.getInstance();
 	private InputsOp _inputsOp = InputsOp.getInstance();
 	
-	private long epoch = System.currentTimeMillis()/1000;
-	private String date = new java.text.SimpleDateFormat("MM-dd-yyyy HH-mm-ss").format(new java.util.Date (epoch*1000));
 
 	File log;
 	BufferedWriter out = null;
@@ -24,7 +22,8 @@ public class Diagnostics {
 		try
 		{
 			close();
-			
+
+			String date = new java.text.SimpleDateFormat("yyyy-MM-ddy HHmmss").format(new java.util.Date(System.currentTimeMillis()));	
 			log = new File("/home/lvuser/log " + date + ".csv");
 			if (log.exists() == false) {
 				log.createNewFile();
@@ -44,52 +43,51 @@ public class Diagnostics {
 	}
 	
 	public void log() {
-	
-		double leftEncoder = _outputs.getLeftEncoder();
-		double rightEncoder = _outputs.getRightEncoder();
-		
-		String matchTime = Double.toString(DriverStation.getInstance().getMatchTime());
-		String leftEncoderDist = Double.toString(leftEncoder);
-		String rightEncoderDist = Double.toString(rightEncoder);
-		String climberCurrent = Double.toString(_outputs.getClimberCurrent());
-		String climbLeftLimit = Boolean.toString(_outputs.leftClimberLimit.get());
-		String climbRightLimit = Boolean.toString(_outputs.rightClimberLimit.get());
-		
-		String frontLeftCurrent = Double.toString(_outputs.getFrontLeftCurrent());
-		String frontRightCurrent = Double.toString(_outputs.getFrontRightCurrent());
-		String backLeftCurrent = Double.toString(_outputs.getBackLeftCurrent());
-		String backRightCurrent = Double.toString(_outputs.getBackRightCurrent());
-	
-		String frontLeftVoltage = Double.toString(_outputs.getFrontLeftVoltage());
-		String frontRightVoltage = Double.toString(_outputs.getFrontRightVoltage());
-		String backLeftVoltage = Double.toString(_outputs.getBackLeftVoltage());
-		String backRightVoltage = Double.toString(_outputs.getBackRightVoltage());	
-		
-		String leftEncSpeed = Double.toString(_outputs.getLeftSpeed());	
-		String rightEncSpeed = Double.toString(_outputs.getRightSpeed());
-		
-		String leftCalcSpeed = Double.toString(_drive.getLeftSpeed());	
-		String rightCalcSpeed = Double.toString(_drive.getRightSpeed());
-		
-		String driveOverride = Boolean.toString(_outputs.getDriveOverride());
-		String opOverride = Boolean.toString(_outputs.getOpOverride());
-		
-		String leftStick = Double.toString(_drive.getLeftStick());	
-		String rightStick = Double.toString(_drive.getRightStick());
-		
-		String batteryVoltage = Double.toString(DriverStation.getInstance().getBatteryVoltage());
-
-		String forwardDirection = Boolean.toString(_drive.getDirection());
-		
-		String gearSpeed = Double.toString(_outputs.getGearMotorSpeed());
-		String gearAxis = Double.toString(_inputsOp.getRightHorz());
-		String shooterSpeed = Double.toString(_outputs.getShooterSpeed());
-		String shooterCurrent = Double.toString(_outputs.getShooterCurrent());
-		String shooterVoltage = Double.toString(_outputs.getShooterVoltage());
-		String climbSpeed = Double.toString(_outputs.getClimbSpeed());
-		String climbAxis = Double.toString(_inputsOp.getLeftVert());
-		
 		try {
+			double leftEncoder = _outputs.getLeftEncoder();
+			double rightEncoder = _outputs.getRightEncoder();
+			
+			String matchTime = Double.toString(DriverStation.getInstance().getMatchTime());
+			String leftEncoderDist = Double.toString(leftEncoder);
+			String rightEncoderDist = Double.toString(rightEncoder);
+			String climberCurrent = Double.toString(_outputs.getClimberCurrent());
+			String climbLeftLimit = Boolean.toString(_outputs.leftClimberLimit.get());
+			String climbRightLimit = Boolean.toString(_outputs.rightClimberLimit.get());
+			
+			String frontLeftCurrent = Double.toString(_outputs.getFrontLeftCurrent());
+			String frontRightCurrent = Double.toString(_outputs.getFrontRightCurrent());
+			String backLeftCurrent = Double.toString(_outputs.getBackLeftCurrent());
+			String backRightCurrent = Double.toString(_outputs.getBackRightCurrent());
+		
+			String frontLeftVoltage = Double.toString(_outputs.getFrontLeftVoltage());
+			String frontRightVoltage = Double.toString(_outputs.getFrontRightVoltage());
+			String backLeftVoltage = Double.toString(_outputs.getBackLeftVoltage());
+			String backRightVoltage = Double.toString(_outputs.getBackRightVoltage());	
+			
+			String leftEncSpeed = Double.toString(_outputs.getLeftSpeed());	
+			String rightEncSpeed = Double.toString(_outputs.getRightSpeed());
+			
+			String leftCalcSpeed = Double.toString(_drive.getLeftSpeed());	
+			String rightCalcSpeed = Double.toString(_drive.getRightSpeed());
+			
+			String driveOverride = Boolean.toString(_outputs.getDriveOverride());
+			String opOverride = Boolean.toString(_outputs.getOpOverride());
+			
+			String leftStick = Double.toString(_drive.getLeftStick());	
+			String rightStick = Double.toString(_drive.getRightStick());
+			
+			String batteryVoltage = Double.toString(DriverStation.getInstance().getBatteryVoltage());
+
+			String forwardDirection = Boolean.toString(_drive.getDirection());
+			
+			String gearSpeed = Double.toString(_outputs.getGearMotorSpeed());
+			String gearAxis = Double.toString(_inputsOp.getRightHorz());
+			String shooterSpeed = Double.toString(_outputs.getShooterSpeed());
+			String shooterCurrent = Double.toString(_outputs.getShooterCurrent());
+			String shooterVoltage = Double.toString(_outputs.getShooterVoltage());
+			String climbSpeed = Double.toString(_outputs.getClimbSpeed());
+			String climbAxis = Double.toString(_inputsOp.getLeftVert());
+		
 			if (leftEncoder != 0 || rightEncoder != 0)
 			{
 				out.append(matchTime + "," + leftEncoderDist + "," + rightEncoderDist + "," + leftEncSpeed + "," + rightEncSpeed + "," 
