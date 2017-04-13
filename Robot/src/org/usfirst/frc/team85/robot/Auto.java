@@ -64,7 +64,7 @@ public class Auto {
 			fileString = "move, 0.35, 0.35, 10.0, 10.0:wait, 0.3:move, 0.3, -0.3, 2.3, 2.3:wait, 0.3:creep, 0.15, 0.15, 3.0, 3.0:wait, 2.0";
 		}
 		else if (auto == 6) { //SHOOT RED
-			fileString = "shoot, 0.87, 10:wait, 0.5:move, -0.15, 0.75, 4.2:wait, 0.5:move, 0.45, 0.45, 10.5, 10.5";
+			fileString = "shoot, 0.87, 10:wait, 0.5:move, -0.15, 0.75, 4.2, 4.2:wait, 0.5:move, 0.45, 0.45, 10.5, 10.5";
 		}
 		else if (auto == 7) { //SHOOT BLUE
 			fileString = "shoot, 0.87, 10:wait, 0.5:move, 0.75, -0.15, 4.2, 4.2:wait, 0.5:move, 0.45, 0.45, 10.5, 10.5";
@@ -123,6 +123,11 @@ public class Auto {
 			//System.out.println("Loop reached");
 			switch (autoSequence.get(i)[0]) { //switch is the first parameter of the command
 				case "move":
+					if (autoSequence.get(i).length < 5) {
+						System.out.println("Error: Move sequence requires 4 arguments.");
+						break;
+					}
+					
 					System.out.println("move robot");
 					double left = Double.parseDouble(autoSequence.get(i)[1]);
 					double right = Double.parseDouble(autoSequence.get(i)[2]);
@@ -144,6 +149,10 @@ public class Auto {
 					
 				case "wait":
 					currentTime = _waitTimer.get();
+					if (autoSequence.get(i).length < 2) {
+						System.out.println("Error: Wait sequence requires 1 argument.");
+						break;
+					}
 					
 					if (_waitTime == 0)
 					{
@@ -162,6 +171,11 @@ public class Auto {
 				
 				case "shoot":
 					//shoot into boiler
+					
+					if (autoSequence.get(i).length < 3) {
+						System.out.println("Error: Shoot sequence requires 2 arguments.");
+						break;
+					}
 					
 					currentTime = _waitTimer.get();
 			
@@ -193,6 +207,11 @@ public class Auto {
 					break;
 				
 				case "creep": //move and get jiggy with it
+					if (autoSequence.get(i).length < 5) {
+						System.out.println("Error: Creeper sequence requires 4 arguments.");
+						break;
+					}
+					
 					System.out.println("creep");
 	
 					if (!creepStarted) {
@@ -231,6 +250,10 @@ public class Auto {
 					break;
 					
 				case "gyro":
+					if (autoSequence.get(i).length < 4) {
+						System.out.println("Error: Gyro sequence requires 3 arguments.");
+						break;
+					}
 					
 					double angle = Math.abs(_outputs.gyroAngle());
 					double desiredAngle = angle + Double.parseDouble(autoSequence.get(i)[3]);
