@@ -24,31 +24,65 @@ public class InputsDrive {
 		_xbox = xbox;
 	}
 	
+	private double getDeadband()
+	{
+		if (_xbox) {
+			return 0.2;
+		}
+		else {
+			return 0.02;
+		}
+	}
+	
 		//Thumbsticks
 			public double getLeftVert() {
-				return driveStick.getRawAxis(1);
+				double value = driveStick.getRawAxis(1);
+				if(Math.abs(value) >= getDeadband()) {
+					return value;
+				}
+				
+				return 0;
 			}
 			
 			public double getLeftHorz() {
-				return driveStick.getRawAxis(0);
+				double value = driveStick.getRawAxis(0);
+				if(Math.abs(value) >= getDeadband()) {
+					return value;
+				}
+				
+				return 0;
 			}
 			
 			public double getRightVert() {
+				double value;
 				if (_xbox) {					
-					return driveStick.getRawAxis(5);
+					value = driveStick.getRawAxis(5);
 				}
 				else {
-					return driveStick.getRawAxis(3); //logitech
+					value = driveStick.getRawAxis(3); //logitech
 				}
+				
+				if(Math.abs(value) >= getDeadband()) {
+					return value;
+				}
+				
+				return 0;
 			}
 			
 			public double getRightHorz() {
+				double value;
 				if (_xbox) {					
-					return driveStick.getRawAxis(4);
+					value = driveStick.getRawAxis(4);
 				}
 				else {
-					return driveStick.getRawAxis(2); //logitech
+					value = driveStick.getRawAxis(2); //logitech
 				}
+				
+				if(Math.abs(value) >= getDeadband()) {
+					return value;
+				}
+				
+				return 0;
 			}
 		
 		//Bumpers

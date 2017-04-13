@@ -38,7 +38,7 @@ public class Drive {
 		leftSpeed = 0;
 		rightSpeed = 0;
 		
-			if(Math.abs(forwardSpeed) >= 0.02 ) { //logitech deadband: 0.02, xbox deadband: 0.2
+			if(Math.abs(forwardSpeed) >= 0 ) {
 				leftSpeed = forwardSpeed;
 				rightSpeed = forwardSpeed;
 				
@@ -56,7 +56,7 @@ public class Drive {
 				rightSpeed = limitedSpeed;
 			}
 			
-			if(Math.abs(_inputsDrive.getRightHorz()) >= 0.02) { //logitech deadband: 0.02, xbox deadband: 0.2
+			if(Math.abs(_inputsDrive.getRightHorz()) >= 0) {
 				leftSpeed = leftSpeed + turnScale * -_inputsDrive.getRightHorz();
 				rightSpeed = rightSpeed + turnScale * _inputsDrive.getRightHorz();
 				resetStraightDriving();
@@ -112,13 +112,8 @@ public class Drive {
 		leftSpeed = 0;
 		rightSpeed = 0;
 		
-		if(Math.abs(_inputsDrive.getLeftVert()) >= 0.2 ) { //logitech deadband: 0.02, xbox deadband: 0.2
-			leftSpeed = _inputsDrive.getLeftVert();
-		}
-		
-		if (Math.abs(_inputsDrive.getRightVert()) >= 0.2) {
-			rightSpeed = _inputsDrive.getRightVert();
-		}
+		leftSpeed = _inputsDrive.getLeftVert();
+		rightSpeed = _inputsDrive.getRightVert();
 			
 		if(halfSpeed) {
 			leftSpeed = leftSpeed / decreasedSpeed;
