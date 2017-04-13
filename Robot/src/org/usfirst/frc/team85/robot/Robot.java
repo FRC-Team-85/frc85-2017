@@ -50,7 +50,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Speed Shooter", 0.87);
 		SmartDashboard.putNumber("Speed Stage", 0.5);
 		SmartDashboard.putNumber("Speed Intake", 1);
-		SmartDashboard.putBoolean("Xbox Driver controller", false);
+		SmartDashboard.putBoolean("Xbox Driver controller", true);
 		SmartDashboard.putNumber("Backwards Drive Distance", 0.15);
 		SmartDashboard.putBoolean("Straight driving auto calibration", false);
 		SmartDashboard.putNumber("Straight driving position tolerance", 0.05);
@@ -216,7 +216,7 @@ public class Robot extends IterativeRobot {
 			_driveDistance = true;
 		}
 		
-		_inputsDrive.setXbox(SmartDashboard.getBoolean("Xbox Driver controller", false));
+		_inputsDrive.setXbox(SmartDashboard.getBoolean("Xbox Driver controller", true));
 
 		_outputs.setPID();
 		//Decreased Speed
