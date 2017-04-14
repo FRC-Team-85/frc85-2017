@@ -64,10 +64,10 @@ public class Auto {
 			fileString = "move, 0.35, 0.35, 10.0, 10.0:wait, 0.3:move, 0.3, -0.3, 2.3, 2.3:wait, 0.3:creep, 0.15, 0.15, 3.0, 3.0:wait, 2.0";
 		}
 		else if (auto == 6) { //SHOOT RED
-			fileString = "shoot, 0.87, 10:wait, 0.5:move, -0.15, 0.75, 4.2, 4.2:wait, 0.5:move, 0.45, 0.45, 10.5, 10.5";
+			fileString = "shoot, 0.87, 10:wait, 0.5:move, -0.15, -0.75, 4.2, 4.2:wait, 0.5:move, -0.45, -0.45, 12.5, 12.5";
 		}
 		else if (auto == 7) { //SHOOT BLUE
-			fileString = "shoot, 0.87, 10:wait, 0.5:move, 0.75, -0.15, 4.2, 4.2:wait, 0.5:move, 0.45, 0.45, 10.5, 10.5";
+			fileString = "shoot, 0.87, 10:wait, 0.5:move, -0.75, -0.15, 4.2, 4.2:wait, 0.5:move, -0.45, -0.45, 12.5, 12.5";
 		}
 		else {
 			fileString = SmartDashboard.getString("autoFileString", "");
