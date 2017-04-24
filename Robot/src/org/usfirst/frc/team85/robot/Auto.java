@@ -58,10 +58,10 @@ public class Auto {
 			fileString = "move, 0.35, 0.35, 8.0, 8.0:wait, 0.3:move, 0.3, -0.3, 1.65, 1.65:wait, 0.3:move, 0.35, 0.35, 6.1, 6.1:wait, 0.1:creep, 0.15, 0.15, 3.2, 3.2:wait, 2.0";
 		}
 		else if(auto == 4) { //TURN LEFT FROM SAFE ZONE (NARROW)
-			fileString = "move, 0.35, 0.35, 10.0, 10.0:wait, 0.3:move, -0.3, 0.3, 2.3, 2.3:wait, 0.3:creep, 0.15, 0.15, 3.0, 3.0:wait, 2.0";
+			fileString = "move, 0.35, 0.35, 10.0, 10.0:wait, 0.3:move, -0.3, 0.3, 2.0, 2.0:wait, 0.3:creep, 0.15, 0.15, 3.0, 3.0:wait, 2.0";
 		}
 		else if(auto == 5) { //TURN RIGHT FROM SAFE ZONE (NARROW)
-			fileString = "move, 0.35, 0.35, 10.0, 10.0:wait, 0.3:move, 0.3, -0.3, 2.3, 2.3:wait, 0.3:creep, 0.15, 0.15, 3.0, 3.0:wait, 2.0";
+			fileString = "move, 0.35, 0.35, 10.0, 10.0:wait, 0.3:move, 0.3, -0.3, 2.0, 2.0:wait, 0.3:creep, 0.15, 0.15, 3.0, 3.0:wait, 2.0";
 		}
 		else if (auto == 6) { //SHOOT RED
 			fileString = "shoot, 0.87, 10:wait, 0.5:move, -0.15, -0.75, 4.2, 4.2:wait, 0.5:move, -0.45, -0.45, 12.5, 12.5";
