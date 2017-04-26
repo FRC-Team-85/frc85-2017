@@ -111,6 +111,7 @@ public class Robot extends IterativeRobot {
 		_diagnostics.close();
 		_drive.resetStraightDriving();
 		_outputs.setDriveBrakeMode(false);
+		SmartDashboard.putNumber("Gyro Angle", _outputs.gyroAngle());
 	}
 	
 	@Override
@@ -264,7 +265,9 @@ public class Robot extends IterativeRobot {
 		}
 		else if(_inputsOp.getVertDpad() == -1) {
 			shooterSpeed = shooterSpeed - .002;
-		}	
+		}
+		
+SmartDashboard.putNumber("Gyro Angle", _outputs.gyroAngle());
 	}
 
 	/**

@@ -33,7 +33,7 @@ public class Diagnostics {
 						+ "Front Left Current,Front Right Current,Back Left Current,Back Right Current,"
 						+ "Front Left Voltage,Front Right Voltage,Back Left Voltage,Back Right Voltage,"
 						+ "Drive Override,Op Override,Up/Down Stick,Left/Right Stick,Battery Voltage,Forward Direction,Gear Speed,Gear Axis,Shooter Speed,"
-						+ "Shooter Current,Shooter Voltage,Climb Speed,Climb Axis");
+						+ "Shooter Current,Shooter Voltage,Climb Speed,Climb Axis,Gyro Angle");
 				out.newLine();
 			}	
 		} catch (Exception ex) {
@@ -87,6 +87,7 @@ public class Diagnostics {
 			String shooterVoltage = Double.toString(_outputs.getShooterVoltage());
 			String climbSpeed = Double.toString(_outputs.getClimbSpeed());
 			String climbAxis = Double.toString(_inputsOp.getLeftVert());
+			String gyroAngle = Double.toString(_outputs.gyroAngle());
 		
 			if (leftEncoder != 0 || rightEncoder != 0)
 			{
@@ -95,7 +96,7 @@ public class Diagnostics {
 						+ frontLeftCurrent+ "," + frontRightCurrent+ "," + backLeftCurrent+ "," + backRightCurrent + "," 
 						+ frontLeftVoltage+ "," + frontRightVoltage+ "," + backLeftVoltage + "," + backRightVoltage+ "," 
 						+ driveOverride + "," + opOverride + "," + leftStick + "," + rightStick + "," + batteryVoltage + "," + forwardDirection + "," + gearSpeed
-						+ "," + gearAxis + "," + shooterSpeed + "," + shooterCurrent + "," + shooterVoltage + "," + climbSpeed + "," + climbAxis);
+						+ "," + gearAxis + "," + shooterSpeed + "," + shooterCurrent + "," + shooterVoltage + "," + climbSpeed + "," + climbAxis + "," + gyroAngle);
 				out.newLine();
 			}
 		} catch (Exception ex) {

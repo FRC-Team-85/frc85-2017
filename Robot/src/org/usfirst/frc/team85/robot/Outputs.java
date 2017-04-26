@@ -175,14 +175,14 @@ public class Outputs {
 	}
 	
 	public void resetDriveEncoders() {
-		System.out.println("Pre-reset Left encoder is " + getLeftEncoder());
-		System.out.println("Pre-reset Right encoder is " + getRightEncoder());
+		//System.out.println("Pre-reset Left encoder is " + getLeftEncoder());
+		//System.out.println("Pre-reset Right encoder is " + getRightEncoder());
 		
 		_backLeftMotor.setPosition(0);
 		_frontRightMotor.setPosition(0);
 
-		System.out.println("Post-reset Left encoder is " + getLeftEncoder());
-		System.out.println("Post-reset Right encoder is " + getRightEncoder());
+		//System.out.println("Post-reset Left encoder is " + getLeftEncoder());
+		//System.out.println("Post-reset Right encoder is " + getRightEncoder());
 	}
 
 	public void setGearMotorSpeed(double speed) {

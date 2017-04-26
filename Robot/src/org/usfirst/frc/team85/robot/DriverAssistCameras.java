@@ -14,16 +14,20 @@ public class DriverAssistCameras {
         new Thread(new Runnable() {
 			@Override
 			public void run() {
-				_forwardCamera = CameraServer.getInstance().startAutomaticCapture(Addresses.FORWARD_CAMERA);
-				//_forwardCamera.setResolution(640, 480);
-					
-				_reverseCamera = CameraServer.getInstance().startAutomaticCapture(Addresses.REVERSE_CAMERA);
-				//_reverseCamera.setResolution(640, 480);
-					
-				_currentCamera = _forwardCamera;      
-					
+				try {				
+					Thread.sleep(200);				
+					_forwardCamera = CameraServer.getInstance().startAutomaticCapture(Addresses.FORWARD_CAMERA);
+					Thread.sleep(200);
+					_reverseCamera = CameraServer.getInstance().startAutomaticCapture(Addresses.REVERSE_CAMERA);
+					Thread.sleep(200);
+				}
+				catch (Exception ex) {
+					System.out.println("Error initializing cameras: " + ex.toString());
+				}
+				
+				_currentCamera = _forwardCamera;
 				Mat frame = new Mat();
-				CvSource outputStream = CameraServer.getInstance().putVideo("Drive", 320, 240);
+				CvSource outputStream = CameraServer.getInstance().putVideo("Drive", 160, 120);
 				
 				while(!Thread.interrupted()) {
 					try {
