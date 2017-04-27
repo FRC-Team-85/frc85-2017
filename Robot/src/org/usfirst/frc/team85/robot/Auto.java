@@ -58,10 +58,10 @@ public class Auto {
 			fileString = "move, 0.35, 0.35, 8.0, 8.0:wait, 0.3:move, 0.3, -0.3, 1.65, 1.65:wait, 0.3:move, 0.35, 0.35, 6.1, 6.1:wait, 0.1:creep, 0.15, 0.15, 3.2, 3.2:wait, 2.0";
 		}
 		else if(auto == 4) { //TURN LEFT FROM SAFE ZONE (NARROW)
-			fileString = "move, 0.35, 0.35, 6.8, 6.8:wait, 0.3:gyro, -0.2, 0.2, 40:wait, 0.3:creep, 0.15, 0.15, 4.8, 4.8:wait, 2.0";
+			fileString = "move, 0.35, 0.35, 9.85, 9.85:wait, 0.5:gyro, -0.2, 0.2, 48:wait, 0.3:creep, 0.15, 0.15, 4.8, 4.8:wait, 2.0";
 		}
 		else if(auto == 5) { //TURN RIGHT FROM SAFE ZONE (NARROW)
-			fileString = "move, 0.35, 0.35, 6.8, 6.8:wait, 0.3:gyro, 0.2, -0.2, 40:wait, 0.3:creep, 0.15, 0.15, 4.8, 4.8:wait, 2.0";
+			fileString = "move, 0.35, 0.35, 10, 10:wait, 0.5:gyro, 0.2, -0.2, 42:wait, 0.3:creep, 0.15, 0.15, 4.8, 4.8:wait, 2.0";
 		}
 		else if (auto == 6) { //SHOOT RED
 			fileString = "shoot, 0.87, 10:wait, 0.5:move, -0.15, -0.75, 4.2, 4.2:wait, 0.5:move, -0.45, -0.45, 12.5, 12.5";
@@ -159,6 +159,7 @@ public class Auto {
 						_waitTime = Double.parseDouble(autoSequence.get(i)[1]);
 						_waitStart = currentTime;
 						System.out.printf("Wait for '%f' seconds starting at second '%f'.\n", _waitTime, _waitStart);
+						_outputs.gyroReset();
 					}
 					else if (currentTime - _waitStart >= _waitTime)
 					{
@@ -257,10 +258,7 @@ public class Auto {
 					
 					double angle = Math.abs(_outputs.gyroAngle());
 					
-					if(!gyroReset) {
-						_outputs.gyroReset();
-						gyroReset = true;
-					}
+					
 					
 					System.out.println("turn gyro");
 					_outputs.drive(
@@ -272,7 +270,7 @@ public class Auto {
 						i++;
 						_outputs.drive(0, 0);
 						_outputs.resetDriveEncoders();
-						gyroReset = false;
+						_outputs.gyroReset();
 					}
 					
 					break;
